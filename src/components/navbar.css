@@ -3,10 +3,9 @@
   gap: 1rem;
   align-items: center;
   padding-bottom: 1.5rem;
-
-  li {
-    list-style-type: none;
-  }
+}
+.nav li {
+  list-style-type: none;
 }
 
 hr {
@@ -28,14 +27,12 @@ hr {
 
 .dropdown {
   position: relative;
-
-  a {
-    padding-bottom: 1rem;
-  }
-
-  &:hover .dropdown-content {
-    display: flex;
-  }
+}
+.dropdown a {
+  padding-bottom: 1rem;
+}
+.dropdown:hover .dropdown-content {
+  display: flex;
 }
 
 .dropdown-content {
@@ -47,17 +44,14 @@ hr {
   z-index: 1;
   background-color: white;
   border: 1px solid black;
-
-  li {
-    width: 100%;
-    padding: 0.5rem 5rem 1rem 1rem;
-  }
-
-  li:hover {
-    background-color: yellow;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
 }
+.dropdown-content li {
+  width: 100%;
+  padding: 0.5rem 5rem 1rem 1rem;
+}
+.dropdown-content li:hover {
+  background-color: yellow;
+}
+.dropdown-content a:hover {
+  text-decoration: underline;
+}/*# sourceMappingURL=navbar.css.map */
