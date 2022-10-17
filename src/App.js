@@ -5,6 +5,7 @@ import Recipes from './pages/Recipes/';
 import Breakfast from './pages/Recipes/Breakfast/';
 import Lunch from './pages/Recipes/Lunch/';
 import Dinner from './pages/Recipes/Dinner/';
+import Dessert from './pages/Recipes/Dessert/';
 
 import Quick from './pages/Quick/';
 import MostRecent from './pages/Most-Recent/';
@@ -27,6 +28,7 @@ function App() {
             <Route path='/breakfast-recipes' element={<Breakfast />} />
             <Route path='/lunch-recipes' element={<Lunch />} />
             <Route path='/dinner-recipes' element={<Dinner />} />
+            <Route path='/dessert-recipes' element={<Dessert />} />
 
             <Route path='/quick-recipes' element={<Quick />} />
             <Route path='/most-recent-recipes' element={<MostRecent />} />
