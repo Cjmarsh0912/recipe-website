@@ -1,0 +1,14 @@
+{
+  "recipe_data": [
+    {
+      "recipe_name": "Chicken",
+      "category": "dinner",
+      "extension": "/chicken-recipe"
+    },
+    {
+      "recipe_name": "Steak",
+      "category": "dinner",
+      "extension": "/steak-recipe"
+    }
+  ]
+}

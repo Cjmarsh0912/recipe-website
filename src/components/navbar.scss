@@ -1,7 +1,13 @@
+@import '../assets/variables';
+
+.animate__animated.animate__flipInX {
+  --animate-duration: 0.5s;
+}
+
 hr {
   width: 100vw;
   height: 1px;
-  background-color: black;
+  background-color: $primary_color1;
   border: none;
   position: absolute;
   left: 0;
@@ -14,6 +20,7 @@ hr {
   top: 0.3rem;
   left: 4.2rem;
   font-size: 1.2rem;
+  color: $primary_color1;
 }
 
 .mobile {
@@ -43,6 +50,7 @@ hr {
   // margin-right: 5rem;
   a {
     font-size: 1.4rem !important;
+    font-weight: 700 !important;
   }
 }
 
@@ -60,6 +68,11 @@ hr {
   a {
     font-size: 1.2rem;
     font-weight: 500;
+  }
+
+  .link:hover {
+    color: $primary_color1;
+    text-decoration: underline;
   }
 }
 
@@ -85,19 +98,27 @@ hr {
   left: 1.5rem;
   z-index: 1;
   background-color: white;
-  border: 1px solid black;
+  border: 1px solid $primary_color1;
 
   li {
     width: 100%;
     padding: 0.5rem 5rem 1rem 1rem;
   }
 
+  a {
+    font-size: 1rem;
+  }
+
   li:hover {
-    background-color: yellow;
+    background-color: $primary_color1;
   }
 
   a:hover {
     text-decoration: underline;
+  }
+
+  li:nth-child(5) a {
+    font-weight: 700;
   }
 }
 
@@ -136,8 +157,9 @@ hr {
     position: absolute;
     right: 0;
     top: 0;
+    width: min(100%, 20rem);
     height: max-content;
-    padding: 3rem 10rem 3rem 1rem;
+    padding: 3rem 0 3rem 1rem;
     background-color: #333;
     color: white;
 
@@ -152,6 +174,7 @@ hr {
 
   .dropdown-content {
     position: static;
+    width: 15rem;
 
     a {
       color: black;

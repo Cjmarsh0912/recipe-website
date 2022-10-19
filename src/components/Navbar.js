@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import { CSSTransition } from 'react-transition-group';
-import 'animate.css';
 import './navbar.css';
 
 export default function Navbar() {
@@ -85,7 +84,7 @@ export default function Navbar() {
               />
               <li className='website-name'>
                 <h2>
-                  <Link className='no-underline' to='/'>
+                  <Link className=' link no-underline' to='/'>
                     My Favorite Recipes
                   </Link>
                 </h2>
@@ -105,7 +104,11 @@ export default function Navbar() {
                   className={showDropdown == true ? 'icon-arrow-up' : 'hide'}
                 />
                 <ul
-                  className={showDropdown == true ? 'dropdown-content' : 'hide'}
+                  className={
+                    showDropdown == true
+                      ? 'dropdown-content animate__animated animate__flipInX'
+                      : 'hide'
+                  }
                 >
                   <li>
                     <Link className='dropdown-link' to='/breakfast-recipes'>
