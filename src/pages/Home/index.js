@@ -26,23 +26,23 @@ export default function Home() {
 
         <section className='featured'>
           <div className='featured-post'>
-            <a href='#'>
+            <Link to='/chicken-recipe'>
               <img loading='lazy' src={Placeholder} />
-            </a>
+            </Link>
             <h3>
-              <a className='recipe-description' href='#'>
+              <Link className='recipe-description' to='chicken-recipe'>
                 Chicken Salad
-              </a>
+              </Link>
             </h3>
           </div>
           <div className='featured-post'>
-            <a href='#'>
+            <Link to='steak-recipe'>
               <img loading='lazy' src={Placeholder2} />
-            </a>
+            </Link>
             <h3>
-              <a className='recipe-description' href='#'>
+              <Link className='recipe-description' to='steak-recipe'>
                 French Toast
-              </a>
+              </Link>
             </h3>
           </div>
           <div className='featured-post'>

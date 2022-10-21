@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Navbar from './components/Navbar';
+import Navbar from './components/navbar/Navbar';
 import Home from './pages/Home/';
 
-import Recipe from './components/Recipe';
+import Recipe from './pages/Recipe/';
 import Recipes from './pages/Recipes/';
 import Breakfast from './pages/Recipes/Breakfast/';
 import Lunch from './pages/Recipes/Lunch/';

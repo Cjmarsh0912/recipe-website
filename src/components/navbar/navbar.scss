@@ -1,17 +1,7 @@
-@import '../assets/variables';
+@import '../../assets/variables';
 
 .animate__animated.animate__flipInX {
   --animate-duration: 0.5s;
-}
-
-hr {
-  width: 100vw;
-  height: 1px;
-  background-color: $primary_color1;
-  border: none;
-  position: absolute;
-  left: 0;
-  top: 5rem;
 }
 
 .icon-arrow-down,

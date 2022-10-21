@@ -68,21 +68,20 @@
   gap: 0.8rem;
   padding: 3rem;
 }
-
-.full-width {
-  box-shadow: 0 0 0 100vmax #080357;
-  -webkit-clip-path: inset(0 -100vmax);
-          clip-path: inset(0 -100vmax);
-}
-
-.icon-container {
+.search-bar-container .icon-container {
   padding: 1rem;
   background-color: #ff9f1c;
   cursor: pointer;
   transition: background-color 0.5s;
 }
-.icon-container:hover {
+.search-bar-container .icon-container:hover {
   background-color: #8f5300;
+}
+
+.full-width {
+  box-shadow: 0 0 0 100vmax #080357;
+  -webkit-clip-path: inset(0 -100vmax);
+          clip-path: inset(0 -100vmax);
 }
 
 .icon-search {

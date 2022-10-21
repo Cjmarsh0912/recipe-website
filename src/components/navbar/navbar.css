@@ -2,16 +2,6 @@
   --animate-duration: 0.5s;
 }
 
-hr {
-  width: 100vw;
-  height: 1px;
-  background-color: #ff9f1c;
-  border: none;
-  position: absolute;
-  left: 0;
-  top: 5rem;
-}
-
 .icon-arrow-down,
 .icon-arrow-up {
   position: absolute;

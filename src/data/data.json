@@ -2,13 +2,69 @@
   "recipe_data": [
     {
       "recipe_name": "Chicken",
-      "category": "dinner",
-      "extension": "/chicken-recipe"
+      "keywords": "dinner, chicken",
+      "extension": "/chicken-recipe",
+      "description": "Classic chicken recipe that is definitely chicken",
+      "date_posted": "October 20, 2022",
+      "prep_time": "10 mins",
+      "cook_time": "20 mins",
+      "total_time": "30 mins",
+      "ingredients": {
+        "1": "random ingredient",
+        "2": "second ingredient",
+        "3": "third ingredient",
+        "4": "fourth ingredient",
+        "5": "fifth ingredient",
+        "6": "sixth ingredient",
+        "7": "seventh ingredient"
+      },
+      "steps": [
+        {
+          "header": "Start the oven",
+          "step": "Preheat the oven to 900"
+        },
+        {
+          "header": "Do something",
+          "step": "Please do something"
+        },
+        {
+          "header": "You gotta do something",
+          "step": "Do SOMETHING"
+        },
+        {
+          "header": "Last Thing",
+          "step": "Do SOMETHING PLEASE"
+        }
+      ]
     },
     {
       "recipe_name": "Steak",
-      "category": "dinner",
-      "extension": "/steak-recipe"
+      "keywords": "dinner, steak",
+      "extension": "/steak-recipe",
+      "description": "Classic chicken recipe that is definitely chicken",
+      "date_posted": "October 20, 2022",
+      "prep_time": "10 mins",
+      "cook_time": "20 mins",
+      "total_time": "30 mins",
+      "ingredients": {
+        "1": "random ingredient",
+        "2": "second ingredient",
+        "3": "third ingredient",
+        "4": "fourth ingredient",
+        "5": "fifth ingredient",
+        "6": "sixth ingredient",
+        "7": "seventh ingredient"
+      },
+      "steps": [
+        {
+          "header": "Start the oven",
+          "step": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem impedit ea iusto voluptatum facere, at,numquam eveniet iste aliquam maiores repudiandae ratione placeat ad. Quisquam numquam tenetur ea, enimdelectus atque dignissimos rem voluptatibus iste ipsum soluta rerum impedit vel assumenda aliquid, abreprehenderit. Amet impedit molestias nihil quibusdam consectetur."
+        },
+        {
+          "header": "Do something",
+          "step": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem impedit ea iusto voluptatum facere, at,numquam eveniet iste aliquam maiores repudiandae ratione placeat ad. Quisquam numquam tenetur ea, enimdelectus atque dignissimos rem voluptatibus iste ipsum soluta rerum impedit vel assumenda aliquid, abreprehenderit. Amet impedit molestias nihil quibusdam consectetur."
+        }
+      ]
     }
   ]
 }
