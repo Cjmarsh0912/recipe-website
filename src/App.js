@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import GoToTop from './components/GoToTop';
 
 import Navbar from './components/navbar/Navbar';
 import Home from './pages/Home/';
@@ -30,16 +31,20 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
 
-            <Route path='/all-recipes' element={<Recipes />} />
+            <Route
+              path='/all-recipes'
+              element={<Recipes recipes={Recipe_Data} />}
+            />
             <Route path='/breakfast-recipes' element={<Breakfast />} />
             <Route path='/lunch-recipes' element={<Lunch />} />
             <Route path='/dinner-recipes' element={<Dinner />} />
             <Route path='/dessert-recipes' element={<Dessert />} />
 
-            {Recipe_Data.map((item) => {
+            {Recipe_Data.map((item, id) => {
               return (
                 <>
                   <Route
+                    key={id}
                     path={item.extension}
                     element={<Recipe test={item} />}
                   />
@@ -53,6 +58,7 @@ function App() {
             <Route path='/favorites' element={<Favorites />} />
           </Routes>
         </div>
+        <GoToTop />
       </BrowserRouter>
     </>
   );

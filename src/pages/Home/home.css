@@ -2,22 +2,22 @@
   margin-bottom: 1rem;
 }
 
-.home-header {
+.header-name {
   display: flex !important;
   align-items: center;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
 }
-.home-header h2 {
+.header-name h2 {
   font-size: 2rem;
   border-bottom: dotted #080357 2px;
   font-weight: 800;
 }
-.home-header:hover h2 {
+.header-name:hover h2 {
   border-color: #ff9f1c;
 }
-.home-header:hover .icon-arrow-right {
+.header-name:hover .icon-arrow-right {
   color: #8f5300;
 }
 
@@ -26,72 +26,6 @@
   padding-top: 0.3rem;
   font-size: 3rem;
   color: #ff9f1c;
-}
-
-.featured,
-.quick-recipes-posts {
-  display: flex;
-  gap: 1rem;
-}
-
-.featured-post,
-.quick-recipes-post {
-  flex: 1 1 100%;
-  text-align: center;
-}
-.featured-post a,
-.quick-recipes-post a {
-  width: 100%;
-}
-.featured-post img,
-.quick-recipes-post img {
-  width: inherit;
-  height: 20rem;
-  transition: box-shadow 0.4s;
-}
-.featured-post img:hover,
-.quick-recipes-post img:hover {
-  box-shadow: 5px 5px 5px #ff9f1c;
-}
-
-.recipe-description {
-  font-size: 1.5rem;
-}
-.recipe-description:hover {
-  color: #ff9f1c;
-  text-decoration: underline;
-}
-
-.search-bar-container {
-  background-color: #080357;
-  display: flex;
-  gap: 0.8rem;
-  padding: 3rem;
-}
-.search-bar-container .icon-container {
-  padding: 1rem;
-  background-color: #ff9f1c;
-  cursor: pointer;
-  transition: background-color 0.5s;
-}
-.search-bar-container .icon-container:hover {
-  background-color: #8f5300;
-}
-
-.full-width {
-  box-shadow: 0 0 0 100vmax #080357;
-  -webkit-clip-path: inset(0 -100vmax);
-          clip-path: inset(0 -100vmax);
-}
-
-.icon-search {
-  font-size: 1.4rem;
-}
-
-#search-bar {
-  width: 100%;
-  padding: 1rem;
-  border: solid 2px #ff9f1c;
 }
 
 .quick-recipes {

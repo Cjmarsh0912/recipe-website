@@ -7,6 +7,8 @@ import Placeholder6 from '../../assets/images/placeholder6.jpg';
 import Placeholder7 from '../../assets/images/placeholder7.jpg';
 import Placeholder8 from '../../assets/images/placeholder8.jpg';
 
+import SearchBar from '../../components/search_bar/SearchBar';
+
 import { Link } from 'react-router-dom';
 
 import { BsArrowRight, BsSearch } from 'react-icons/bs';
@@ -17,85 +19,81 @@ export default function Home() {
   return (
     <>
       <main>
-        <header className='header'>
-          <a href='#' className='home-header'>
-            <h2>Featured</h2>
-            <BsArrowRight className='icon-arrow-right' />
-          </a>
-        </header>
-
         <section className='featured'>
-          <div className='featured-post'>
-            <Link to='/chicken-recipe'>
-              <img loading='lazy' src={Placeholder} />
-            </Link>
-            <h3>
-              <Link className='recipe-description' to='chicken-recipe'>
-                Chicken Salad
-              </Link>
-            </h3>
-          </div>
-          <div className='featured-post'>
-            <Link to='steak-recipe'>
-              <img loading='lazy' src={Placeholder2} />
-            </Link>
-            <h3>
-              <Link className='recipe-description' to='steak-recipe'>
-                French Toast
-              </Link>
-            </h3>
-          </div>
-          <div className='featured-post'>
-            <a href='#'>
-              <img loading='lazy' src={Placeholder3} />
+          <header className='header'>
+            <a href='#' className='header-name'>
+              <h2>Featured</h2>
+              <BsArrowRight className='icon-arrow-right' />
             </a>
-            <h3>
-              <a className='recipe-description' href='#'>
-                Meatball Salad
+          </header>
+
+          <div className='posts'>
+            <article className='post'>
+              <Link to='/chicken-recipe'>
+                <img loading='lazy' src={Placeholder} />
+              </Link>
+              <h3>
+                <Link className='recipe-description' to='/chicken-recipe'>
+                  Chicken Salad
+                </Link>
+              </h3>
+            </article>
+
+            <article className='post'>
+              <Link to='steak-recipe'>
+                <img loading='lazy' src={Placeholder2} />
+              </Link>
+              <h3>
+                <Link className='recipe-description' to='/steak-recipe'>
+                  French Toast
+                </Link>
+              </h3>
+            </article>
+
+            <article className='post'>
+              <a href='#'>
+                <img loading='lazy' src={Placeholder3} />
               </a>
-            </h3>
-          </div>
-          <div className='featured-post'>
-            <a href='#'>
-              <img loading='lazy' src={Placeholder4} />
-            </a>
-            <h3>
-              <a className='recipe-description' href='#'>
-                Chicken Burger
+              <h3>
+                <a className='recipe-description' href='#'>
+                  Meatball Salad
+                </a>
+              </h3>
+            </article>
+
+            <article className='post'>
+              <a href='#'>
+                <img loading='lazy' src={Placeholder4} />
               </a>
-            </h3>
+              <h3>
+                <a className='recipe-description' href='#'>
+                  Chicken Burger
+                </a>
+              </h3>
+            </article>
           </div>
         </section>
 
         <section className='search-bar'>
           <header className='header'>
-            <Link to='/all-recipes' className='home-header'>
+            <Link to='/all-recipes' className='header-name'>
               <h2>view all recipes</h2>
               <BsArrowRight className='icon-arrow-right' />
             </Link>
           </header>
-          <div className='search-bar-container full-width'>
-            <input
-              id='search-bar'
-              autoComplete='off'
-              spellCheck='false'
-              placeholder='Search'
-            />
-            <div className='icon-container'>
-              <BsSearch className='icon-search' />
-            </div>
-          </div>
+          <SearchBar size='full-width' />
         </section>
 
         <section className='quick-recipes'>
           <header className='header'>
-            <Link to='/quick-recipes' className='home-header'>
+            <Link to='/quick-recipes' className='header-name'>
               <h2>Quick recipes</h2>
               <BsArrowRight className='icon-arrow-right' />
             </Link>
           </header>
-          <div className='quick-recipes-posts'>
-            <article className='quick-recipes-post'>
+
+          <div className='posts'>
+            <article className='post'>
               <Link to='/chicken-recipe'>
                 <img loading='lazy' src={Placeholder5} />
               </Link>
@@ -105,7 +103,7 @@ export default function Home() {
                 </Link>
               </h3>
             </article>
-            <article className='quick-recipes-post'>
+            <article className='post'>
               <a href='#'>
                 <img loading='lazy' src={Placeholder6} />
               </a>
@@ -115,7 +113,7 @@ export default function Home() {
                 </a>
               </h3>
             </article>
-            <article className='quick-recipes-post'>
+            <article className='post'>
               <a href='#'>
                 <img loading='lazy' src={Placeholder7} />
               </a>
@@ -125,7 +123,7 @@ export default function Home() {
                 </a>
               </h3>
             </article>
-            <article className='quick-recipes-post'>
+            <article className='post'>
               <a href='#'>
                 <img loading='lazy' src={Placeholder8} />
               </a>

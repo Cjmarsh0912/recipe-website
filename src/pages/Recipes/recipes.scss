@@ -1,0 +1,30 @@
+@import '../../assets/variables';
+
+.test-header {
+  margin: auto;
+  text-align: center;
+  width: fit-content;
+  margin-bottom: 3rem;
+
+  h3 {
+    font-size: $font-size-lrg;
+  }
+
+  .search-bar-container {
+    background-color: transparent;
+  }
+
+  .icon-container {
+    display: none;
+  }
+}
+
+.all-recipes {
+  &.posts {
+    flex-wrap: wrap;
+  }
+
+  &.post {
+    flex: 1 1 45%;
+  }
+}

@@ -1,0 +1,31 @@
+.search-bar-container {
+  background-color: #080357;
+  display: flex;
+  gap: 0.8rem;
+  padding: 3rem;
+}
+.search-bar-container .icon-container {
+  padding: 1rem;
+  background-color: #ff9f1c;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+.search-bar-container .icon-container:hover {
+  background-color: #8f5300;
+}
+
+.full-width {
+  box-shadow: 0 0 0 100vmax #080357;
+  -webkit-clip-path: inset(0 -100vmax);
+          clip-path: inset(0 -100vmax);
+}
+
+.icon-search {
+  font-size: 1.4rem;
+}
+
+#search-bar {
+  width: 100%;
+  padding: 1rem;
+  border: solid 2px #ff9f1c;
+}/*# sourceMappingURL=search-bar.css.map */

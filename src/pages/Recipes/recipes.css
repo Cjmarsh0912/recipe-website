@@ -1,1 +1,24 @@
-/*# sourceMappingURL=recipes.css.map */
+.test-header {
+  margin: auto;
+  text-align: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-bottom: 3rem;
+}
+.test-header h3 {
+  font-size: 2rem;
+}
+.test-header .search-bar-container {
+  background-color: transparent;
+}
+.test-header .icon-container {
+  display: none;
+}
+
+.all-recipes.posts {
+  flex-wrap: wrap;
+}
+.all-recipes.post {
+  flex: 1 1 45%;
+}/*# sourceMappingURL=recipes.css.map */

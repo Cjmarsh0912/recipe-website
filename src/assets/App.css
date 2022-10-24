@@ -22,7 +22,7 @@ section {
 hr {
   width: 100%;
   height: 1px;
-  background-color: #ff9f1c;
+  background-color: var(--primary_color1);
   border: none;
   position: absolute;
   left: 0;
@@ -32,3 +32,49 @@ hr {
 .wrapper {
   padding: 2rem;
 }
+
+:root {
+  --primary_color1: #ff9f1c;
+  --primary_color2: #8f5300;
+  --primary_color3: #080357;
+
+  --font-size-lrg: 2rem;
+  --font-size-medium: 1.5rem;
+}
+
+/* Posts */
+
+.posts {
+  display: flex;
+  gap: 1rem;
+}
+
+.post {
+  flex: 1 1 100%;
+  text-align: center;
+}
+
+.post a {
+  width: 100%;
+}
+
+.post img {
+  width: inherit;
+  height: 20rem;
+  transition: box-shadow 0.4s;
+}
+
+.post img:hover {
+  box-shadow: 5px 5px 5px var(--primary_color1);
+}
+
+.recipe-description {
+  font-size: var(--font-size-medium);
+}
+
+.recipe-description:hover {
+  color: var(--primary_color1);
+  text-decoration: underline;
+}
+
+/* End Posts */

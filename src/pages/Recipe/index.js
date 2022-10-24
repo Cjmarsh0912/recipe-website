@@ -2,8 +2,6 @@ import './recipe.css';
 
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 
-import Placeholder from '../../assets/images/placeholder.jpg';
-
 export default function Recipe({ test }) {
   return (
     <>
@@ -19,7 +17,7 @@ export default function Recipe({ test }) {
         <section className='recipe-tutorial'>
           <div className='recipe-details'>
             <div className='img-container'>
-              <img src={Placeholder} />
+              <img src={test.image} />
             </div>
             <div className='recipe-container'>
               <h3>{test.recipe_name}</h3>
