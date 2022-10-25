@@ -1,15 +1,21 @@
 import './recipe.css';
 
-import { BsHeart, BsHeartFill } from 'react-icons/bs';
+import { BsHeart } from 'react-icons/bs';
 
-export default function Recipe({ test }) {
+import { RecipeData } from '../../interfaces/interface';
+
+interface Recipe {
+  recipe: RecipeData;
+}
+
+export default function Recipe(props: Recipe) {
   return (
     <>
       <header className='recipe-header'>
-        <h1 className='recipe-name'>{test.recipe_name}</h1>
-        <p className='description'>{test.description}</p>
+        <h1 className='recipe-name'>{props.recipe.recipe_name}</h1>
+        <p className='description'>{props.recipe.description}</p>
         <p className='date-posted'>
-          Date Posted: <span>{test.date_posted}</span>
+          Date Posted: <span>{props.recipe.date_posted}</span>
         </p>
       </header>
 
@@ -17,21 +23,21 @@ export default function Recipe({ test }) {
         <section className='recipe-tutorial'>
           <div className='recipe-details'>
             <div className='img-container'>
-              <img src={test.image} />
+              <img src={props.recipe.image} />
             </div>
             <div className='recipe-container'>
-              <h3>{test.recipe_name}</h3>
+              <h3>{props.recipe.recipe_name}</h3>
               <BsHeart className='icon-heart' />
             </div>
             <div className='time'>
               <p>
-                Prep Time: <span>{test.prep_time}</span>
+                Prep Time: <span>{props.recipe.prep_time}</span>
               </p>
               <p>
-                Cook Time: <span>{test.cook_time}</span>
+                Cook Time: <span>{props.recipe.cook_time}</span>
               </p>
               <p>
-                Total: <span>{test.total_time}</span>
+                Total: <span>{props.recipe.total_time}</span>
               </p>
             </div>
           </div>
@@ -42,10 +48,10 @@ export default function Recipe({ test }) {
             </header>
             <div className='ingredients'>
               <ul>
-                {Object.keys(test.ingredients).map((key) => {
+                {props.recipe.ingredients.map((item) => {
                   return (
                     <>
-                      <li>{test.ingredients[key]}</li>
+                      <li>{item}</li>
                     </>
                   );
                 })}
@@ -59,7 +65,7 @@ export default function Recipe({ test }) {
             </header>
 
             <div className='directions'>
-              {test.steps.map((item, id) => {
+              {props.recipe.steps.map((item, id) => {
                 return (
                   <>
                     <div className='step'>
@@ -84,16 +90,16 @@ export default function Recipe({ test }) {
 }
 
 {
-  /* <h1>{test.recipe_name}</h1>
-<p>{test.category}</p>
-{Object.keys(test.ingredients).map((key) => {
+  /* <h1>{recipe.recipe_name}</h1>
+<p>{recipe.category}</p>
+{Object.keys(recipe.ingredients).map((key) => {
   return (
     <>
-      <p>{test.ingredients[key]}</p>
+      <p>{recipe.ingredients[key]}</p>
     </>
   );
 })}
-{test.steps.map((item, id) => {
+{recipe.steps.map((item, id) => {
   return (
     <>
       <span>{id}</span>

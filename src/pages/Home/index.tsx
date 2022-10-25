@@ -11,7 +11,7 @@ import SearchBar from '../../components/search_bar/SearchBar';
 
 import { Link } from 'react-router-dom';
 
-import { BsArrowRight, BsSearch } from 'react-icons/bs';
+import { BsArrowRight } from 'react-icons/bs';
 
 import './home.css';
 

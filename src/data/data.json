@@ -11,15 +11,15 @@
       "cook_time": "20 mins",
       "total_time": "30 mins",
       "image": "images/placeholder.jpg",
-      "ingredients": {
-        "1": "random ingredient",
-        "2": "second ingredient",
-        "3": "third ingredient",
-        "4": "fourth ingredient",
-        "5": "fifth ingredient",
-        "6": "sixth ingredient",
-        "7": "seventh ingredient"
-      },
+      "ingredients": [
+        "random ingredient",
+        "second ingredient",
+        "third ingredient",
+        "fourth ingredient",
+        "fifth ingredient",
+        "sixth ingredient",
+        "seventh ingredient"
+      ],
       "steps": [
         {
           "header": "Start the oven",
@@ -50,15 +50,15 @@
       "cook_time": "20 mins",
       "total_time": "30 mins",
       "image": "images/placeholder2.jpg",
-      "ingredients": {
-        "1": "random ingredient",
-        "2": "second ingredient",
-        "3": "third ingredient",
-        "4": "fourth ingredient",
-        "5": "fifth ingredient",
-        "6": "sixth ingredient",
-        "7": "seventh ingredient"
-      },
+      "ingredients": [
+        "random ingredient",
+        "second ingredient",
+        "third ingredient",
+        "fourth ingredient",
+        "fifth ingredient",
+        "sixth ingredient",
+        "seventh ingredient"
+      ],
       "steps": [
         {
           "header": "Start the oven",
@@ -81,15 +81,15 @@
       "cook_time": "20 mins",
       "total_time": "30 mins",
       "image": "images/placeholder3.jpg",
-      "ingredients": {
-        "1": "random ingredient",
-        "2": "second ingredient",
-        "3": "third ingredient",
-        "4": "fourth ingredient",
-        "5": "fifth ingredient",
-        "6": "sixth ingredient",
-        "7": "seventh ingredient"
-      },
+      "ingredients": [
+        "random ingredient",
+        "second ingredient",
+        "third ingredient",
+        "fourth ingredient",
+        "fifth ingredient",
+        "sixth ingredient",
+        "seventh ingredient"
+      ],
       "steps": [
         {
           "header": "Start the oven",
@@ -120,15 +120,15 @@
       "cook_time": "20 mins",
       "total_time": "30 mins",
       "image": "images/placeholder4.jpg",
-      "ingredients": {
-        "1": "random ingredient",
-        "2": "second ingredient",
-        "3": "third ingredient",
-        "4": "fourth ingredient",
-        "5": "fifth ingredient",
-        "6": "sixth ingredient",
-        "7": "seventh ingredient"
-      },
+      "ingredients": [
+        "random ingredient",
+        "second ingredient",
+        "third ingredient",
+        "fourth ingredient",
+        "fifth ingredient",
+        "sixth ingredient",
+        "seventh ingredient"
+      ],
       "steps": [
         {
           "header": "Start the oven",

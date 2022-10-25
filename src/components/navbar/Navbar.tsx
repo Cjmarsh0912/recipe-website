@@ -9,7 +9,7 @@ export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showNavbar, setShowNavbar] = useState(false);
   const [navbarClasses, setNavbarClasses] = useState('hide');
-  const dropdownRef = useRef();
+  const dropdownRef = useRef<any>();
 
   // Shows the navbar on the click of the menu. Used on smaller screens.
   function ShowNavbar() {
@@ -31,7 +31,7 @@ export default function Navbar() {
 
   // Hide or shows a dropdown menu on the click of the recipes link
   function ToggleDropdown() {
-    return setShowDropdown(!showDropdown);
+    setShowDropdown(!showDropdown);
   }
 
   function HideDropdown() {
@@ -40,7 +40,7 @@ export default function Navbar() {
 
   // Hides the dropdown menu if the user clicks anywhere on the screen
   useEffect(() => {
-    function handleClickOutside(event) {
+    function handleClickOutside(event: any) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         HideDropdown();
       }
@@ -90,13 +90,14 @@ export default function Navbar() {
                 </h2>
               </li>
               <li className='dropdown'>
-                <Link
+                <a
                   className='link click-text'
                   ref={dropdownRef}
                   onClick={ToggleDropdown}
+                  href='#'
                 >
                   Recipes
-                </Link>
+                </a>
                 <IoIosArrowDown
                   className={showDropdown == false ? 'icon-arrow-down' : 'hide'}
                 />

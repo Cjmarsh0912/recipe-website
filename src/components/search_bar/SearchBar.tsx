@@ -1,10 +1,13 @@
-import { BsArrowRight, BsSearch } from 'react-icons/bs';
+import { BsSearch } from 'react-icons/bs';
 
 import './search-bar.css';
 
-export default function SearchBar({ size }) {
+interface SearchBar {
+  size?: string;
+}
+export default function SearchBar(props: SearchBar) {
   return (
-    <div className={`search-bar-container ${size}`}>
+    <div className={`search-bar-container ${props.size}`}>
       <input
         id='search-bar'
         autoComplete='off'

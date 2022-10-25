@@ -1,10 +1,15 @@
 import { Link } from 'react-router-dom';
 
 import SearchBar from '../../components/search_bar/SearchBar';
+import { RecipeData } from '../../interfaces/interface';
 
 import './recipes.css';
 
-export default function Recipes({ recipes }) {
+interface Recipe {
+  recipes: RecipeData[];
+}
+
+export default function Recipes(props: Recipe) {
   return (
     <main>
       <header className='test-header'>
@@ -13,7 +18,7 @@ export default function Recipes({ recipes }) {
       </header>
 
       <section className='all-recipes posts'>
-        {recipes.map((item, id) => {
+        {props.recipes.map((item, id) => {
           return (
             <>
               <div key={id} className='all-recipes post'>

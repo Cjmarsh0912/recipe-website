@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GoToTop from './components/GoToTop';
 
@@ -21,8 +20,10 @@ import recipeData from './data/data.json';
 import 'animate.css';
 import './assets/App.css';
 
+import { RecipeData } from './interfaces/interface';
+
 function App() {
-  const Recipe_Data = recipeData.recipe_data;
+  const Recipe_Data: RecipeData[] = recipeData.recipe_data;
   return (
     <>
       <BrowserRouter>
@@ -46,7 +47,7 @@ function App() {
                   <Route
                     key={id}
                     path={item.extension}
-                    element={<Recipe test={item} />}
+                    element={<Recipe recipe={item} />}
                   />
                   ;
                 </>
