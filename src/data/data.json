@@ -1,150 +1,104 @@
 {
-  "recipe_data": [
+  "Breakfast": [
     {
-      "recipe_name": "Baked Chicken",
-      "keywords": "dinner, chicken",
-      "extension": "/chicken-recipe",
+      "recipe_name": "",
+      "keywords": [""],
+      "extension": "",
+      "category": "",
+      "description": "",
+      "date_posted": "",
+      "prep_time": "",
+      "cook_time": "",
+      "total_time": "",
+      "image": "",
+      "ingredients": [""],
+      "steps": [
+        {
+          "header": "",
+          "step": ""
+        }
+      ]
+    }
+  ],
+  "Lunch": [
+    {
+      "recipe_name": "",
+      "keywords": [""],
+      "extension": "",
+      "category": "",
+      "description": "",
+      "date_posted": "",
+      "prep_time": "",
+      "cook_time": "",
+      "total_time": "",
+      "image": "",
+      "ingredients": [""],
+      "steps": [
+        {
+          "header": "",
+          "step": ""
+        }
+      ]
+    }
+  ],
+  "Dinner": [
+    {
+      "recipe_name": "Spicy Garlic Noodles",
+      "keywords": ["noodles", "spicy", "garlic", "dinner", "ramen"],
+      "extension": "/spicy-garlic-noodles",
       "category": "Dinner",
-      "description": "Classic chicken recipe that is definitely chicken",
-      "date_posted": "October 20, 2022",
-      "prep_time": "10 mins",
-      "cook_time": "20 mins",
-      "total_time": "30 mins",
+      "description": "Delicious noodle dish with a kik",
+      "date_posted": "October 26, 2022",
+      "prep_time": "10",
+      "cook_time": "10-15 mins",
+      "total_time": "20-25 mins",
       "image": "images/placeholder.jpg",
       "ingredients": [
-        "random ingredient",
-        "second ingredient",
-        "third ingredient",
-        "fourth ingredient",
-        "fifth ingredient",
-        "sixth ingredient",
-        "seventh ingredient"
+        "instant ramen/any noodle of choice",
+        "a mess of garlic",
+        "a couple peppers",
+        "a bunch of chili flakes",
+        "a pinch of salt and sugar",
+        "your preferred seasonings",
+        "1/4 cup of oil",
+        "some soy sauce",
+        "a bit of sesame oil",
+        "a splash of rice wine vinegar",
+        "optional: some vegetables and some kind of protein"
       ],
       "steps": [
         {
-          "header": "Start the oven",
-          "step": "Preheat the oven to 900"
+          "header": "Salt a pot of water and bring it to a boil",
+          "step": "Cook the noodles 3-5 mins and put in a bowl aside"
         },
         {
-          "header": "Do something",
-          "step": "Please do something"
+          "header": "Heat up the oil",
+          "step": "When the oil is hot throw the garlic and peppers in and mix. Then throw in the seasonings, chile flakes, salt, and sugar then mix again. Lastly, pour in the soy sauce, sesame oil, and vinegar."
         },
         {
-          "header": "You gotta do something",
-          "step": "Do SOMETHING"
-        },
-        {
-          "header": "Last Thing",
-          "step": "Do SOMETHING PLEASE"
+          "header": "Put the noodles and vegetables in the pan",
+          "step": "Mix the noodles and vegetables and add the protein then serve."
         }
       ]
-    },
+    }
+  ],
+  "Dessert": [
     {
-      "recipe_name": "Filet Mignon",
-      "keywords": "dinner, steak",
-      "extension": "/steak-recipe",
-      "category": "Dinner",
+      "recipe_name": "",
+      "keywords": [""],
+      "extension": "",
+      "category": "",
       "description": "",
-      "date_posted": "October 20, 2022",
-      "prep_time": "10 mins",
-      "cook_time": "20 mins",
-      "total_time": "30 mins",
-      "image": "images/placeholder2.jpg",
-      "ingredients": [
-        "random ingredient",
-        "second ingredient",
-        "third ingredient",
-        "fourth ingredient",
-        "fifth ingredient",
-        "sixth ingredient",
-        "seventh ingredient"
-      ],
+      "date_posted": "",
+      "prep_time": "",
+      "cook_time": "",
+      "total_time": "",
+      "image": "",
+      "ingredients": [""],
       "steps": [
         {
-          "header": "Start the oven",
-          "step": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem impedit ea iusto voluptatum facere, at,numquam eveniet iste aliquam maiores repudiandae ratione placeat ad. Quisquam numquam tenetur ea, enimdelectus atque dignissimos rem voluptatibus iste ipsum soluta rerum impedit vel assumenda aliquid, abreprehenderit. Amet impedit molestias nihil quibusdam consectetur."
-        },
-        {
-          "header": "Do something",
-          "step": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem impedit ea iusto voluptatum facere, at,numquam eveniet iste aliquam maiores repudiandae ratione placeat ad. Quisquam numquam tenetur ea, enimdelectus atque dignissimos rem voluptatibus iste ipsum soluta rerum impedit vel assumenda aliquid, abreprehenderit. Amet impedit molestias nihil quibusdam consectetur."
-        }
-      ]
-    },
-    {
-      "recipe_name": "Pasta",
-      "keywords": "dinner, chicken",
-      "extension": "/pasta-recipe",
-      "category": "Dinner",
-      "description": "Classic chicken recipe that is definitely chicken",
-      "date_posted": "October 20, 2022",
-      "prep_time": "10 mins",
-      "cook_time": "20 mins",
-      "total_time": "30 mins",
-      "image": "images/placeholder3.jpg",
-      "ingredients": [
-        "random ingredient",
-        "second ingredient",
-        "third ingredient",
-        "fourth ingredient",
-        "fifth ingredient",
-        "sixth ingredient",
-        "seventh ingredient"
-      ],
-      "steps": [
-        {
-          "header": "Start the oven",
-          "step": "Preheat the oven to 900"
-        },
-        {
-          "header": "Do something",
-          "step": "Please do something"
-        },
-        {
-          "header": "You gotta do something",
-          "step": "Do SOMETHING"
-        },
-        {
-          "header": "Last Thing",
-          "step": "Do SOMETHING PLEASE"
-        }
-      ]
-    },
-    {
-      "recipe_name": "Cheeseburger",
-      "keywords": "dinner, chicken",
-      "extension": "/burger-recipe",
-      "category": "Dinner",
-      "description": "Classic chicken recipe that is definitely chicken",
-      "date_posted": "October 20, 2022",
-      "prep_time": "10 mins",
-      "cook_time": "20 mins",
-      "total_time": "30 mins",
-      "image": "images/placeholder4.jpg",
-      "ingredients": [
-        "random ingredient",
-        "second ingredient",
-        "third ingredient",
-        "fourth ingredient",
-        "fifth ingredient",
-        "sixth ingredient",
-        "seventh ingredient"
-      ],
-      "steps": [
-        {
-          "header": "Start the oven",
-          "step": "Preheat the oven to 900"
-        },
-        {
-          "header": "Do something",
-          "step": "Please do something"
-        },
-        {
-          "header": "You gotta do something",
-          "step": "Do SOMETHING"
-        },
-        {
-          "header": "Last Thing",
-          "step": "Do SOMETHING PLEASE"
+          "header": "",
+          "step": ""
         }
       ]
     }

@@ -1,4 +1,4 @@
-import Placeholder from '../../assets/images/placeholder.jpg';
+// import Placeholder from '../../assets/images/placeholder.jpg';
 import Placeholder2 from '../../assets/images/placeholder2.jpg';
 import Placeholder3 from '../../assets/images/placeholder3.jpg';
 import Placeholder4 from '../../assets/images/placeholder4.jpg';
@@ -30,7 +30,7 @@ export default function Home() {
           <div className='posts'>
             <article className='post'>
               <Link to='/chicken-recipe'>
-                <img loading='lazy' src={Placeholder} />
+                <img loading='lazy' src='images/placeholder.jpg' />
               </Link>
               <h3>
                 <Link className='recipe-description' to='/chicken-recipe'>

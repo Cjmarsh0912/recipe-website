@@ -1,6 +1,6 @@
 export interface RecipeData {
   recipe_name: string;
-  keywords: string;
+  keywords: string[];
   extension: string;
   category: string;
   description: string;

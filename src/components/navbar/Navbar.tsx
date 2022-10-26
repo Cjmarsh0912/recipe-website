@@ -59,7 +59,7 @@ export default function Navbar() {
         <nav className='navbar'>
           <div className='website-name mobile'>
             <h2>
-              <Link className='no-underline' to='/'>
+              <Link className='no-underline' to='/recipe-website'>
                 My Favorite Recipes
               </Link>
             </h2>

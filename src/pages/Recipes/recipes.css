@@ -16,9 +16,9 @@
   display: none;
 }
 
-.all-recipes.posts {
+.recipes.posts {
   flex-wrap: wrap;
 }
-.all-recipes.post {
-  flex: 1 1 45%;
+.recipes.post {
+  flex: 0 1 49%;
 }/*# sourceMappingURL=recipes.css.map */

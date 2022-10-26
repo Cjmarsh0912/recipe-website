@@ -19,12 +19,12 @@
   }
 }
 
-.all-recipes {
+.recipes {
   &.posts {
     flex-wrap: wrap;
   }
 
   &.post {
-    flex: 1 1 45%;
+    flex: 0 1 49%;
   }
 }

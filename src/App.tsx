@@ -23,25 +23,61 @@ import './assets/App.css';
 import { RecipeData } from './interfaces/interface';
 
 function App() {
-  const Recipe_Data: RecipeData[] = recipeData.recipe_data;
+  const Breakfast_Data: RecipeData[] = recipeData.Breakfast;
+  const Lunch_Data: RecipeData[] = recipeData.Lunch;
+  const Dinner_Data: RecipeData[] = recipeData.Dinner;
+  const Dessert_Data: RecipeData[] = recipeData.Dessert;
+
+  // Merge all recipes into on array with no duplicates
+  const uniqueNames: string[] = [];
+  const All_Recipes_Data: RecipeData[] = Breakfast_Data.concat(
+    Lunch_Data,
+    Dinner_Data,
+    Dessert_Data
+  ).filter((item) => {
+    const isDuplicate = uniqueNames.includes(item.recipe_name);
+
+    if (!isDuplicate) {
+      uniqueNames.push(item.recipe_name);
+      return true;
+    }
+
+    return false;
+  });
+
+  console.log(All_Recipes_Data);
   return (
     <>
       <BrowserRouter>
         <Navbar />
         <div className='wrapper'>
           <Routes>
-            <Route path='/' element={<Home />} />
+            <Route path='/recipe-website' element={<Home />} />
 
             <Route
               path='/all-recipes'
-              element={<Recipes recipes={Recipe_Data} />}
+              element={<Recipes recipes={All_Recipes_Data} />}
             />
-            <Route path='/breakfast-recipes' element={<Breakfast />} />
-            <Route path='/lunch-recipes' element={<Lunch />} />
-            <Route path='/dinner-recipes' element={<Dinner />} />
-            <Route path='/dessert-recipes' element={<Dessert />} />
 
-            {Recipe_Data.map((item, id) => {
+            <Route
+              path='/breakfast-recipes'
+              element={<Breakfast breakfastRecipes={Breakfast_Data} />}
+            />
+            <Route
+              path='/lunch-recipes'
+              element={<Lunch lunchRecipes={Lunch_Data} />}
+            />
+            <Route
+              path='/dinner-recipes'
+              element={<Dinner dinnerRecipes={Dinner_Data} />}
+            />
+            <Route
+              path='/dessert-recipes'
+              element={<Dessert dessertRecipes={Dessert_Data} />}
+            />
+
+            {/* TODO fix key attribute */}
+            {All_Recipes_Data.map((item, id) => {
               return (
                 <>
                   <Route
@@ -49,7 +85,6 @@ function App() {
                     path={item.extension}
                     element={<Recipe recipe={item} />}
                   />
-                  ;
                 </>
               );
             })}
