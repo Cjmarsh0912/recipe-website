@@ -70,9 +70,8 @@ export default function Recipe(props: Recipe) {
                   <>
                     <div className='step'>
                       <header className='step-header'>
-                        <h3>
-                          <span>{id + 1}</span> {item.header}
-                        </h3>
+                        <span>{id + 1}.</span>
+                        <h3>{item.header}</h3>
                       </header>
                       <div className='step-direction'>
                         <p>{item.step}</p>

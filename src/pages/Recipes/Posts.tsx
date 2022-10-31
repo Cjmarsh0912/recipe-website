@@ -15,7 +15,7 @@ export default function Posts(props: Posts) {
         return (
           <div className='recipes post'>
             <Link to={item.extension}>
-              <img loading='lazy' src='images/placeholder.jpg' />
+              <img loading='lazy' src={item.image} />
             </Link>
             <h3>
               <Link className='recipe-description' to={item.extension}>

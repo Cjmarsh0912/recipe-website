@@ -97,13 +97,14 @@
 
 .step-header {
   margin-bottom: 2rem;
+  display: flex;
+  gap: 1rem;
 }
 .step-header h3 {
   font-size: 1.6rem;
 }
 .step-header span {
   font-size: 1.8rem;
-  margin-right: 1rem;
 }
 
 .step-direction {

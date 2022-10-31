@@ -5,19 +5,19 @@ import '../recipes.css';
 
 import { RecipeData } from '../../../interfaces/interface';
 
-interface Dessert_Recipes {
-  dessertRecipes: RecipeData[];
+interface Side_Recipes {
+  sideRecipes: RecipeData[];
 }
 
-export default function Dessert(props: Dessert_Recipes) {
+export default function Breakfast(props: Side_Recipes) {
   return (
     <main>
       <header className='test-header'>
-        <h3>Dessert Recipes</h3>
+        <h3>Side Recipes</h3>
         <SearchBar />
       </header>
 
-      <Posts posts={props.dessertRecipes} />
+      <Posts posts={props.sideRecipes} />
     </main>
   );
 }

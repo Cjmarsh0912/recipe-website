@@ -30,7 +30,10 @@ export default function Home() {
           <div className='posts'>
             <article className='post'>
               <Link to='/chicken-recipe'>
-                <img loading='lazy' src='images/placeholder.jpg' />
+                <img
+                  loading='lazy'
+                  src='recipe-website/images/placeholder.jpg'
+                />
               </Link>
               <h3>
                 <Link className='recipe-description' to='/chicken-recipe'>

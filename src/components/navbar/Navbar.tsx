@@ -84,7 +84,7 @@ export default function Navbar() {
               />
               <li className='website-name'>
                 <h2>
-                  <Link className=' link no-underline' to='/'>
+                  <Link className=' link no-underline' to='/recipe-website'>
                     My Favorite Recipes
                   </Link>
                 </h2>
@@ -112,11 +112,6 @@ export default function Navbar() {
                   }
                 >
                   <li>
-                    <Link className='dropdown-link' to='/breakfast-recipes'>
-                      Breakfast
-                    </Link>
-                  </li>
-                  <li>
                     <Link className='dropdown-link' to='/lunch-recipes'>
                       Lunch
                     </Link>
@@ -124,6 +119,11 @@ export default function Navbar() {
                   <li>
                     <Link className='dropdown-link' to='/dinner-recipes'>
                       Dinner
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className='dropdown-link' to='/side-recipes'>
+                      Sides
                     </Link>
                   </li>
                   <li>

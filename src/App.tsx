@@ -6,7 +6,7 @@ import Home from './pages/Home/';
 
 import Recipe from './pages/Recipe/';
 import Recipes from './pages/Recipes/';
-import Breakfast from './pages/Recipes/Breakfast/';
+import Sides from './pages/Recipes/Sides/';
 import Lunch from './pages/Recipes/Lunch/';
 import Dinner from './pages/Recipes/Dinner/';
 import Dessert from './pages/Recipes/Dessert/';
@@ -23,15 +23,15 @@ import './assets/App.css';
 import { RecipeData } from './interfaces/interface';
 
 function App() {
-  const Breakfast_Data: RecipeData[] = recipeData.Breakfast;
+  const Side_Data: RecipeData[] = recipeData.Sides;
   const Lunch_Data: RecipeData[] = recipeData.Lunch;
   const Dinner_Data: RecipeData[] = recipeData.Dinner;
   const Dessert_Data: RecipeData[] = recipeData.Dessert;
 
   // Merge all recipes into on array with no duplicates
   const uniqueNames: string[] = [];
-  const All_Recipes_Data: RecipeData[] = Breakfast_Data.concat(
-    Lunch_Data,
+  const All_Recipes_Data: RecipeData[] = Lunch_Data.concat(
+    Side_Data,
     Dinner_Data,
     Dessert_Data
   ).filter((item) => {
@@ -45,7 +45,6 @@ function App() {
     return false;
   });
 
-  console.log(All_Recipes_Data);
   return (
     <>
       <BrowserRouter>
@@ -60,10 +59,6 @@ function App() {
             />
 
             <Route
-              path='/breakfast-recipes'
-              element={<Breakfast breakfastRecipes={Breakfast_Data} />}
-            />
-            <Route
               path='/lunch-recipes'
               element={<Lunch lunchRecipes={Lunch_Data} />}
             />
@@ -71,6 +66,12 @@ function App() {
               path='/dinner-recipes'
               element={<Dinner dinnerRecipes={Dinner_Data} />}
             />
+
+            <Route
+              path='/side-recipes'
+              element={<Sides sideRecipes={Side_Data} />}
+            />
+
             <Route
               path='/dessert-recipes'
               element={<Dessert dessertRecipes={Dessert_Data} />}

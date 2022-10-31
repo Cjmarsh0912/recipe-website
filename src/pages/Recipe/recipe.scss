@@ -113,13 +113,14 @@
 
 .step-header {
   margin-bottom: 2rem;
+  display: flex;
+  gap: 1rem;
   h3 {
     font-size: 1.6rem;
   }
 
   span {
     font-size: 1.8rem;
-    margin-right: 1rem;
   }
 }
 

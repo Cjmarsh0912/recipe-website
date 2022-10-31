@@ -10,7 +10,6 @@ interface Lunch_Recipes {
 }
 
 export default function Lunch(props: Lunch_Recipes) {
-  console.log(props.lunchRecipes);
   return (
     <main>
       <header className='test-header'>

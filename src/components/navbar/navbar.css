@@ -82,6 +82,7 @@
 }
 .dropdown-content a {
   font-size: 1rem;
+  white-space: nowrap;
 }
 .dropdown-content li:hover {
   background-color: #ff9f1c;

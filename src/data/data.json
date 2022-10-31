@@ -1,99 +1,304 @@
 {
-  "Breakfast": [
-    {
-      "recipe_name": "",
-      "keywords": [""],
-      "extension": "",
-      "category": "",
-      "description": "",
-      "date_posted": "",
-      "prep_time": "",
-      "cook_time": "",
-      "total_time": "",
-      "image": "",
-      "ingredients": [""],
-      "steps": [
-        {
-          "header": "",
-          "step": ""
-        }
-      ]
-    }
-  ],
   "Lunch": [
-    {
-      "recipe_name": "",
-      "keywords": [""],
-      "extension": "",
-      "category": "",
-      "description": "",
-      "date_posted": "",
-      "prep_time": "",
-      "cook_time": "",
-      "total_time": "",
-      "image": "",
-      "ingredients": [""],
-      "steps": [
-        {
-          "header": "",
-          "step": ""
-        }
-      ]
-    }
-  ],
-  "Dinner": [
     {
       "recipe_name": "Spicy Garlic Noodles",
       "keywords": ["noodles", "spicy", "garlic", "dinner", "ramen"],
       "extension": "/spicy-garlic-noodles",
-      "category": "Dinner",
+      "category": "Lunch",
       "description": "Delicious noodle dish with a kik",
       "date_posted": "October 26, 2022",
       "prep_time": "10",
       "cook_time": "10-15 mins",
       "total_time": "20-25 mins",
-      "image": "images/placeholder.jpg",
+      "image": "recipe-website/images/spicy-noodles-placeholder.jpg",
       "ingredients": [
-        "instant ramen/any noodle of choice",
-        "a mess of garlic",
-        "a couple peppers",
+        "4 3.5 oz instant ramen/any noodle of choice",
+        "2-3 cloves garlic",
+        "1-2 peppers",
         "a bunch of chili flakes",
-        "a pinch of salt and sugar",
+        "salt and sugar",
         "your preferred seasonings",
         "1/4 cup of oil",
-        "some soy sauce",
-        "a bit of sesame oil",
+        "2 cups soy sauce",
+        "1 cup of sesame oil",
         "a splash of rice wine vinegar",
         "optional: some vegetables and some kind of protein"
       ],
       "steps": [
         {
           "header": "Salt a pot of water and bring it to a boil",
-          "step": "Cook the noodles 3-5 mins and put in a bowl aside"
+          "step": "Cook the noodles 3-5 mins and put in a bowl aside. While cooking cut up the peppers and mince the garlic."
         },
         {
           "header": "Heat up the oil",
-          "step": "When the oil is hot throw the garlic and peppers in and mix. Then throw in the seasonings, chile flakes, salt, and sugar then mix again. Lastly, pour in the soy sauce, sesame oil, and vinegar."
+          "step": "When the oil is hot throw the garlic and peppers in the pan. Then throw in the seasonings, chile flakes, salt, and sugar then mix again. Lastly, pour in the soy sauce, sesame oil, and vinegar."
         },
         {
-          "header": "Put the noodles and vegetables in the pan",
-          "step": "Mix the noodles and vegetables and add the protein then serve."
+          "header": "Put the noodles, vegetables, and protein in the pan",
+          "step": "Mix everything together then serve."
+        }
+      ]
+    },
+    {
+      "recipe_name": "Fried Rice",
+      "keywords": ["rice", "fried"],
+      "extension": "/fried-rice",
+      "category": "Lunch",
+      "description": "Delicious fried rice",
+      "date_posted": "October 26, 2022",
+      "prep_time": "5 mins",
+      "cook_time": "15-20 mins",
+      "total_time": "20-25 mins",
+      "image": "recipe-website/images/fried-rice-placeholder.jpg",
+      "ingredients": [
+        "steamed rice",
+        "your preferred seasonings",
+        "1-2 cups soy sauce",
+        "a splash sesame oil",
+        "vegetables of your choice",
+        "1/4 cup oil",
+        "optional: some kind of protein"
+      ],
+      "steps": [
+        {
+          "header": "Warm up your oil",
+          "step": "Put in a piece or two of rice if the oil starts popping it is ready"
+        },
+        {
+          "header": "Put in the rice",
+          "step": "Stir the rice then put in the seasonings, soy sauce, the vegetables, and the protein."
+        },
+        {
+          "header": "Let it cook for 10 or so minutes to get the bottom crispy.",
+          "step": "Finally, mix in the sesame oil and serve."
+        }
+      ]
+    },
+    {
+      "recipe_name": "Baked Potato",
+      "keywords": ["potato", "baked", "sides", "potatoes", "cheesy"],
+      "extension": "/baked-potato",
+      "category": "Lunch",
+      "description": "Delicious Baked Potato",
+      "date_posted": "October 29, 2022",
+      "prep_time": "10 mins",
+      "cook_time": "55-70 mins",
+      "total_time": "65-80 mins",
+      "image": "recipe-website/images/baked-potato-placeholder.jpg",
+      "ingredients": [
+        "potatoes",
+        "butter",
+        "salt and pepper",
+        "any other seasonings you prefer",
+        "cheese",
+        "optional: bacon",
+        "optional: oil/bacon-grease",
+        "optional: some vegetables like brocoli"
+      ],
+      "steps": [
+        {
+          "header": "Preheat oven to 400 degrees",
+          "step": "Poke holes in the potato/es and cover them with the oil, salt, and pepper"
+        },
+        {
+          "header": "Bake the potatoes for 45 minutes or until soft and squishy",
+          "step": "Cut a slit down the potato and put the guts it in a bowl. Mix in the seasonings, cheese, and whatever other toppings you prefer."
+        },
+        {
+          "header": "Put the guts on some aluminum foil or back in the potato shell",
+          "step": "Cover the potato with cheese and/or bacon, bake for another 10 minutes or so, and enjoy."
         }
       ]
     }
   ],
-  "Dessert": [
+  "Dinner": [
     {
-      "recipe_name": "",
+      "recipe_name": "Placeholder",
       "keywords": [""],
-      "extension": "",
+      "extension": "/new1",
       "category": "",
       "description": "",
       "date_posted": "",
       "prep_time": "",
       "cook_time": "",
       "total_time": "",
-      "image": "",
+      "image": "recipe-website/images/placeholder.jpg",
+      "ingredients": [""],
+      "steps": [
+        {
+          "header": "",
+          "step": ""
+        }
+      ]
+    }
+  ],
+  "Sides": [
+    {
+      "recipe_name": "Hasselback Potatoes",
+      "keywords": ["potatoes", "hasselback", "potato", "cheesy"],
+      "extension": "/hasselback-potatoes",
+      "category": "Sides",
+      "description": "Delicious Hasselback potatoes",
+      "date_posted": "October 26, 2022",
+      "prep_time": "10 mins",
+      "cook_time": "45-60 mins",
+      "total_time": "55-70 mins",
+      "image": "recipe-website/images/hasselback-placeholder.jpg",
+      "ingredients": [
+        "potatoes",
+        "oil",
+        "salt and pepper",
+        "any other seasonings you prefer",
+        "cheese"
+      ],
+      "steps": [
+        {
+          "header": "Preheat oven to 400 degrees",
+          "step": "wash the potatoes and then make thin cuts in the them making sure you don't cut all the way through. Tip: you can use two chopsticks to prevent the knife from cutting all the way through."
+        },
+        {
+          "header": "Brush the potatoes with oil",
+          "step": "put the oil in a bowl and mix in salt and pepper. Then brush the oil mixture in the cracks."
+        },
+        {
+          "header": "Bake for up to an hour",
+          "step": "season the potatoes with your favorite seasonings and throw them in the oven."
+        },
+        {
+          "header": "Put cheese in every crack",
+          "step": "Put the potatoes back in the oven to melt the cheese and enjoy."
+        }
+      ]
+    },
+    {
+      "recipe_name": "Baked Potato",
+      "keywords": ["potato", "baked", "sides", "potatoes", "cheesy"],
+      "extension": "/baked-potato",
+      "category": "Sides",
+      "description": "Delicious Baked Potato",
+      "date_posted": "October 29, 2022",
+      "prep_time": "10 mins",
+      "cook_time": "55-70 mins",
+      "total_time": "65-80 mins",
+      "image": "recipe-website/images/baked-potato-placeholder.jpg",
+      "ingredients": [
+        "potatoes",
+        "butter",
+        "salt and pepper",
+        "any other seasonings you prefer",
+        "cheese",
+        "optional: bacon",
+        "optional: oil/bacon-grease",
+        "optional: some vegetables like brocoli"
+      ],
+      "steps": [
+        {
+          "header": "Preheat oven to 400 degrees",
+          "step": "Poke holes in the potato/es and cover them with the oil, salt, and pepper"
+        },
+        {
+          "header": "Bake the potatoes for 45 minutes or until soft and squishy",
+          "step": "Cut a slit down the potato and put the guts it in a bowl. Mix in the seasonings, cheese, and whatever other toppings you prefer."
+        },
+        {
+          "header": "Put the guts on some aluminum foil or back in the potato shell",
+          "step": "Cover the potato with cheese and/or bacon, bake for another 10 minutes or so, and enjoy."
+        }
+      ]
+    },
+    {
+      "recipe_name": "Potato Skins",
+      "keywords": [
+        "potato",
+        "potatoes",
+        "baked",
+        "cheesy",
+        "cheese",
+        "baked",
+        "sides"
+      ],
+      "extension": "/potato-skins",
+      "category": "Sides",
+      "description": "Delicious Potato Skins",
+      "date_posted": "October 29, 2022",
+      "prep_time": "10",
+      "cook_time": "60-70 mins",
+      "total_time": "70-80 mins",
+      "image": "recipe-website/images/potato-skins-placeholder.jpg",
+      "ingredients": [
+        "potatoes",
+        "cheese",
+        "salt and pepper",
+        "any other seasonings you prefer",
+        "optional: bacon",
+        "optional: butter",
+        "optional: oil/bacon-grease"
+      ],
+      "steps": [
+        {
+          "header": "Preheat oven to 400 degrees",
+          "step": "Poke holes in the potato/es and cover them with the oil or bacon grease, salt, and pepper"
+        },
+        {
+          "header": "Bake the potatoes for 45 minutes or until soft and squishy",
+          "step": "Once done cut the potatoes in half and scoop out most of the guts. In the potato shell, put in a small amount of butter, fill with cheese, and top with bacon and some seasonings."
+        },
+        {
+          "header": "Bake for another 10 minutes",
+          "step": "Enjoy!"
+        }
+      ]
+    }
+  ],
+  "Dessert": [
+    {
+      "recipe_name": "Chocolate Cake",
+      "keywords": ["cake", "chocolate", "baked", "sugar"],
+      "extension": "/chocolate-cake",
+      "category": "Dessert",
+      "description": "Delicious Chocolate Cake",
+      "date_posted": "October 30, 2022",
+      "prep_time": "15 mins",
+      "cook_time": "30 mins",
+      "total_time": "45 mins",
+      "image": "recipe-website/images/chocolate-cake-placeholder.jpg",
+      "ingredients": [
+        "chocolate cake mix",
+        "5 eggs",
+        "1 small chocolate pudding",
+        "1 cup oil",
+        "3/4 - 1 cup water",
+        "for the glaze:",
+        "2 cups powdered sugar",
+        "3 tbs water",
+        "melted chocolate chips"
+      ],
+      "steps": [
+        {
+          "header": "Preheat oven to 350 degrees",
+          "step": "Mix the chocolate cake mix, eggs, pudding, oil, and water together and put the mixture in a pan."
+        },
+        {
+          "header": "Bake for 30 minutes or until inside is cooked",
+          "step": "While that is baking mix together the powdered sugar, water, and chocolate chips."
+        },
+        {
+          "header": "Poke a bunch of small holes in the top of the cake",
+          "step": "Spread the glaze around the cake while it is still hot and enjoy."
+        }
+      ]
+    },
+    {
+      "recipe_name": "Placeholder",
+      "keywords": [""],
+      "extension": "/new2",
+      "category": "",
+      "description": "",
+      "date_posted": "",
+      "prep_time": "",
+      "cook_time": "",
+      "total_time": "",
+      "image": "recipe-website/images/placeholder.jpg",
       "ingredients": [""],
       "steps": [
         {
