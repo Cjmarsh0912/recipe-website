@@ -42,9 +42,26 @@ hr {
   --font-size-medium: 1.5rem;
 }
 
+.animate__animated.animate__flipInX {
+  --animate-duration: 0.5s;
+}
+
+/* .hide {
+  display: none;
+}
+@media screen and (max-width: 800px) {
+  .hide {
+    display: none;
+  }
+
+  .show {
+    display: flex;
+  }
+} */
+
 /* Posts */
 
-.posts {
+/* .posts {
   display: flex;
   gap: 1rem;
 }
@@ -75,6 +92,38 @@ hr {
 .recipe-description:hover {
   color: var(--primary_color1);
   text-decoration: underline;
+} */
+
+/* Extensions */
+
+/* .extensions {
+  margin-bottom: 1rem;
 }
+
+.extension-name {
+  display: flex !important;
+  align-items: center;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+.extension-name h2 {
+  font-size: var(--font-size-lrg);
+  border-bottom: dotted var(--primary_color3) 2px;
+  font-weight: 800;
+}
+.extension-name:hover h2 {
+  border-color: var(--primary_color1);
+}
+.extension-name:hover .icon-arrow-right {
+  color: var(--primary_color2);
+}
+
+.icon-arrow-right {
+  display: block;
+  padding-top: 0.3rem;
+  font-size: 3rem;
+  color: var(--primary_color1);
+} */
 
 /* End Posts */

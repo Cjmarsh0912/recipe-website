@@ -2,8 +2,8 @@
   --animate-duration: 0.5s;
 }
 
-.icon-arrow-down,
-.icon-arrow-up {
+.icon_arrow_down,
+.icon_arrow_up {
   position: absolute;
   top: 0.3rem;
   left: 4.2rem;
@@ -15,18 +15,18 @@
   display: none;
 }
 
-.toggle-btn,
-.close-btn {
+.toggle_btn,
+.close_btn {
   font-size: 1.8rem;
 }
 
-.close-btn {
+.close_btn {
   position: absolute;
   top: 0.5rem;
   right: 0.75rem;
 }
 
-.no-underline {
+.no_underline {
   text-decoration: none;
 }
 
@@ -34,25 +34,25 @@
   display: none;
 }
 
-.website-name a {
+.website_name a {
   font-size: 1.4rem !important;
   font-weight: 700 !important;
 }
 
-.navbar-links {
+.navbar_links {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-bottom: 1.5rem;
 }
-.navbar-links li {
+.navbar_links li {
   list-style-type: none;
 }
-.navbar-links a {
+.navbar_links a {
   font-size: 1.2rem;
   font-weight: 500;
 }
-.navbar-links .link:hover {
+.navbar_links .link:hover {
   color: #ff9f1c;
   text-decoration: underline;
 }
@@ -66,7 +66,7 @@
   padding-bottom: 1.5rem;
 }
 
-.dropdown-content {
+.dropdown_content {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -76,21 +76,21 @@
   background-color: white;
   border: 1px solid #ff9f1c;
 }
-.dropdown-content li {
+.dropdown_content li {
   width: 100%;
   padding: 0.5rem 5rem 1rem 1rem;
 }
-.dropdown-content a {
+.dropdown_content a {
   font-size: 1rem;
   white-space: nowrap;
 }
-.dropdown-content li:hover {
+.dropdown_content li:hover {
   background-color: #ff9f1c;
 }
-.dropdown-content a:hover {
+.dropdown_content a:hover {
   text-decoration: underline;
 }
-.dropdown-content li:nth-child(5) a {
+.dropdown_content li:nth-child(5) a {
   font-weight: 700;
 }
 
@@ -109,13 +109,13 @@
     justify-content: space-between;
     align-items: center;
   }
-  .navbar-links.hide {
+  .navbar_links.hide {
     display: none;
   }
-  .navbar-links.show {
+  .navbar_links.show {
     display: flex;
   }
-  .navbar-links {
+  .navbar_links {
     flex-direction: column;
     align-items: flex-start;
     justify-content: stretch;
@@ -131,17 +131,17 @@
     background-color: #333;
     color: white;
   }
-  .navbar-links .website-name {
+  .navbar_links .website_name {
     display: none;
   }
-  .navbar-links a {
+  .navbar_links a {
     color: white;
   }
-  .dropdown-content {
+  .dropdown_content {
     position: static;
     width: 15rem;
   }
-  .dropdown-content a {
+  .dropdown_content a {
     color: black;
   }
-}/*# sourceMappingURL=navbar.css.map */
+}/*# sourceMappingURL=navbar.module.css.map */

@@ -1,4 +1,4 @@
-.test-header {
+.test_header {
   margin: auto;
   text-align: center;
   width: -webkit-fit-content;
@@ -6,40 +6,40 @@
   width: fit-content;
   margin-bottom: 3rem;
 }
-.test-header h3 {
+.test_header h3 {
   font-size: 2rem;
 }
-.test-header .search-bar-container {
+.test_header .search_bar_container {
   background-color: transparent;
-}
-.test-header .icon-container {
-  display: none;
+  display: flex;
+  gap: 0.8rem;
+  padding: 3rem;
 }
 
-.recipes.posts {
+.posts {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
 }
-.recipes.posts .post {
+.posts .post {
   flex: 0 1 32%;
   text-align: center;
 }
-.recipes.posts .post a {
+.posts .post a {
   width: 100%;
 }
-.recipes.posts .post img {
+.posts .post img {
   width: inherit;
   height: 20rem;
   transition: box-shadow 0.4s;
 }
-.recipes.posts .post img:hover {
+.posts .post img:hover {
   box-shadow: 5px 5px 5px #ff9f1c;
 }
-.recipes.posts .recipe_description {
+.posts .recipe_description {
   font-size: 1.5rem;
 }
-.recipes.posts .recipe_description:hover {
+.posts .recipe_description:hover {
   color: #ff9f1c;
   text-decoration: underline;
-}/*# sourceMappingURL=recipes.css.map */
+}/*# sourceMappingURL=recipes.module.css.map */

@@ -5,6 +5,7 @@
       "keywords": ["noodles", "spicy", "garlic", "dinner", "ramen"],
       "extension": "/spicy-garlic-noodles",
       "category": "Lunch",
+      "category_extension": "/lunch-recipes",
       "description": "Delicious noodle dish with a kik",
       "date_posted": "October 26, 2022",
       "prep_time": "10",
@@ -40,10 +41,12 @@
       ]
     },
     {
+      "id": 1,
       "recipe_name": "Fried Rice",
       "keywords": ["rice", "fried"],
       "extension": "/fried-rice",
       "category": "Lunch",
+      "category_extension": "/lunch-recipes",
       "description": "Delicious fried rice",
       "date_posted": "October 26, 2022",
       "prep_time": "5 mins",
@@ -79,6 +82,7 @@
       "keywords": ["potato", "baked", "sides", "potatoes", "cheesy"],
       "extension": "/baked-potato",
       "category": "Lunch",
+      "category_extension": "/lunch-recipes",
       "description": "Delicious Baked Potato",
       "date_posted": "October 29, 2022",
       "prep_time": "10 mins",
@@ -113,21 +117,134 @@
   ],
   "Dinner": [
     {
-      "recipe_name": "Placeholder",
-      "keywords": [""],
-      "extension": "/new1",
-      "category": "",
-      "description": "",
-      "date_posted": "",
-      "prep_time": "",
-      "cook_time": "",
-      "total_time": "",
-      "image": "recipe-website/images/placeholder.jpg",
-      "ingredients": [""],
+      "recipe_name": "Country Fried Steak",
+      "keywords": ["steak", "fried", "batter", "gravy"],
+      "extension": "/country-fried-steak",
+      "category": "Dinner",
+      "category_extension": "/dinner-recipes",
+      "description": "Delicious Country Fried Steak",
+      "date_posted": "October 31, 2022",
+      "prep_time": "15 mins",
+      "cook_time": "20-25 mins",
+      "total_time": "30-35 mins",
+      "image": "recipe-website/images/country-fried-steak-placeholder.jpg",
+      "ingredients": [
+        "1 package cube steak",
+        "oil",
+        "flour",
+        "corn meal",
+        "seasonings",
+        "soy sauce",
+        "buttermilk/milk",
+        "optional: 1 egg"
+      ],
       "steps": [
         {
-          "header": "",
+          "header": "Pore about an inch or two of oil and turn on the stove",
+          "step": "While that is preheating season the steaks and get two bowls for the batter"
+        },
+        {
+          "header": "Prepare the wet and dry batters",
+          "step": "For the dry batter, mix together the flour, corn meal, and the seasonings. For the wet batter, mix a little soy sauce, milk, and optionally add an egg."
+        },
+        {
+          "header": "Batter the steaks",
+          "step": "Dip them in the wet, then the dry, back in the wet, and back in the dry."
+        },
+        {
+          "header": "Fry your steaks for 3-5 minutes per side",
+          "step": "Once done place on a cooling rack to drain the oil."
+        },
+        {
+          "header": "For the gravy",
+          "step": "In a pan take the used oil and stir together a 50/50 mix of flour and oil constantly stirring for 1-2 minutes."
+        },
+        {
+          "header": "Thin it out with some milk",
+          "step": "Cook until thickened for about 2-3 minutes while constantly stirring and enjoy!"
+        }
+      ]
+    },
+    {
+      "recipe_name": "Tacos",
+      "keywords": ["taco", "tacos", "shells"],
+      "extension": "/tacos",
+      "category": "Dinner",
+      "category_extension": "/dinner-recipes",
+      "description": "Delicious Tacos",
+      "date_posted": "October 31, 2022",
+      "prep_time": "0",
+      "cook_time": "30 mins",
+      "total_time": "30 mins",
+      "image": "recipe-website/images/tacos-placeholder.jpg",
+      "ingredients": [
+        "ground-beef",
+        "taco seasonings",
+        "additional seasonings",
+        "toppings",
+        "taco shells/flour tortillas"
+      ],
+      "steps": [
+        {
+          "header": "Brown the ground beef",
+          "step": "Add your seasonings to the beef when you begin cooking."
+        },
+        {
+          "header": "Optional: drain the grease",
+          "step": "After draining, add your taco seasoning and a little water."
+        },
+        {
+          "header": "Let cook down about for 10 minutes",
+          "step": "Add the meat to the shells put on the toppings and enjoy."
+        }
+      ]
+    },
+    {
+      "recipe_name": "Creamy Chicken and Noodles",
+      "keywords": ["creamy", "chicken", "noodles", "broccoli"],
+      "extension": "/creamy-chicken-and-noodles",
+      "category": "Dinner",
+      "category_extension": "/dinner-recipes",
+      "description": "Delicious Creamy Chicken and Noodles",
+      "date_posted": "October 31, 2022",
+      "prep_time": "20 mins",
+      "cook_time": "20 mins",
+      "total_time": "40 mins",
+      "image": "recipe-website/images/creamy-chicken-and-noodles-placeholder.jpg",
+      "ingredients": [
+        "chicken",
+        "angle hair noodles/noodles of choice",
+        "1/4 cup of oil",
+        "1-2 cups heavy cream",
+        "graded parmesan",
+        "a dash soy sauce",
+        "seasonings",
+        "vegetables of your choice",
+        "for the alfredo sauce:",
+        "1/2 cup butter",
+        "1 cup heavy cream",
+        "1 cup parmesan"
+      ],
+      "steps": [
+        {
+          "header": "Bring a pot of salt and water to a boil",
+          "step": "While waiting, trim the chicken and cut it into bite sized pieces."
+        },
+        {
+          "header": "Cook the noodles for about 7-10 minutes",
+          "step": "While noodles are cooking, put oil in a pan and add the chicken. Season with the soy sauce and some seasonings. Cook for at least 10 minutes."
+        },
+        {
+          "header": "Add the noodles and vegetables to the chicken and mix well.",
+          "step": "Add a little bit of the pasta water, the heavy cream, and the parmesan. If the noodles are sticking together to much add a little more pasta water."
+        },
+        {
+          "header": "Let it cook till creamy and hot",
           "step": ""
+        },
+        {
+          "header": "Optional: make your alfredo sauce",
+          "step": "Melt the butter with some garlic salt and pepper. Once melted whisk in the heavy cream until creamy and warm. Mix in the parmesan until melted. Enjoy!"
         }
       ]
     }
@@ -138,6 +255,7 @@
       "keywords": ["potatoes", "hasselback", "potato", "cheesy"],
       "extension": "/hasselback-potatoes",
       "category": "Sides",
+      "category_extension": "/side-recipes",
       "description": "Delicious Hasselback potatoes",
       "date_posted": "October 26, 2022",
       "prep_time": "10 mins",
@@ -175,6 +293,7 @@
       "keywords": ["potato", "baked", "sides", "potatoes", "cheesy"],
       "extension": "/baked-potato",
       "category": "Sides",
+      "category_extension": "/side-recipes",
       "description": "Delicious Baked Potato",
       "date_posted": "October 29, 2022",
       "prep_time": "10 mins",
@@ -207,6 +326,7 @@
       ]
     },
     {
+      "id": 8,
       "recipe_name": "Potato Skins",
       "keywords": [
         "potato",
@@ -219,6 +339,7 @@
       ],
       "extension": "/potato-skins",
       "category": "Sides",
+      "category_extension": "/side-recipes",
       "description": "Delicious Potato Skins",
       "date_posted": "October 29, 2022",
       "prep_time": "10",
@@ -256,6 +377,7 @@
       "keywords": ["cake", "chocolate", "baked", "sugar"],
       "extension": "/chocolate-cake",
       "category": "Dessert",
+      "category_extension": "/dessert-recipes",
       "description": "Delicious Chocolate Cake",
       "date_posted": "October 30, 2022",
       "prep_time": "15 mins",
@@ -285,25 +407,6 @@
         {
           "header": "Poke a bunch of small holes in the top of the cake",
           "step": "Spread the glaze around the cake while it is still hot and enjoy."
-        }
-      ]
-    },
-    {
-      "recipe_name": "Placeholder",
-      "keywords": [""],
-      "extension": "/new2",
-      "category": "",
-      "description": "",
-      "date_posted": "",
-      "prep_time": "",
-      "cook_time": "",
-      "total_time": "",
-      "image": "recipe-website/images/placeholder.jpg",
-      "ingredients": [""],
-      "steps": [
-        {
-          "header": "",
-          "step": ""
         }
       ]
     }

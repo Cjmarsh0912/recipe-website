@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import './recipes.css';
+import styles from './recipes.module.css';
 
 import { RecipeData } from '../../interfaces/interface';
 
@@ -10,21 +10,23 @@ interface Posts {
 
 export default function Posts(props: Posts) {
   return (
-    <section className='recipes posts'>
-      {props.posts.map((item) => {
-        return (
-          <div className='recipes post'>
-            <Link to={item.extension}>
-              <img loading='lazy' src={item.image} />
-            </Link>
-            <h3>
-              <Link className='recipe-description' to={item.extension}>
-                {item.recipe_name}
+    <section className='recipes'>
+      <div className={styles.posts}>
+        {props.posts.map((item) => {
+          return (
+            <div className={styles.post}>
+              <Link to={item.extension}>
+                <img loading='lazy' src={item.image} />
               </Link>
-            </h3>
-          </div>
-        );
-      })}
+              <h3>
+                <Link className={styles.recipe_description} to={item.extension}>
+                  {item.recipe_name}
+                </Link>
+              </h3>
+            </div>
+          );
+        })}
+      </div>
     </section>
   );
 }

@@ -1,4 +1,5 @@
-// import Placeholder from '../../assets/images/placeholder.jpg';
+import styles from './home.module.css';
+
 import Placeholder2 from '../../assets/images/placeholder2.jpg';
 import Placeholder3 from '../../assets/images/placeholder3.jpg';
 import Placeholder4 from '../../assets/images/placeholder4.jpg';
@@ -13,22 +14,20 @@ import { Link } from 'react-router-dom';
 
 import { BsArrowRight } from 'react-icons/bs';
 
-import './home.css';
-
 export default function Home() {
   return (
     <>
       <main>
         <section className='featured'>
-          <header className='header'>
-            <a href='#' className='header-name'>
+          <header className={styles.extensions}>
+            <a href='#' className={styles.extension_name}>
               <h2>Featured</h2>
-              <BsArrowRight className='icon-arrow-right' />
+              <BsArrowRight className={styles.icon_arrow_right} />
             </a>
           </header>
 
-          <div className='posts'>
-            <article className='post'>
+          <div className={styles.posts}>
+            <article className={styles.post}>
               <Link to='/chicken-recipe'>
                 <img
                   loading='lazy'
@@ -36,40 +35,43 @@ export default function Home() {
                 />
               </Link>
               <h3>
-                <Link className='recipe-description' to='/chicken-recipe'>
+                <Link
+                  className={styles.recipe_description}
+                  to='/chicken-recipe'
+                >
                   Chicken Salad
                 </Link>
               </h3>
             </article>
 
-            <article className='post'>
+            <article className={styles.post}>
               <Link to='steak-recipe'>
                 <img loading='lazy' src={Placeholder2} />
               </Link>
               <h3>
-                <Link className='recipe-description' to='/steak-recipe'>
+                <Link className={styles.recipe_description} to='/steak-recipe'>
                   French Toast
                 </Link>
               </h3>
             </article>
 
-            <article className='post'>
+            <article className={styles.post}>
               <a href='#'>
                 <img loading='lazy' src={Placeholder3} />
               </a>
               <h3>
-                <a className='recipe-description' href='#'>
+                <a className={styles.recipe_description} href='#'>
                   Meatball Salad
                 </a>
               </h3>
             </article>
 
-            <article className='post'>
+            <article className={styles.post}>
               <a href='#'>
                 <img loading='lazy' src={Placeholder4} />
               </a>
               <h3>
-                <a className='recipe-description' href='#'>
+                <a className={styles.recipe_description} href='#'>
                   Chicken Burger
                 </a>
               </h3>
@@ -78,60 +80,63 @@ export default function Home() {
         </section>
 
         <section className='search-bar'>
-          <header className='header'>
-            <Link to='/all-recipes' className='header-name'>
+          <header className={styles.extensions}>
+            <Link to='/all-recipes' className={styles.extension_name}>
               <h2>view all recipes</h2>
-              <BsArrowRight className='icon-arrow-right' />
+              <BsArrowRight className={styles.icon_arrow_right} />
             </Link>
           </header>
           <SearchBar size='full-width' />
         </section>
 
-        <section className='quick-recipes'>
-          <header className='header'>
-            <Link to='/quick-recipes' className='header-name'>
+        <section className={styles.quick_recipes}>
+          <header className={styles.extensions}>
+            <Link to='/quick-recipes' className={styles.extension_name}>
               <h2>Quick recipes</h2>
-              <BsArrowRight className='icon-arrow-right' />
+              <BsArrowRight className={styles.icon_arrow_right} />
             </Link>
           </header>
 
-          <div className='posts'>
-            <article className='post'>
+          <div className={styles.posts}>
+            <article className={styles.post}>
               <Link to='/chicken-recipe'>
                 <img loading='lazy' src={Placeholder5} />
               </Link>
               <h3>
-                <Link className='recipe-description' to='/chicken-recipe'>
+                <Link
+                  className={styles.recipe_description}
+                  to='/chicken-recipe'
+                >
                   Chicken Salad
                 </Link>
               </h3>
             </article>
-            <article className='post'>
+            <article className={styles.post}>
               <a href='#'>
                 <img loading='lazy' src={Placeholder6} />
               </a>
               <h3>
-                <a className='recipe-description' href='#'>
+                <a className={styles.recipe_description} href='#'>
                   Chicken Salad
                 </a>
               </h3>
             </article>
-            <article className='post'>
+            <article className={styles.post}>
               <a href='#'>
                 <img loading='lazy' src={Placeholder7} />
               </a>
               <h3>
-                <a className='recipe-description' href='#'>
+                <a className={styles.recipe_description} href='#'>
                   Chicken Salad
                 </a>
               </h3>
             </article>
-            <article className='post'>
+            <article className={styles.post}>
               <a href='#'>
                 <img loading='lazy' src={Placeholder8} />
               </a>
               <h3>
-                <a className='recipe-description' href='#'>
+                <a className={styles.recipe_description} href='#'>
                   Chicken Salad
                 </a>
               </h3>

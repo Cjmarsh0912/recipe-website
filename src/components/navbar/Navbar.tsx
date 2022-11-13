@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import { CSSTransition } from 'react-transition-group';
-import './navbar.css';
+import styles from './navbar.module.css';
 
 export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showNavbar, setShowNavbar] = useState(false);
-  const [navbarClasses, setNavbarClasses] = useState('hide');
+  const [navbarClasses, setNavbarClasses] = useState(styles.hide);
   const dropdownRef = useRef<any>();
 
   // Shows the navbar on the click of the menu. Used on smaller screens.
@@ -17,7 +17,7 @@ export default function Navbar() {
   }
 
   function ShowNavbarDropdown() {
-    setNavbarClasses('show');
+    setNavbarClasses(styles.show);
   }
 
   // Hides the navbar on the click of a x. Used on smaller screens.
@@ -26,7 +26,7 @@ export default function Navbar() {
   }
 
   function HideNavbarDropdown() {
-    setNavbarClasses('hide');
+    setNavbarClasses(styles.hide);
   }
 
   // Hide or shows a dropdown menu on the click of the recipes link
@@ -56,16 +56,19 @@ export default function Navbar() {
   return (
     <>
       <header className='wrapper'>
-        <nav className='navbar'>
-          <div className='website-name mobile'>
+        <nav className={styles.navbar}>
+          <div className={`${styles.website_name} ${styles.mobile}`}>
             <h2>
-              <Link className='no-underline' to='/recipe-website'>
+              <Link className={styles.no_underline} to='/recipe-website'>
                 My Favorite Recipes
               </Link>
             </h2>
           </div>
 
-          <AiOutlineMenu onClick={ShowNavbar} className='toggle-btn mobile' />
+          <AiOutlineMenu
+            onClick={ShowNavbar}
+            className={`${styles.toggle_btn} ${styles.mobile}`}
+          />
           <CSSTransition
             in={showNavbar}
             timeout={1000}
@@ -75,23 +78,26 @@ export default function Navbar() {
             }}
             onEnter={ShowNavbarDropdown}
             onExited={HideNavbarDropdown}
-            className={`animate__animated navbar-links ${navbarClasses}`}
+            className={`animate__animated ${styles.navbar_links} ${navbarClasses}`}
           >
             <ul>
               <AiOutlineClose
                 onClick={HideNavbar}
-                className='close-btn mobile'
+                className={`${styles.close_btn} ${styles.mobile}`}
               />
-              <li className='website-name'>
+              <li className={styles.website_name}>
                 <h2>
-                  <Link className=' link no-underline' to='/recipe-website'>
+                  <Link
+                    className={`${styles.link} ${styles.no_underline}`}
+                    to='/recipe-website'
+                  >
                     My Favorite Recipes
                   </Link>
                 </h2>
               </li>
-              <li className='dropdown'>
+              <li className={styles.dropdown}>
                 <a
-                  className='link click-text'
+                  className={`${styles.link} ${styles.click_text}`}
                   ref={dropdownRef}
                   onClick={ToggleDropdown}
                   href='#'
@@ -99,57 +105,64 @@ export default function Navbar() {
                   Recipes
                 </a>
                 <IoIosArrowDown
-                  className={showDropdown == false ? 'icon-arrow-down' : 'hide'}
+                  className={
+                    showDropdown == false ? styles.icon_arrow_down : styles.hide
+                  }
                 />
                 <IoIosArrowUp
-                  className={showDropdown == true ? 'icon-arrow-up' : 'hide'}
+                  className={
+                    showDropdown == true ? styles.icon_arrow_up : styles.hide
+                  }
                 />
                 <ul
                   className={
                     showDropdown == true
-                      ? 'dropdown-content animate__animated animate__flipInX'
-                      : 'hide'
+                      ? `${styles.dropdown_content} animate__animated animate__flipInX`
+                      : styles.hide
                   }
                 >
                   <li>
-                    <Link className='dropdown-link' to='/lunch-recipes'>
+                    <Link className={styles.dropdown_link} to='/lunch-recipes'>
                       Lunch
                     </Link>
                   </li>
                   <li>
-                    <Link className='dropdown-link' to='/dinner-recipes'>
+                    <Link className={styles.dropdown_link} to='/dinner-recipes'>
                       Dinner
                     </Link>
                   </li>
                   <li>
-                    <Link className='dropdown-link' to='/side-recipes'>
+                    <Link className={styles.dropdown_link} to='/side-recipes'>
                       Sides
                     </Link>
                   </li>
                   <li>
-                    <Link className='dropdown-link' to='/dessert-recipes'>
+                    <Link
+                      className={styles.dropdown_link}
+                      to='/dessert-recipes'
+                    >
                       Dessert
                     </Link>
                   </li>
                   <li>
-                    <Link className='dropdown-link' to='/all-recipes'>
+                    <Link className={styles.dropdown_link} to='/all-recipes'>
                       View All
                     </Link>
                   </li>
                 </ul>
               </li>
               <li>
-                <Link className='link' to='/quick-recipes'>
+                <Link className={styles.link} to='/quick-recipes'>
                   30 Minutes Or Less
                 </Link>
               </li>
               <li>
-                <Link className='link' to='/most-recent-recipes'>
+                <Link className={styles.link} to='/most-recent-recipes'>
                   Most Recent
                 </Link>
               </li>
               <li>
-                <Link className='link' to='/favorites'>
+                <Link className={styles.link} to='/favorites'>
                   Favorites
                 </Link>
               </li>

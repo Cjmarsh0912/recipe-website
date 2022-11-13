@@ -3,6 +3,7 @@ export interface RecipeData {
   keywords: string[];
   extension: string;
   category: string;
+  category_extension: string;
   description: string;
   date_posted: string;
   prep_time: string;

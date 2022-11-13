@@ -1,0 +1,14 @@
+@import '../../assets/variables';
+@import '../../assets/mixins';
+
+.posts {
+  @include posts(nowrap, 1 1 100%); // From mixins
+}
+
+.extensions {
+  @include extensions; // From mixins
+}
+
+.quick_recipes {
+  margin-bottom: 0;
+}

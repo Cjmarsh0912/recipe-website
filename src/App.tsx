@@ -78,11 +78,10 @@ function App() {
             />
 
             {/* TODO fix key attribute */}
-            {All_Recipes_Data.map((item, id) => {
+            {All_Recipes_Data.map((item) => {
               return (
                 <>
                   <Route
-                    key={id}
                     path={item.extension}
                     element={<Recipe recipe={item} />}
                   />

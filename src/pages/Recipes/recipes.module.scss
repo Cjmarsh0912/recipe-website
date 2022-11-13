@@ -1,6 +1,7 @@
 @import '../../assets/variables';
+@import '../../assets/mixins';
 
-.test-header {
+.test_header {
   margin: auto;
   text-align: center;
   width: fit-content;
@@ -10,21 +11,14 @@
     font-size: $font-size-lrg;
   }
 
-  .search-bar-container {
+  .search_bar_container {
     background-color: transparent;
-  }
-
-  .icon-container {
-    display: none;
+    display: flex;
+    gap: 0.8rem;
+    padding: 3rem;
   }
 }
 
-.recipes {
-  &.posts {
-    flex-wrap: wrap;
-  }
-
-  &.post {
-    flex: 0 1 32%;
-  }
+.posts {
+  @include posts(wrap, 0 1 32%);
 }
