@@ -13,6 +13,7 @@ interface Recipe {
 export default function Recipe(props: Recipe) {
   return (
     <>
+      {/* Extensions Start */}
       <div className={styles.extensions_container}>
         <div className={styles.extensions}>
           <Link
@@ -30,7 +31,9 @@ export default function Recipe(props: Recipe) {
           </Link>
         </div>
       </div>
+      {/* Extensions End */}
 
+      {/* Recipe Header Start */}
       <header className={styles.recipe_header}>
         <h1 className={styles.recipe_name}>{props.recipe.recipe_name}</h1>
         <p className={styles.description}>{props.recipe.description}</p>
@@ -41,6 +44,7 @@ export default function Recipe(props: Recipe) {
 
       <main>
         <section className={styles.recipe_tutorial}>
+          {/* Recipe Details Start */}
           <div className={styles.recipe_details}>
             <div className={styles.img_container}>
               <img src={props.recipe.image} />
@@ -61,7 +65,9 @@ export default function Recipe(props: Recipe) {
               </p>
             </div>
           </div>
+          {/* Recipe Details End */}
 
+          {/* Recipe Ingredients Start */}
           <div className={styles.recipe_ingredients}>
             <header className={styles.header}>
               <h2>Ingredients</h2>
@@ -78,7 +84,9 @@ export default function Recipe(props: Recipe) {
               </ul>
             </div>
           </div>
+          {/* Recipe Ingredients End */}
 
+          {/* Recipe Directions Start */}
           <div className={styles.recipe_directions}>
             <header className={styles.header}>
               <h2>Directions</h2>
@@ -102,6 +110,7 @@ export default function Recipe(props: Recipe) {
               })}
             </div>
           </div>
+          {/* Recipe Directions End */}
         </section>
       </main>
     </>

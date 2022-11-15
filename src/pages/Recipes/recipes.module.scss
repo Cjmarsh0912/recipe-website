@@ -17,6 +17,12 @@
     gap: 0.8rem;
     padding: 3rem;
   }
+
+  #search_bar {
+    width: 100%;
+    padding: 1rem;
+    border: solid 2px $primary_color1;
+  }
 }
 
 .posts {

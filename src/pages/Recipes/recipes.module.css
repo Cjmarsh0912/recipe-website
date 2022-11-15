@@ -15,6 +15,11 @@
   gap: 0.8rem;
   padding: 3rem;
 }
+.test_header #search_bar {
+  width: 100%;
+  padding: 1rem;
+  border: solid 2px #ff9f1c;
+}
 
 .posts {
   display: flex;

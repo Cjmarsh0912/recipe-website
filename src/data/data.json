@@ -16,9 +16,9 @@
         "4 3.5 oz instant ramen/any noodle of choice",
         "2-3 cloves garlic",
         "1-2 peppers",
-        "a bunch of chili flakes",
-        "salt and sugar",
-        "your preferred seasonings",
+        "chili flakes",
+        "pinch of sugar",
+        "seasonings: garlic salt, seasoning salt, pepper, salt",
         "1/4 cup of oil",
         "2 cups soy sauce",
         "1 cup of sesame oil",
@@ -32,7 +32,7 @@
         },
         {
           "header": "Heat up the oil",
-          "step": "When the oil is hot throw the garlic and peppers in the pan. Then throw in the seasonings, chile flakes, salt, and sugar then mix again. Lastly, pour in the soy sauce, sesame oil, and vinegar."
+          "step": "When the oil is hot throw the garlic and peppers in the pan. Then throw in the seasonings, chile flakes, and sugar then mix again. Lastly, pour in the soy sauce, sesame oil, and vinegar."
         },
         {
           "header": "Put the noodles, vegetables, and protein in the pan",
@@ -41,7 +41,6 @@
       ]
     },
     {
-      "id": 1,
       "recipe_name": "Fried Rice",
       "keywords": ["rice", "fried"],
       "extension": "/fried-rice",
@@ -55,21 +54,21 @@
       "image": "recipe-website/images/fried-rice-placeholder.jpg",
       "ingredients": [
         "steamed rice",
-        "your preferred seasonings",
-        "1-2 cups soy sauce",
+        "1-2 garlic cloves",
+        "seasonings: garlic salt, seasoning salt, pepper, salt",
         "a splash sesame oil",
-        "vegetables of your choice",
         "1/4 cup oil",
+        "optional: vegetables of your choice",
         "optional: some kind of protein"
       ],
       "steps": [
         {
-          "header": "Warm up your oil",
-          "step": "Put in a piece or two of rice if the oil starts popping it is ready"
+          "header": "Heat up the oil",
+          "step": "Put in a piece or two of rice if the oil starts popping it is ready."
         },
         {
-          "header": "Put in the rice",
-          "step": "Stir the rice then put in the seasonings, soy sauce, the vegetables, and the protein."
+          "header": "Put in the garlic cloves and mix",
+          "step": "mix in the rice and the seasonings. Then you can add any vegetables or protein you want."
         },
         {
           "header": "Let it cook for 10 or so minutes to get the bottom crispy.",
@@ -93,7 +92,7 @@
         "potatoes",
         "butter",
         "salt and pepper",
-        "any other seasonings you prefer",
+        "seasonings",
         "cheese",
         "optional: bacon",
         "optional: oil/bacon-grease",
@@ -180,7 +179,7 @@
       "ingredients": [
         "ground-beef",
         "taco seasonings",
-        "additional seasonings",
+        "seasonings",
         "toppings",
         "taco shells/flour tortillas"
       ],
@@ -266,7 +265,7 @@
         "potatoes",
         "oil",
         "salt and pepper",
-        "any other seasonings you prefer",
+        "seasonings",
         "cheese"
       ],
       "steps": [
@@ -279,8 +278,8 @@
           "step": "put the oil in a bowl and mix in salt and pepper. Then brush the oil mixture in the cracks."
         },
         {
-          "header": "Bake for up to an hour",
-          "step": "season the potatoes with your favorite seasonings and throw them in the oven."
+          "header": "Season the potatoes",
+          "step": "season the potatoes with your favorite seasonings, and throw them in the oven for 45 minutes or until soft and squishy."
         },
         {
           "header": "Put cheese in every crack",
@@ -304,7 +303,7 @@
         "potatoes",
         "butter",
         "salt and pepper",
-        "any other seasonings you prefer",
+        "seasonings",
         "cheese",
         "optional: bacon",
         "optional: oil/bacon-grease",
@@ -350,7 +349,7 @@
         "potatoes",
         "cheese",
         "salt and pepper",
-        "any other seasonings you prefer",
+        "seasonings",
         "optional: bacon",
         "optional: butter",
         "optional: oil/bacon-grease"

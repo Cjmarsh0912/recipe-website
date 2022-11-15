@@ -8,11 +8,9 @@ import Placeholder6 from '../../assets/images/placeholder6.jpg';
 import Placeholder7 from '../../assets/images/placeholder7.jpg';
 import Placeholder8 from '../../assets/images/placeholder8.jpg';
 
-import SearchBar from '../../components/search_bar/SearchBar';
-
 import { Link } from 'react-router-dom';
 
-import { BsArrowRight } from 'react-icons/bs';
+import { BsArrowRight, BsSearch } from 'react-icons/bs';
 
 export default function Home() {
   return (
@@ -86,7 +84,20 @@ export default function Home() {
               <BsArrowRight className={styles.icon_arrow_right} />
             </Link>
           </header>
-          <SearchBar size='full-width' />
+
+          <div
+            className={`${styles.search_bar_container} ${styles.full_width}`}
+          >
+            <input
+              id={styles.search_bar}
+              autoComplete='off'
+              spellCheck='false'
+              placeholder='Search'
+            />
+            <div className={styles.icon_container}>
+              <BsSearch className={styles.icon_search} />
+            </div>
+          </div>
         </section>
 
         <section className={styles.quick_recipes}>

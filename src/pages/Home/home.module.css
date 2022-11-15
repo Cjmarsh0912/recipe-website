@@ -54,6 +54,38 @@
   color: #8f5300;
 }
 
+.search_bar_container {
+  background-color: #080357;
+  display: flex;
+  gap: 0.8rem;
+  padding: 3rem;
+}
+.search_bar_container .icon_container {
+  padding: 1rem;
+  background-color: #ff9f1c;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+.search_bar_container .icon_container:hover {
+  background-color: #8f5300;
+}
+
+.full_width {
+  box-shadow: 0 0 0 100vmax #080357;
+  -webkit-clip-path: inset(0 -100vmax);
+          clip-path: inset(0 -100vmax);
+}
+
+.icon_search {
+  font-size: 1.4rem;
+}
+
+#search_bar {
+  width: 100%;
+  padding: 1rem;
+  border: solid 2px #ff9f1c;
+}
+
 .quick_recipes {
   margin-bottom: 0;
 }/*# sourceMappingURL=home.module.css.map */
