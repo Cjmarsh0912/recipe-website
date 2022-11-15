@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/recipe-website/static/css/main.7743ae79.css",
-    "main.js": "/recipe-website/static/js/main.fcecc406.js",
+    "main.css": "/recipe-website/static/css/main.41f532f1.css",
+    "main.js": "/recipe-website/static/js/main.dae93d4d.js",
     "static/media/placeholder3.jpg": "/recipe-website/static/media/placeholder3.a58c1ec266e3c63a9ffd.jpg",
     "static/media/placeholder5.jpg": "/recipe-website/static/media/placeholder5.bc12ae67fb0e52dd9aaa.jpg",
     "static/media/placeholder8.jpg": "/recipe-website/static/media/placeholder8.921e3fd2c05fa3a7ab87.jpg",
@@ -10,11 +10,11 @@
     "static/media/placeholder4.jpg": "/recipe-website/static/media/placeholder4.f9647a65c7c4cf66f010.jpg",
     "static/media/placeholder7.jpg": "/recipe-website/static/media/placeholder7.49875f543e2ad1e930b1.jpg",
     "index.html": "/recipe-website/index.html",
-    "main.7743ae79.css.map": "/recipe-website/static/css/main.7743ae79.css.map",
-    "main.fcecc406.js.map": "/recipe-website/static/js/main.fcecc406.js.map"
+    "main.41f532f1.css.map": "/recipe-website/static/css/main.41f532f1.css.map",
+    "main.dae93d4d.js.map": "/recipe-website/static/js/main.dae93d4d.js.map"
   },
   "entrypoints": [
-    "static/css/main.7743ae79.css",
-    "static/js/main.fcecc406.js"
+    "static/css/main.41f532f1.css",
+    "static/js/main.dae93d4d.js"
   ]
 }
