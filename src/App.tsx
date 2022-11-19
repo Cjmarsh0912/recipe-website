@@ -60,7 +60,7 @@ function App() {
         <Navbar />
         <div className='wrapper'>
           <Routes>
-            <Route path='/recipe-website' element={<Home />} />
+            <Route path='/recipe-website/' element={<Home />} />
 
             <Route
               path='/all-recipes'

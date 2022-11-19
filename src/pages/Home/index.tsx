@@ -26,7 +26,7 @@ export default function Home() {
               <Link to='/spicy-garlic-noodles'>
                 <img
                   loading='lazy'
-                  src='recipe-website/images/spicy-noodles-placeholder.jpg'
+                  src='images/spicy-noodles-placeholder.jpg'
                 />
               </Link>
               <h3>
@@ -41,10 +41,7 @@ export default function Home() {
 
             <article className={styles.post}>
               <Link to='/fried-rice'>
-                <img
-                  loading='lazy'
-                  src='recipe-website/images/fried-rice-placeholder.jpg'
-                />
+                <img loading='lazy' src='images/fried-rice-placeholder.jpg' />
               </Link>
               <h3>
                 <Link className={styles.recipe_description} to='/fried-rice'>
@@ -55,10 +52,7 @@ export default function Home() {
 
             <article className={styles.post}>
               <Link to='/baked-potato'>
-                <img
-                  loading='lazy'
-                  src='recipe-website/images/baked-potato-placeholder.jpg'
-                />
+                <img loading='lazy' src='images/baked-potato-placeholder.jpg' />
               </Link>
               <h3>
                 <Link className={styles.recipe_description} to='/baked-potato'>
@@ -71,7 +65,7 @@ export default function Home() {
               <Link to='/country-fried-steak'>
                 <img
                   loading='lazy'
-                  src='recipe-website/images/country-fried-steak-placeholder.jpg'
+                  src='images/country-fried-steak-placeholder.jpg'
                 />
               </Link>
               <h3>
