@@ -9,6 +9,20 @@
     flex: $flex;
     text-align: center;
 
+    div {
+      position: relative;
+
+      .icon_heart_noFill {
+        position: absolute;
+        z-index: 1;
+        font-size: 3rem;
+        color: red;
+        cursor: pointer;
+        bottom: 0.5rem;
+        right: 1rem;
+      }
+    }
+
     a {
       width: 100%;
     }

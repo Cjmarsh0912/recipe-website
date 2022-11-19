@@ -17,9 +17,18 @@
   display: none;
 }
 
-.toggle_btn,
 .close_btn {
   font-size: 1.8rem;
+}
+
+.toggle_btn {
+  padding: 1rem;
+
+  span {
+    width: 2rem;
+    background-color: black;
+    height: 0.3rem;
+  }
 }
 
 .close_btn {
@@ -120,6 +129,12 @@
 
   .mobile {
     display: block;
+  }
+
+  .toggle_btn {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
   }
 
   hr {

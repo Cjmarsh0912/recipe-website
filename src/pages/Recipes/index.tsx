@@ -1,4 +1,4 @@
-import Posts from './Posts';
+import Posts from '../../components/posts/Posts';
 
 import { RecipeData } from '../../interfaces/interface';
 import SearchBar from './SearchBar';

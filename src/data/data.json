@@ -11,6 +11,7 @@
       "prep_time": "10",
       "cook_time": "10-15 mins",
       "total_time": "20-25 mins",
+      "time_num": 25,
       "image": "recipe-website/images/spicy-noodles-placeholder.jpg",
       "ingredients": [
         "4 3.5 oz instant ramen/any noodle of choice",
@@ -51,6 +52,7 @@
       "prep_time": "5 mins",
       "cook_time": "15-20 mins",
       "total_time": "20-25 mins",
+      "time_num": 25,
       "image": "recipe-website/images/fried-rice-placeholder.jpg",
       "ingredients": [
         "steamed rice",
@@ -87,6 +89,7 @@
       "prep_time": "10 mins",
       "cook_time": "55-70 mins",
       "total_time": "65-80 mins",
+      "time_num": 80,
       "image": "recipe-website/images/baked-potato-placeholder.jpg",
       "ingredients": [
         "potatoes",
@@ -126,6 +129,7 @@
       "prep_time": "15 mins",
       "cook_time": "20-25 mins",
       "total_time": "30-35 mins",
+      "time_num": 35,
       "image": "recipe-website/images/country-fried-steak-placeholder.jpg",
       "ingredients": [
         "1 package cube steak",
@@ -175,6 +179,7 @@
       "prep_time": "0",
       "cook_time": "30 mins",
       "total_time": "30 mins",
+      "time_num": 30,
       "image": "recipe-website/images/tacos-placeholder.jpg",
       "ingredients": [
         "ground-beef",
@@ -209,6 +214,7 @@
       "prep_time": "20 mins",
       "cook_time": "20 mins",
       "total_time": "40 mins",
+      "time_num": 40,
       "image": "recipe-website/images/creamy-chicken-and-noodles-placeholder.jpg",
       "ingredients": [
         "chicken",
@@ -260,6 +266,7 @@
       "prep_time": "10 mins",
       "cook_time": "45-60 mins",
       "total_time": "55-70 mins",
+      "time_num": 70,
       "image": "recipe-website/images/hasselback-placeholder.jpg",
       "ingredients": [
         "potatoes",
@@ -298,6 +305,7 @@
       "prep_time": "10 mins",
       "cook_time": "55-70 mins",
       "total_time": "65-80 mins",
+      "time_num": 80,
       "image": "recipe-website/images/baked-potato-placeholder.jpg",
       "ingredients": [
         "potatoes",
@@ -325,7 +333,6 @@
       ]
     },
     {
-      "id": 8,
       "recipe_name": "Potato Skins",
       "keywords": [
         "potato",
@@ -344,6 +351,7 @@
       "prep_time": "10",
       "cook_time": "60-70 mins",
       "total_time": "70-80 mins",
+      "time_num": 80,
       "image": "recipe-website/images/potato-skins-placeholder.jpg",
       "ingredients": [
         "potatoes",
@@ -382,6 +390,7 @@
       "prep_time": "15 mins",
       "cook_time": "30 mins",
       "total_time": "45 mins",
+      "time_num": 45,
       "image": "recipe-website/images/chocolate-cake-placeholder.jpg",
       "ingredients": [
         "chocolate cake mix",

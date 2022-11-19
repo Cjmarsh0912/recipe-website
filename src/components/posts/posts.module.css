@@ -1,0 +1,39 @@
+.posts {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.posts .post {
+  flex: 0 1 32%;
+  text-align: center;
+}
+.posts .post div {
+  position: relative;
+}
+.posts .post div .icon_heart_noFill {
+  position: absolute;
+  z-index: 1;
+  font-size: 3rem;
+  color: red;
+  cursor: pointer;
+  bottom: 0.5rem;
+  right: 1rem;
+}
+.posts .post a {
+  width: 100%;
+}
+.posts .post img {
+  width: inherit;
+  height: 20rem;
+  transition: box-shadow 0.4s;
+}
+.posts .post img:hover {
+  box-shadow: 5px 5px 5px #ff9f1c;
+}
+.posts .recipe_description {
+  font-size: 1.5rem;
+}
+.posts .recipe_description:hover {
+  color: #ff9f1c;
+  text-decoration: underline;
+}/*# sourceMappingURL=posts.module.css.map */

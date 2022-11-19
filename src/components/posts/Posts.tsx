@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 
-import styles from './recipes.module.css';
+import styles from './posts.module.css';
 
 import { RecipeData } from '../../interfaces/interface';
+
+import { BsHeart } from 'react-icons/bs';
 
 interface Posts {
   posts: RecipeData[];
@@ -15,9 +17,12 @@ export default function Posts(props: Posts) {
         {props.posts.map((item) => {
           return (
             <div className={styles.post}>
-              <Link to={item.extension}>
-                <img loading='lazy' src={item.image} />
-              </Link>
+              <div>
+                <Link to={item.extension}>
+                  <img loading='lazy' src={item.image} />
+                </Link>
+                <BsHeart className={styles.icon_heart_noFill} />
+              </div>
               <h3>
                 <Link className={styles.recipe_description} to={item.extension}>
                   {item.recipe_name}

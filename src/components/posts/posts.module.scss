@@ -1,0 +1,5 @@
+@import '../../assets/mixins';
+
+.posts {
+  @include posts(wrap, 0 1 32%);
+}

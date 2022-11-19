@@ -1,28 +1,49 @@
 import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineClose } from 'react-icons/ai';
 import { CSSTransition } from 'react-transition-group';
 import styles from './navbar.module.css';
+
+function useOutsideAlerter(ref: any, test: any) {
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        test();
+      }
+    }
+    // Bind the event listener
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [ref]);
+}
 
 export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showNavbar, setShowNavbar] = useState(false);
   const [navbarClasses, setNavbarClasses] = useState(styles.hide);
   const dropdownRef = useRef<any>();
+  const testRef = useRef<any>();
+  const testRef2 = useRef<any>();
+  useOutsideAlerter(dropdownRef, HideDropdown);
 
   // Shows the navbar on the click of the menu. Used on smaller screens.
   function ShowNavbar() {
-    setShowNavbar(true);
+    setShowNavbar(() => true);
   }
 
   function ShowNavbarDropdown() {
     setNavbarClasses(styles.show);
   }
 
+  // TODO Run the HideNavbar function when user clicks outside of the navbar
+
   // Hides the navbar on the click of a x. Used on smaller screens.
   function HideNavbar() {
-    setShowNavbar(false);
+    setShowNavbar(() => false);
   }
 
   function HideNavbarDropdown() {
@@ -41,8 +62,13 @@ export default function Navbar() {
   // Hides the dropdown menu if the user clicks anywhere on the screen
   useEffect(() => {
     function handleClickOutside(event: any) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        HideDropdown();
+      if (
+        testRef2.current &&
+        !testRef2.current.contains(event.target) &&
+        testRef.current &&
+        !testRef.current.contains(event.target)
+      ) {
+        HideNavbar();
       }
     }
     // Bind the event listener
@@ -51,7 +77,7 @@ export default function Navbar() {
       // Unbind the event listener on clean up
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [dropdownRef]);
+  }, [testRef, testRef2]);
 
   return (
     <>
@@ -65,10 +91,19 @@ export default function Navbar() {
             </h2>
           </div>
 
-          <AiOutlineMenu
+          {/* <AiOutlineMenu
             onClick={ShowNavbar}
             className={`${styles.toggle_btn} ${styles.mobile}`}
-          />
+          /> */}
+          <div
+            onClick={ShowNavbar}
+            className={`${styles.toggle_btn} ${styles.mobile}`}
+            ref={testRef2}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
           <CSSTransition
             in={showNavbar}
             timeout={1000}
@@ -80,7 +115,7 @@ export default function Navbar() {
             onExited={HideNavbarDropdown}
             className={`animate__animated ${styles.navbar_links} ${navbarClasses}`}
           >
-            <ul>
+            <ul ref={testRef}>
               <AiOutlineClose
                 onClick={HideNavbar}
                 className={`${styles.close_btn} ${styles.mobile}`}
@@ -122,22 +157,35 @@ export default function Navbar() {
                   }
                 >
                   <li>
-                    <Link className={styles.dropdown_link} to='/lunch-recipes'>
+                    <Link
+                      onClick={HideNavbar}
+                      className={styles.dropdown_link}
+                      to='/lunch-recipes'
+                    >
                       Lunch
                     </Link>
                   </li>
                   <li>
-                    <Link className={styles.dropdown_link} to='/dinner-recipes'>
+                    <Link
+                      onClick={HideNavbar}
+                      className={styles.dropdown_link}
+                      to='/dinner-recipes'
+                    >
                       Dinner
                     </Link>
                   </li>
                   <li>
-                    <Link className={styles.dropdown_link} to='/side-recipes'>
+                    <Link
+                      onClick={HideNavbar}
+                      className={styles.dropdown_link}
+                      to='/side-recipes'
+                    >
                       Sides
                     </Link>
                   </li>
                   <li>
                     <Link
+                      onClick={HideNavbar}
                       className={styles.dropdown_link}
                       to='/dessert-recipes'
                     >
@@ -145,24 +193,40 @@ export default function Navbar() {
                     </Link>
                   </li>
                   <li>
-                    <Link className={styles.dropdown_link} to='/all-recipes'>
+                    <Link
+                      onClick={HideNavbar}
+                      className={styles.dropdown_link}
+                      to='/all-recipes'
+                    >
                       View All
                     </Link>
                   </li>
                 </ul>
               </li>
               <li>
-                <Link className={styles.link} to='/quick-recipes'>
+                <Link
+                  onClick={HideNavbar}
+                  className={styles.link}
+                  to='/quick-recipes'
+                >
                   30 Minutes Or Less
                 </Link>
               </li>
               <li>
-                <Link className={styles.link} to='/most-recent-recipes'>
+                <Link
+                  onClick={HideNavbar}
+                  className={styles.link}
+                  to='/most-recent-recipes'
+                >
                   Most Recent
                 </Link>
               </li>
               <li>
-                <Link className={styles.link} to='/favorites'>
+                <Link
+                  onClick={HideNavbar}
+                  className={styles.link}
+                  to='/favorites'
+                >
                   Favorites
                 </Link>
               </li>

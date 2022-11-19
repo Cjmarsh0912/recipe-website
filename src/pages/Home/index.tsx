@@ -1,8 +1,5 @@
 import styles from './home.module.css';
 
-import Placeholder2 from '../../assets/images/placeholder2.jpg';
-import Placeholder3 from '../../assets/images/placeholder3.jpg';
-import Placeholder4 from '../../assets/images/placeholder4.jpg';
 import Placeholder5 from '../../assets/images/placeholder5.jpg';
 import Placeholder6 from '../../assets/images/placeholder6.jpg';
 import Placeholder7 from '../../assets/images/placeholder7.jpg';
@@ -26,52 +23,64 @@ export default function Home() {
 
           <div className={styles.posts}>
             <article className={styles.post}>
-              <Link to='/chicken-recipe'>
+              <Link to='/spicy-garlic-noodles'>
                 <img
                   loading='lazy'
-                  src='recipe-website/images/placeholder.jpg'
+                  src='recipe-website/images/spicy-noodles-placeholder.jpg'
                 />
               </Link>
               <h3>
                 <Link
                   className={styles.recipe_description}
-                  to='/chicken-recipe'
+                  to='/spicy-garlic-noodles'
                 >
-                  Chicken Salad
+                  Spicy Garlic Noodles
                 </Link>
               </h3>
             </article>
 
             <article className={styles.post}>
-              <Link to='steak-recipe'>
-                <img loading='lazy' src={Placeholder2} />
+              <Link to='/fried-rice'>
+                <img
+                  loading='lazy'
+                  src='recipe-website/images/fried-rice-placeholder.jpg'
+                />
               </Link>
               <h3>
-                <Link className={styles.recipe_description} to='/steak-recipe'>
-                  French Toast
+                <Link className={styles.recipe_description} to='/fried-rice'>
+                  Fried Rice
                 </Link>
               </h3>
             </article>
 
             <article className={styles.post}>
-              <a href='#'>
-                <img loading='lazy' src={Placeholder3} />
-              </a>
+              <Link to='/baked-potato'>
+                <img
+                  loading='lazy'
+                  src='recipe-website/images/baked-potato-placeholder.jpg'
+                />
+              </Link>
               <h3>
-                <a className={styles.recipe_description} href='#'>
-                  Meatball Salad
-                </a>
+                <Link className={styles.recipe_description} to='/baked-potato'>
+                  Baked Potato
+                </Link>
               </h3>
             </article>
 
             <article className={styles.post}>
-              <a href='#'>
-                <img loading='lazy' src={Placeholder4} />
-              </a>
+              <Link to='/country-fried-steak'>
+                <img
+                  loading='lazy'
+                  src='recipe-website/images/country-fried-steak-placeholder.jpg'
+                />
+              </Link>
               <h3>
-                <a className={styles.recipe_description} href='#'>
-                  Chicken Burger
-                </a>
+                <Link
+                  className={styles.recipe_description}
+                  to='/country-fried-steak'
+                >
+                  Country Fried Steak
+                </Link>
               </h3>
             </article>
           </div>

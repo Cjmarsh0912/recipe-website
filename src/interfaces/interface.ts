@@ -9,6 +9,7 @@ export interface RecipeData {
   prep_time: string;
   cook_time: string;
   total_time: string;
+  time_num: number;
   image: string;
   ingredients: string[];
   steps: {

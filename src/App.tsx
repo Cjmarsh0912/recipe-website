@@ -45,6 +45,15 @@ function App() {
     return false;
   });
 
+  // const test: string[] = [];
+  const Quick_Recipes_Data: RecipeData[] = Lunch_Data.concat(
+    Side_Data,
+    Dinner_Data,
+    Dessert_Data
+  ).filter((item) => {
+    return item.time_num <= 30;
+  });
+
   return (
     <>
       <BrowserRouter>
@@ -89,7 +98,10 @@ function App() {
               );
             })}
 
-            <Route path='/quick-recipes' element={<Quick />} />
+            <Route
+              path='/quick-recipes'
+              element={<Quick quickRecipes={Quick_Recipes_Data} />}
+            />
             <Route path='/most-recent-recipes' element={<MostRecent />} />
             <Route path='/favorites' element={<Favorites />} />
           </Routes>

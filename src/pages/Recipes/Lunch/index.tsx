@@ -1,4 +1,4 @@
-import Posts from '../Posts';
+import Posts from '../../../components/posts/Posts';
 
 import styles from '../recipes.module.css';
 

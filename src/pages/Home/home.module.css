@@ -7,6 +7,18 @@
   flex: 1 1 100%;
   text-align: center;
 }
+.posts .post div {
+  position: relative;
+}
+.posts .post div .icon_heart_noFill {
+  position: absolute;
+  z-index: 1;
+  font-size: 3rem;
+  color: red;
+  cursor: pointer;
+  bottom: 0.5rem;
+  right: 1rem;
+}
 .posts .post a {
   width: 100%;
 }
