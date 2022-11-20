@@ -91,10 +91,6 @@ export default function Navbar() {
             </h2>
           </div>
 
-          {/* <AiOutlineMenu
-            onClick={ShowNavbar}
-            className={`${styles.toggle_btn} ${styles.mobile}`}
-          /> */}
           <div
             onClick={ShowNavbar}
             className={`${styles.toggle_btn} ${styles.mobile}`}
@@ -152,7 +148,7 @@ export default function Navbar() {
                 <ul
                   className={
                     showDropdown == true
-                      ? `${styles.dropdown_content} animate__animated animate__flipInX`
+                      ? `${styles.dropdown_content} animate__animated animate__fadeIn`
                       : styles.hide
                   }
                 >

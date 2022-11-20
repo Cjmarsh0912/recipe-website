@@ -1,3 +1,4 @@
+// import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GoToTop from './components/GoToTop';
 
@@ -23,17 +24,11 @@ import './assets/App.css';
 import { RecipeData } from './interfaces/interface';
 
 function App() {
-  const Side_Data: RecipeData[] = recipeData.Sides;
-  const Lunch_Data: RecipeData[] = recipeData.Lunch;
-  const Dinner_Data: RecipeData[] = recipeData.Dinner;
-  const Dessert_Data: RecipeData[] = recipeData.Dessert;
-
-  // Merge all recipes into on array with no duplicates
   const uniqueNames: string[] = [];
-  const All_Recipes_Data: RecipeData[] = Lunch_Data.concat(
-    Side_Data,
-    Dinner_Data,
-    Dessert_Data
+  const All_Recipes_Data: RecipeData[] = recipeData.Lunch.concat(
+    recipeData.Sides,
+    recipeData.Dinner,
+    recipeData.Dessert
   ).filter((item) => {
     const isDuplicate = uniqueNames.includes(item.recipe_name);
 
@@ -45,6 +40,13 @@ function App() {
     return false;
   });
 
+  const Side_Data: RecipeData[] = recipeData.Sides;
+  const Lunch_Data: RecipeData[] = recipeData.Lunch;
+  const Dinner_Data: RecipeData[] = recipeData.Dinner;
+  const Dessert_Data: RecipeData[] = recipeData.Dessert;
+
+  // Merge all recipes into on array with no duplicates
+
   // const test: string[] = [];
   const Quick_Recipes_Data: RecipeData[] = Lunch_Data.concat(
     Side_Data,
@@ -53,6 +55,8 @@ function App() {
   ).filter((item) => {
     return item.time_num <= 30;
   });
+
+  // const [bookmarked, setBookmarked] = useState([])
 
   return (
     <>

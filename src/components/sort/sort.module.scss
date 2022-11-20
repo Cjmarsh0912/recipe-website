@@ -1,0 +1,16 @@
+@import '../../assets/variables';
+
+.category_container {
+  margin-top: 2rem;
+}
+
+#category {
+  width: 20rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.2rem;
+  font-size: 1.3rem;
+  border-color: $primary_color1;
+
+  option {
+    font-size: 1.3rem;
+  }
+}

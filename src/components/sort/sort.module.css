@@ -1,0 +1,13 @@
+.category_container {
+  margin-top: 2rem;
+}
+
+#category {
+  width: 20rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.2rem;
+  font-size: 1.3rem;
+  border-color: #ff9f1c;
+}
+#category option {
+  font-size: 1.3rem;
+}/*# sourceMappingURL=sort.module.css.map */

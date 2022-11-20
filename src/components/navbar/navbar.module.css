@@ -143,6 +143,7 @@
     padding: 3rem 0 3rem 1rem;
     background-color: #333;
     color: white;
+    z-index: 1;
   }
   .navbar_links .website_name {
     display: none;
