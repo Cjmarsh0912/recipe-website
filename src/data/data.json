@@ -1,10 +1,11 @@
 {
   "Lunch": [
     {
+      "id": 0,
       "recipe_name": "Spicy Garlic Noodles",
       "keywords": ["noodles", "spicy", "garlic", "dinner", "ramen"],
       "extension": "/spicy-garlic-noodles",
-      "category": "Lunch",
+      "categories": ["Lunch", "noodles", "Meat", "No Meat"],
       "isBookmarked": false,
       "category_extension": "/lunch-recipes",
       "description": "Delicious noodle dish with a kik",
@@ -43,10 +44,11 @@
       ]
     },
     {
+      "id": 1,
       "recipe_name": "Fried Rice",
       "keywords": ["rice", "fried"],
       "extension": "/fried-rice",
-      "category": "Lunch",
+      "categories": ["Lunch", "rice", "Meat", "No Meat"],
       "isBookmarked": false,
       "category_extension": "/lunch-recipes",
       "description": "Delicious fried rice",
@@ -81,10 +83,11 @@
       ]
     },
     {
+      "id": 2,
       "recipe_name": "Baked Potato",
       "keywords": ["potato", "baked", "sides", "potatoes", "cheesy"],
       "extension": "/baked-potato",
-      "category": "Lunch",
+      "categories": ["Lunch", "potato", "Meat", "No Meat"],
       "isBookmarked": false,
       "category_extension": "/lunch-recipes",
       "description": "Delicious Baked Potato",
@@ -122,10 +125,11 @@
   ],
   "Dinner": [
     {
+      "id": 3,
       "recipe_name": "Country Fried Steak",
       "keywords": ["steak", "fried", "batter", "gravy"],
       "extension": "/country-fried-steak",
-      "category": "Dinner",
+      "categories": ["Dinner", "Steak", "Meat"],
       "isBookmarked": false,
       "category_extension": "/dinner-recipes",
       "description": "Delicious Country Fried Steak",
@@ -173,10 +177,11 @@
       ]
     },
     {
+      "id": 4,
       "recipe_name": "Tacos",
       "keywords": ["taco", "tacos", "shells"],
       "extension": "/tacos",
-      "category": "Dinner",
+      "categories": ["Dinner", "Ground Beef", "Meat"],
       "isBookmarked": false,
       "category_extension": "/dinner-recipes",
       "description": "Delicious Tacos",
@@ -209,10 +214,11 @@
       ]
     },
     {
+      "id": 5,
       "recipe_name": "Creamy Chicken and Noodles",
       "keywords": ["creamy", "chicken", "noodles", "broccoli"],
       "extension": "/creamy-chicken-and-noodles",
-      "category": "Dinner",
+      "categories": ["Dinner", "Chicken", "Meat"],
       "isBookmarked": false,
       "category_extension": "/dinner-recipes",
       "description": "Delicious Creamy Chicken and Noodles",
@@ -262,10 +268,11 @@
   ],
   "Sides": [
     {
+      "id": 6,
       "recipe_name": "Hasselback Potatoes",
       "keywords": ["potatoes", "hasselback", "potato", "cheesy"],
       "extension": "/hasselback-potatoes",
-      "category": "Sides",
+      "categories": ["Sides", "potato", "Meat", "No Meat"],
       "isBookmarked": false,
       "category_extension": "/side-recipes",
       "description": "Delicious Hasselback potatoes",
@@ -302,10 +309,11 @@
       ]
     },
     {
+      "id": 7,
       "recipe_name": "Baked Potato",
       "keywords": ["potato", "baked", "sides", "potatoes", "cheesy"],
       "extension": "/baked-potato",
-      "category": "Sides",
+      "categories": ["Sides", "potato", "Meat", "No Meat"],
       "isBookmarked": false,
       "category_extension": "/side-recipes",
       "description": "Delicious Baked Potato",
@@ -341,6 +349,7 @@
       ]
     },
     {
+      "id": 8,
       "recipe_name": "Potato Skins",
       "keywords": [
         "potato",
@@ -352,7 +361,7 @@
         "sides"
       ],
       "extension": "/potato-skins",
-      "category": "Sides",
+      "categories": ["Sides", "potato", "Meat", "No Meat"],
       "isBookmarked": false,
       "category_extension": "/side-recipes",
       "description": "Delicious Potato Skins",
@@ -389,10 +398,11 @@
   ],
   "Dessert": [
     {
+      "id": 9,
       "recipe_name": "Chocolate Cake",
       "keywords": ["cake", "chocolate", "baked", "sugar"],
       "extension": "/chocolate-cake",
-      "category": "Dessert",
+      "categories": ["Dessert", "cake", "chocolate", "No Meat"],
       "isBookmarked": false,
       "category_extension": "/dessert-recipes",
       "description": "Delicious Chocolate Cake",

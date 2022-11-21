@@ -7,43 +7,26 @@ import styles from './recipes.module.css';
 
 interface AllRecipes {
   recipes: RecipeData[];
+  addToFavorite: (id: number) => void;
+  removeFromFavorite: (id: number) => void;
+  bookmarked: number[];
 }
 
 export default function Recipes(props: AllRecipes) {
-  const categories = [
-    {
-      value: 'lunch',
-      category: 'Lunch',
-    },
-    {
-      value: 'dinner',
-      category: 'Dinner',
-    },
-    {
-      value: 'sides',
-      category: 'Sides',
-    },
-    {
-      value: 'dessert',
-      category: 'Dessert',
-    },
-    {
-      value: 'noodles',
-      category: 'Noodles',
-    },
-    {
-      value: 'potato',
-      category: 'Potato',
-    },
-    {
-      value: 'meat',
-      category: 'Meat',
-    },
-    {
-      value: 'no meat',
-      category: 'No Meat',
-    },
-  ];
+  const categories: string[] = ['Lunch', 'Dinner', 'Sides', 'Dessert'];
+  props.recipes.map((item) => {
+    return item.categories.filter((item2) => {
+      const isDuplicate = categories.includes(item2);
+
+      if (!isDuplicate) {
+        categories.push(item2);
+        return true;
+      }
+
+      return false;
+    });
+  });
+
   return (
     <main>
       <header className={styles.test_header}>
@@ -51,7 +34,12 @@ export default function Recipes(props: AllRecipes) {
         <Sort category={categories} />
       </header>
 
-      <Posts posts={props.recipes} />
+      <Posts
+        addToFavorite={props.addToFavorite}
+        removeFromFavorite={props.removeFromFavorite}
+        bookmarked={props.bookmarked}
+        posts={props.recipes}
+      />
     </main>
   );
 }

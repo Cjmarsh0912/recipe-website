@@ -6,34 +6,24 @@ import Sort from '../../../components/sort/Sort';
 
 interface Dinner_Recipes {
   dinnerRecipes: RecipeData[];
+  addToFavorite: (id: number) => void;
+  removeFromFavorite: (id: number) => void;
+  bookmarked: number[];
 }
 export default function Dinner(props: Dinner_Recipes) {
-  const categories = [
-    {
-      value: 'chicken',
-      category: 'Chicken',
-    },
-    {
-      value: 'ground beef',
-      category: 'Ground Beef',
-    },
-    {
-      value: 'steak',
-      category: 'Steak',
-    },
-    {
-      value: 'noodles',
-      category: 'Noodles',
-    },
-    {
-      value: 'meat',
-      category: 'Meat',
-    },
-    {
-      value: 'no meat',
-      category: 'No Meat',
-    },
-  ];
+  const categories: string[] = ['Lunch', 'Dinner', 'Sides', 'Dessert'];
+  props.dinnerRecipes.map((item) => {
+    return item.categories.filter((item2) => {
+      const isDuplicate = categories.includes(item2);
+
+      if (!isDuplicate) {
+        categories.push(item2);
+        return true;
+      }
+
+      return false;
+    });
+  });
   return (
     <main>
       <header className={styles.test_header}>
@@ -41,7 +31,12 @@ export default function Dinner(props: Dinner_Recipes) {
         <Sort category={categories} />
       </header>
 
-      <Posts posts={props.dinnerRecipes} />
+      <Posts
+        addToFavorite={props.addToFavorite}
+        removeFromFavorite={props.removeFromFavorite}
+        bookmarked={props.bookmarked}
+        posts={props.dinnerRecipes}
+      />
     </main>
   );
 }

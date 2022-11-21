@@ -7,19 +7,25 @@ import Sort from '../../../components/sort/Sort';
 
 interface Dessert_Recipes {
   dessertRecipes: RecipeData[];
+  addToFavorite: (id: number) => void;
+  removeFromFavorite: (id: number) => void;
+  bookmarked: number[];
 }
 
 export default function Dessert(props: Dessert_Recipes) {
-  const categories = [
-    {
-      value: 'chocolate',
-      category: 'Chocolate',
-    },
-    {
-      value: 'cake',
-      category: 'Cake',
-    },
-  ];
+  const categories: string[] = ['Lunch', 'Dinner', 'Sides', 'Dessert'];
+  props.dessertRecipes.map((item) => {
+    return item.categories.filter((item2) => {
+      const isDuplicate = categories.includes(item2);
+
+      if (!isDuplicate) {
+        categories.push(item2);
+        return true;
+      }
+
+      return false;
+    });
+  });
   return (
     <main>
       <header className={styles.test_header}>
@@ -27,7 +33,12 @@ export default function Dessert(props: Dessert_Recipes) {
         <Sort category={categories} />
       </header>
 
-      <Posts posts={props.dessertRecipes} />
+      <Posts
+        addToFavorite={props.addToFavorite}
+        removeFromFavorite={props.removeFromFavorite}
+        bookmarked={props.bookmarked}
+        posts={props.dessertRecipes}
+      />
     </main>
   );
 }

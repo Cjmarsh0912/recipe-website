@@ -7,15 +7,25 @@ import Sort from '../../../components/sort/Sort';
 
 interface Side_Recipes {
   sideRecipes: RecipeData[];
+  addToFavorite: (id: number) => void;
+  removeFromFavorite: (id: number) => void;
+  bookmarked: number[];
 }
 
 export default function Breakfast(props: Side_Recipes) {
-  const categories = [
-    {
-      value: 'potato',
-      category: 'Potato',
-    },
-  ];
+  const categories: string[] = ['Lunch', 'Dinner', 'Sides', 'Dessert'];
+  props.sideRecipes.map((item) => {
+    return item.categories.filter((item2) => {
+      const isDuplicate = categories.includes(item2);
+
+      if (!isDuplicate) {
+        categories.push(item2);
+        return true;
+      }
+
+      return false;
+    });
+  });
   return (
     <main>
       <header className={styles.test_header}>
@@ -23,7 +33,12 @@ export default function Breakfast(props: Side_Recipes) {
         <Sort category={categories} />
       </header>
 
-      <Posts posts={props.sideRecipes} />
+      <Posts
+        addToFavorite={props.addToFavorite}
+        removeFromFavorite={props.removeFromFavorite}
+        bookmarked={props.bookmarked}
+        posts={props.sideRecipes}
+      />
     </main>
   );
 }

@@ -20,7 +20,7 @@ export default function Recipe(props: Recipe) {
             to={props.recipe.category_extension}
             className={styles.extension_name}
           >
-            <h2>{props.recipe.category} Recipes</h2>
+            <h2>{props.recipe.categories[0]} Recipes</h2>
             <BsArrowRight className={styles.icon_arrow_right} />
           </Link>
         </div>

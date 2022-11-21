@@ -7,31 +7,25 @@ import Sort from '../../../components/sort/Sort';
 
 interface Lunch_Recipes {
   lunchRecipes: RecipeData[];
+  addToFavorite: (id: number) => void;
+  removeFromFavorite: (id: number) => void;
+  bookmarked: number[];
 }
 
 export default function Lunch(props: Lunch_Recipes) {
-  const categories = [
-    {
-      value: 'noodles',
-      category: 'Noodles',
-    },
-    {
-      value: 'rice',
-      category: 'Rice',
-    },
-    {
-      value: 'potato',
-      category: 'Potato',
-    },
-    {
-      value: 'meat',
-      category: 'Meat',
-    },
-    {
-      value: 'no meat',
-      category: 'No Meat',
-    },
-  ];
+  const categories: string[] = ['Lunch', 'Dinner', 'Sides', 'Dessert'];
+  props.lunchRecipes.map((item) => {
+    return item.categories.filter((item2) => {
+      const isDuplicate = categories.includes(item2);
+
+      if (!isDuplicate) {
+        categories.push(item2);
+        return true;
+      }
+
+      return false;
+    });
+  });
   return (
     <main>
       <header className={styles.test_header}>
@@ -39,7 +33,12 @@ export default function Lunch(props: Lunch_Recipes) {
         <Sort category={categories} />
       </header>
 
-      <Posts posts={props.lunchRecipes} />
+      <Posts
+        addToFavorite={props.addToFavorite}
+        removeFromFavorite={props.removeFromFavorite}
+        bookmarked={props.bookmarked}
+        posts={props.lunchRecipes}
+      />
     </main>
   );
 }

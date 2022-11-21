@@ -8,6 +8,9 @@ import { BsHeart, BsHeartFill } from 'react-icons/bs';
 
 interface Posts {
   posts: RecipeData[];
+  addToFavorite: (id: number) => void;
+  removeFromFavorite: (id: number) => void;
+  bookmarked: number[];
 }
 
 export default function Posts(props: Posts) {
@@ -21,11 +24,17 @@ export default function Posts(props: Posts) {
                 <Link to={item.extension}>
                   <img loading='lazy' src={item.image} />
                 </Link>
-                {!item.isBookmarked && (
-                  <BsHeart className={styles.icon_heart_noFill} />
+                {props.bookmarked.includes(item.id) && (
+                  <BsHeartFill
+                    onClick={() => props.removeFromFavorite(item.id)}
+                    className={styles.icon_heart_noFill}
+                  />
                 )}
-                {item.isBookmarked && (
-                  <BsHeartFill className={styles.icon_heart_noFill} />
+                {!props.bookmarked.includes(item.id) && (
+                  <BsHeart
+                    onClick={() => props.addToFavorite(item.id)}
+                    className={styles.icon_heart_noFill}
+                  />
                 )}
               </div>
               <h3>
