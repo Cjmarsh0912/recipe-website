@@ -14,7 +14,7 @@ interface Favorites {
 }
 
 export default function Favorites(props: Favorites) {
-  const categories: string[] = ['Lunch', 'Dinner', 'Sides', 'Dessert'];
+  const categories: string[] = [];
   props.favorites.map((item) => {
     return item.categories.filter((item2) => {
       const isDuplicate = categories.includes(item2);
@@ -27,6 +27,7 @@ export default function Favorites(props: Favorites) {
       return false;
     });
   });
+
   return (
     <main>
       <header className={styles.test_header}>

@@ -147,7 +147,14 @@ function App() {
                 <>
                   <Route
                     path={item.extension}
-                    element={<Recipe recipe={item} />}
+                    element={
+                      <Recipe
+                        addToFavorite={addToFavorites}
+                        removeFromFavorite={removeFromFavorite}
+                        bookmarked={bookmarked}
+                        recipe={item}
+                      />
+                    }
                   />
                 </>
               );

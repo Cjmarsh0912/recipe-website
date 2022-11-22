@@ -13,12 +13,12 @@ interface Lunch_Recipes {
 }
 
 export default function Lunch(props: Lunch_Recipes) {
-  const categories: string[] = ['Lunch', 'Dinner', 'Sides', 'Dessert'];
+  const categories: string[] = [];
   props.lunchRecipes.map((item) => {
     return item.categories.filter((item2) => {
       const isDuplicate = categories.includes(item2);
 
-      if (!isDuplicate) {
+      if (!isDuplicate && item2 !== 'Lunch') {
         categories.push(item2);
         return true;
       }

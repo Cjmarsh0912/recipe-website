@@ -14,7 +14,7 @@ interface Quick_Recipes {
 }
 
 export default function Quick(props: Quick_Recipes) {
-  const categories: string[] = ['Lunch', 'Dinner', 'Sides', 'Dessert'];
+  const categories: string[] = [];
   props.quickRecipes.map((item) => {
     return item.categories.filter((item2) => {
       const isDuplicate = categories.includes(item2);

@@ -1,6 +1,11 @@
 import styles from './recipe.module.css';
 
-import { BsHeart, BsArrowRight, BsArrowLeft } from 'react-icons/bs';
+import {
+  BsHeart,
+  BsHeartFill,
+  BsArrowRight,
+  BsArrowLeft,
+} from 'react-icons/bs';
 
 import { RecipeData } from '../../interfaces/interface';
 
@@ -8,6 +13,9 @@ import { Link } from 'react-router-dom';
 
 interface Recipe {
   recipe: RecipeData;
+  addToFavorite: (id: number) => void;
+  removeFromFavorite: (id: number) => void;
+  bookmarked: number[];
 }
 
 export default function Recipe(props: Recipe) {
@@ -51,7 +59,18 @@ export default function Recipe(props: Recipe) {
             </div>
             <div className={styles.recipe_container}>
               <h3>{props.recipe.recipe_name}</h3>
-              <BsHeart className={styles.icon_heart} />
+              {props.bookmarked.includes(props.recipe.id) && (
+                <BsHeartFill
+                  onClick={() => props.removeFromFavorite(props.recipe.id)}
+                  className={styles.icon_heart}
+                />
+              )}
+              {!props.bookmarked.includes(props.recipe.id) && (
+                <BsHeart
+                  onClick={() => props.addToFavorite(props.recipe.id)}
+                  className={styles.icon_heart}
+                />
+              )}
             </div>
             <div className={styles.time}>
               <p>

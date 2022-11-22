@@ -11,12 +11,12 @@ interface Dinner_Recipes {
   bookmarked: number[];
 }
 export default function Dinner(props: Dinner_Recipes) {
-  const categories: string[] = ['Lunch', 'Dinner', 'Sides', 'Dessert'];
+  const categories: string[] = [];
   props.dinnerRecipes.map((item) => {
     return item.categories.filter((item2) => {
       const isDuplicate = categories.includes(item2);
 
-      if (!isDuplicate) {
+      if (!isDuplicate && item2 !== 'Dinner') {
         categories.push(item2);
         return true;
       }

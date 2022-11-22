@@ -13,12 +13,12 @@ interface Dessert_Recipes {
 }
 
 export default function Dessert(props: Dessert_Recipes) {
-  const categories: string[] = ['Lunch', 'Dinner', 'Sides', 'Dessert'];
+  const categories: string[] = [];
   props.dessertRecipes.map((item) => {
     return item.categories.filter((item2) => {
       const isDuplicate = categories.includes(item2);
 
-      if (!isDuplicate) {
+      if (!isDuplicate && item2 !== 'Dessert' && item2 !== 'No Meat') {
         categories.push(item2);
         return true;
       }

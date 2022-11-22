@@ -13,12 +13,12 @@ interface Side_Recipes {
 }
 
 export default function Breakfast(props: Side_Recipes) {
-  const categories: string[] = ['Lunch', 'Dinner', 'Sides', 'Dessert'];
+  const categories: string[] = [];
   props.sideRecipes.map((item) => {
     return item.categories.filter((item2) => {
       const isDuplicate = categories.includes(item2);
 
-      if (!isDuplicate) {
+      if (!isDuplicate && item2 !== 'Sides') {
         categories.push(item2);
         return true;
       }
