@@ -11,6 +11,8 @@ interface Favorites {
   addToFavorite: (id: number) => void;
   removeFromFavorite: (id: number) => void;
   bookmarked: number[];
+  setType: (test: any) => void;
+  categories: string[];
 }
 
 export default function Favorites(props: Favorites) {
@@ -32,7 +34,7 @@ export default function Favorites(props: Favorites) {
     <main>
       <header className={styles.test_header}>
         <h3>Favorites</h3>
-        <Sort category={categories} />
+        <Sort setType={props.setType} category={props.categories} />
       </header>
 
       <Posts

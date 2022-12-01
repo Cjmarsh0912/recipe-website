@@ -10,6 +10,8 @@ interface Dessert_Recipes {
   addToFavorite: (id: number) => void;
   removeFromFavorite: (id: number) => void;
   bookmarked: number[];
+  setType: (test: any) => void;
+  categories: string[];
 }
 
 export default function Dessert(props: Dessert_Recipes) {
@@ -30,7 +32,7 @@ export default function Dessert(props: Dessert_Recipes) {
     <main>
       <header className={styles.test_header}>
         <h3>Dessert Recipes</h3>
-        <Sort category={categories} />
+        <Sort setType={props.setType} category={props.categories} />
       </header>
 
       <Posts

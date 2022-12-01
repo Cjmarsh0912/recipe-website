@@ -11,6 +11,8 @@ interface Quick_Recipes {
   addToFavorite: (id: number) => void;
   removeFromFavorite: (id: number) => void;
   bookmarked: number[];
+  setType: (test: any) => void;
+  categories: string[];
 }
 
 export default function Quick(props: Quick_Recipes) {
@@ -31,7 +33,7 @@ export default function Quick(props: Quick_Recipes) {
     <main>
       <header className={styles.test_header}>
         <h3>30 Minutes or less</h3>
-        <Sort category={categories} />
+        <Sort setType={props.setType} category={props.categories} />
       </header>
 
       <Posts

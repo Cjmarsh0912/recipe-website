@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import Posts from '../../components/posts/Posts';
 
 import { RecipeData } from '../../interfaces/interface';
@@ -10,28 +12,20 @@ interface AllRecipes {
   addToFavorite: (id: number) => void;
   removeFromFavorite: (id: number) => void;
   bookmarked: number[];
+  setType: (test: any) => void;
+  categories: string[];
+  testFunction: (testData: RecipeData[]) => void;
 }
 
 export default function Recipes(props: AllRecipes) {
-  const categories: string[] = ['Lunch', 'Dinner', 'Sides', 'Dessert'];
-  props.recipes.map((item) => {
-    return item.categories.filter((item2) => {
-      const isDuplicate = categories.includes(item2);
-
-      if (!isDuplicate) {
-        categories.push(item2);
-        return true;
-      }
-
-      return false;
-    });
-  });
-
+  useEffect(() => {
+    props.testFunction(props.recipes);
+  }, []);
   return (
     <main>
       <header className={styles.test_header}>
         <h3>All recipes</h3>
-        <Sort category={categories} />
+        <Sort setType={props.setType} category={props.categories} />
       </header>
 
       <Posts

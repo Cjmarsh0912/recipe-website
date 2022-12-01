@@ -19,3 +19,13 @@ export interface RecipeData {
     step: string;
   }[];
 }
+
+export interface Recipes {
+  addToFavorites: (id: number) => void;
+  removeFromFavorites: (id: number) => void;
+  favorites: number[];
+  updateType: (test: any) => void;
+  categories: string[];
+  updateCategories: (recipes: RecipeData[]) => void;
+  recipes: RecipeData[];
+}

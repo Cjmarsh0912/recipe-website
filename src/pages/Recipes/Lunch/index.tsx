@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import Posts from '../../../components/posts/Posts';
 
 import styles from '../recipes.module.css';
@@ -10,27 +12,20 @@ interface Lunch_Recipes {
   addToFavorite: (id: number) => void;
   removeFromFavorite: (id: number) => void;
   bookmarked: number[];
+  setType: (test: any) => void;
+  categories: string[];
+  testFunction: (testData: RecipeData[]) => void;
 }
 
 export default function Lunch(props: Lunch_Recipes) {
-  const categories: string[] = [];
-  props.lunchRecipes.map((item) => {
-    return item.categories.filter((item2) => {
-      const isDuplicate = categories.includes(item2);
-
-      if (!isDuplicate && item2 !== 'Lunch') {
-        categories.push(item2);
-        return true;
-      }
-
-      return false;
-    });
-  });
+  useEffect(() => {
+    props.testFunction(props.lunchRecipes);
+  }, []);
   return (
     <main>
       <header className={styles.test_header}>
         <h3>Lunch Recipes</h3>
-        <Sort category={categories} />
+        <Sort setType={props.setType} category={props.categories} />
       </header>
 
       <Posts

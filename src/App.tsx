@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GoToTop from './components/GoToTop';
 
@@ -24,27 +24,49 @@ import './assets/App.css';
 import { RecipeData } from './interfaces/interface';
 
 function App() {
-  const Side_Data: RecipeData[] = recipeData.Sides;
+  const [type, setType] = useState('choose category');
+  const [categories, setCategories] = useState<string[]>([]);
+  const [favorites, setFavorites] = useState<number[]>([]);
+  // Merge all recipes into on array with no duplicates
+  const uniqueNames: string[] = [];
+  // const All_Recipes_Data: RecipeData[] = recipeData.Lunch.concat(
+  //   recipeData.Sides,
+  //   recipeData.Dinner,
+  //   recipeData.Dessert
+  // ).filter((item) => {
+  //   const isDuplicate = uniqueNames.includes(item.recipe_name);
+
+  //   if (!isDuplicate) {
+  //     uniqueNames.push(item.recipe_name);
+  //     return true;
+  //   }
+
+  //   return false;
+  // });
+
+  const [All_Recipes_Data, setAllRecipesData] = useState((): RecipeData[] => {
+    return recipeData.Lunch.concat(
+      recipeData.Sides,
+      recipeData.Dinner,
+      recipeData.Dessert
+    ).filter((item) => {
+      const isDuplicate = uniqueNames.includes(item.recipe_name);
+
+      if (!isDuplicate) {
+        uniqueNames.push(item.recipe_name);
+        return true;
+      }
+
+      return false;
+    });
+  });
+
+  // const Side_Data: RecipeData[] = recipeData.Sides;
   const Lunch_Data: RecipeData[] = recipeData.Lunch;
   const Dinner_Data: RecipeData[] = recipeData.Dinner;
   const Dessert_Data: RecipeData[] = recipeData.Dessert;
 
-  // Merge all recipes into on array with no duplicates
-  const uniqueNames: string[] = [];
-  const All_Recipes_Data: RecipeData[] = recipeData.Lunch.concat(
-    recipeData.Sides,
-    recipeData.Dinner,
-    recipeData.Dessert
-  ).filter((item) => {
-    const isDuplicate = uniqueNames.includes(item.recipe_name);
-
-    if (!isDuplicate) {
-      uniqueNames.push(item.recipe_name);
-      return true;
-    }
-
-    return false;
-  });
+  const [Side_Data, setSideData] = useState<RecipeData[]>(recipeData.Sides);
 
   // const test: string[] = [];
   const Quick_Recipes_Data: RecipeData[] = Lunch_Data.concat(
@@ -55,25 +77,65 @@ function App() {
     return item.time_num <= 30;
   });
 
-  const [bookmarked, setBookmarked] = useState<number[]>([]);
-
   const addToFavorites = (id: number) => {
-    if (!bookmarked.includes(id)) setBookmarked(bookmarked.concat(id));
+    if (!favorites.includes(id)) setFavorites(favorites.concat(id));
     alert('added to favorites');
   };
 
   const removeFromFavorite = (id: number) => {
-    let index = bookmarked.indexOf(id);
-    let temp = [...bookmarked.slice(0, index), ...bookmarked.slice(index + 1)];
-    setBookmarked(temp);
+    let index = favorites.indexOf(id);
+    let temp = [...favorites.slice(0, index), ...favorites.slice(index + 1)];
+    setFavorites(temp);
     alert('removed from favorites');
   };
 
-  const findBookmarked = All_Recipes_Data.filter((test) =>
-    bookmarked.includes(test.id)
+  const findFavorites = All_Recipes_Data.filter((item) =>
+    favorites.includes(item.id)
   );
 
-  console.log(findBookmarked);
+  const updateType = (type: any) => {
+    setType(type);
+  };
+
+  function testFunction(testData: RecipeData[]) {
+    const test: string[] = [];
+    testData.map((item) => {
+      return item.categories.filter((item2) => {
+        const isDuplicate = test.includes(item2);
+
+        if (!isDuplicate) {
+          test.push(item2);
+          return true;
+        }
+
+        return false;
+      });
+    });
+    setCategories(test);
+  }
+
+  useEffect(() => {
+    console.log('ran');
+    const sortArray = (type: any) => {
+      const sorted = recipeData.Lunch.concat(
+        recipeData.Sides,
+        recipeData.Dinner,
+        recipeData.Dessert
+      ).filter((item) => {
+        if (type === 'choose category') return item;
+        if (item.categories.includes(type)) return true;
+
+        return false;
+      });
+      setAllRecipesData(() => sorted);
+    };
+
+    sortArray(type);
+  }, [type]);
+
+  // useEffect(() => {
+  // }, []);
+
   return (
     <>
       <BrowserRouter>
@@ -88,7 +150,10 @@ function App() {
                 <Recipes
                   addToFavorite={addToFavorites}
                   removeFromFavorite={removeFromFavorite}
-                  bookmarked={bookmarked}
+                  bookmarked={favorites}
+                  setType={updateType}
+                  categories={categories}
+                  testFunction={testFunction}
                   recipes={All_Recipes_Data}
                 />
               }
@@ -100,7 +165,10 @@ function App() {
                 <Lunch
                   addToFavorite={addToFavorites}
                   removeFromFavorite={removeFromFavorite}
-                  bookmarked={bookmarked}
+                  bookmarked={favorites}
+                  setType={updateType}
+                  categories={categories}
+                  testFunction={testFunction}
                   lunchRecipes={Lunch_Data}
                 />
               }
@@ -111,7 +179,9 @@ function App() {
                 <Dinner
                   addToFavorite={addToFavorites}
                   removeFromFavorite={removeFromFavorite}
-                  bookmarked={bookmarked}
+                  bookmarked={favorites}
+                  setType={updateType}
+                  categories={categories}
                   dinnerRecipes={Dinner_Data}
                 />
               }
@@ -123,7 +193,10 @@ function App() {
                 <Sides
                   addToFavorite={addToFavorites}
                   removeFromFavorite={removeFromFavorite}
-                  bookmarked={bookmarked}
+                  bookmarked={favorites}
+                  setType={updateType}
+                  categories={categories}
+                  testFunction={testFunction}
                   sideRecipes={Side_Data}
                 />
               }
@@ -135,7 +208,9 @@ function App() {
                 <Dessert
                   addToFavorite={addToFavorites}
                   removeFromFavorite={removeFromFavorite}
-                  bookmarked={bookmarked}
+                  bookmarked={favorites}
+                  setType={updateType}
+                  categories={categories}
                   dessertRecipes={Dessert_Data}
                 />
               }
@@ -151,7 +226,7 @@ function App() {
                       <Recipe
                         addToFavorite={addToFavorites}
                         removeFromFavorite={removeFromFavorite}
-                        bookmarked={bookmarked}
+                        bookmarked={favorites}
                         recipe={item}
                       />
                     }
@@ -166,7 +241,9 @@ function App() {
                 <Quick
                   addToFavorite={addToFavorites}
                   removeFromFavorite={removeFromFavorite}
-                  bookmarked={bookmarked}
+                  bookmarked={favorites}
+                  setType={updateType}
+                  categories={categories}
                   quickRecipes={Quick_Recipes_Data}
                 />
               }
@@ -178,8 +255,10 @@ function App() {
                 <Favorites
                   addToFavorite={addToFavorites}
                   removeFromFavorite={removeFromFavorite}
-                  bookmarked={bookmarked}
-                  favorites={findBookmarked}
+                  bookmarked={favorites}
+                  setType={updateType}
+                  categories={categories}
+                  favorites={findFavorites}
                 />
               }
             />
