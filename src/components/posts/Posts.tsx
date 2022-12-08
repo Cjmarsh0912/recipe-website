@@ -19,7 +19,7 @@ export default function Posts(props: Posts) {
       <div className={styles.posts}>
         {props.posts.map((item) => {
           return (
-            <div className={styles.post}>
+            <div key={item.id} className={styles.post}>
               <div>
                 <Link to={item.extension}>
                   <img loading='lazy' src={item.image} />

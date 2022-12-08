@@ -1,38 +1,43 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+import { useLocation } from 'react-router-dom';
 
 import Posts from '../../components/posts/Posts';
 
-import { RecipeData } from '../../interfaces/interface';
+import { RecipeData, PageData } from '../../interfaces/interface';
 import Sort from '../../components/sort/Sort';
 
 import styles from './recipes.module.css';
 
-interface AllRecipes {
-  recipes: RecipeData[];
-  addToFavorite: (id: number) => void;
-  removeFromFavorite: (id: number) => void;
-  bookmarked: number[];
-  setType: (test: any) => void;
-  categories: string[];
-  testFunction: (testData: RecipeData[]) => void;
-}
+export default function Recipes(props: PageData) {
+  const [type, setType] = useState('choose category');
+  const location = useLocation();
 
-export default function Recipes(props: AllRecipes) {
+  const updateType = (data: any) => {
+    setType(data);
+  };
+
   useEffect(() => {
-    props.testFunction(props.recipes);
-  }, []);
+    props.updateCategories(props.recipes);
+    props.updateCurrentData(props.recipes);
+  }, [location]);
+
+  useEffect(() => {
+    props.sortArray(type, props.recipes);
+  }, [type]);
+
   return (
     <main>
       <header className={styles.test_header}>
-        <h3>All recipes</h3>
-        <Sort setType={props.setType} category={props.categories} />
+        <h3>{props.name}</h3>
+        <Sort setType={updateType} category={props.categories} />
       </header>
 
       <Posts
-        addToFavorite={props.addToFavorite}
-        removeFromFavorite={props.removeFromFavorite}
-        bookmarked={props.bookmarked}
-        posts={props.recipes}
+        addToFavorite={props.addToFavorites}
+        removeFromFavorite={props.removeFromFavorites}
+        bookmarked={props.favorites}
+        posts={props.currentData}
       />
     </main>
   );

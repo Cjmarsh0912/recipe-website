@@ -20,12 +20,16 @@ export interface RecipeData {
   }[];
 }
 
-export interface Recipes {
+export interface PageData {
+  name: string;
   addToFavorites: (id: number) => void;
   removeFromFavorites: (id: number) => void;
   favorites: number[];
   updateType: (test: any) => void;
   categories: string[];
   updateCategories: (recipes: RecipeData[]) => void;
+  updateCurrentData: (data: RecipeData[]) => void;
+  sortArray: (type: any, data: RecipeData[]) => void;
+  currentData: RecipeData[];
   recipes: RecipeData[];
 }

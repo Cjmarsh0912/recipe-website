@@ -27,23 +27,11 @@ function App() {
   const [type, setType] = useState('choose category');
   const [categories, setCategories] = useState<string[]>([]);
   const [favorites, setFavorites] = useState<number[]>([]);
+  const [Current_Data, setCurrentData] = useState<RecipeData[]>([]);
+  const [Sorted_data, setSortedData] = useState<RecipeData[]>([]);
+
   // Merge all recipes into on array with no duplicates
   const uniqueNames: string[] = [];
-  // const All_Recipes_Data: RecipeData[] = recipeData.Lunch.concat(
-  //   recipeData.Sides,
-  //   recipeData.Dinner,
-  //   recipeData.Dessert
-  // ).filter((item) => {
-  //   const isDuplicate = uniqueNames.includes(item.recipe_name);
-
-  //   if (!isDuplicate) {
-  //     uniqueNames.push(item.recipe_name);
-  //     return true;
-  //   }
-
-  //   return false;
-  // });
-
   const [All_Recipes_Data, setAllRecipesData] = useState((): RecipeData[] => {
     return recipeData.Lunch.concat(
       recipeData.Sides,
@@ -60,15 +48,47 @@ function App() {
       return false;
     });
   });
-
-  // const Side_Data: RecipeData[] = recipeData.Sides;
-  const Lunch_Data: RecipeData[] = recipeData.Lunch;
-  const Dinner_Data: RecipeData[] = recipeData.Dinner;
-  const Dessert_Data: RecipeData[] = recipeData.Dessert;
-
   const [Side_Data, setSideData] = useState<RecipeData[]>(recipeData.Sides);
+  const [Lunch_Data, setLunchData] = useState<RecipeData[]>(recipeData.Lunch);
+  const [Dinner_Data, setDinnerData] = useState<RecipeData[]>(
+    recipeData.Dinner
+  );
+  const [Dessert_Data, setDessertData] = useState<RecipeData[]>(
+    recipeData.Dessert
+  );
+  const Recipe_Data = [
+    {
+      id: 0,
+      name: 'Side Recipes',
+      path: '/side-recipes',
+      recipe_data: Side_Data,
+    },
+    {
+      id: 1,
+      name: 'Lunch Recipes',
+      path: '/lunch-recipes',
+      recipe_data: Lunch_Data,
+    },
+    {
+      id: 2,
+      name: 'Dinner Recipes',
+      path: '/dinner-recipes',
+      recipe_data: Dinner_Data,
+    },
+    {
+      id: 3,
+      name: 'Dessert Recipes',
+      path: '/dessert-recipes',
+      recipe_data: Dessert_Data,
+    },
+    {
+      id: 4,
+      name: 'All Recipes',
+      path: '/all-recipes',
+      recipe_data: All_Recipes_Data,
+    },
+  ];
 
-  // const test: string[] = [];
   const Quick_Recipes_Data: RecipeData[] = Lunch_Data.concat(
     Side_Data,
     Dinner_Data,
@@ -97,7 +117,21 @@ function App() {
     setType(type);
   };
 
-  function testFunction(testData: RecipeData[]) {
+  const updateCurrentData = (data: RecipeData[]) => {
+    setCurrentData(() => data);
+  };
+
+  const sortArray = (type: any, data: RecipeData[]) => {
+    const sorted = data.filter((item) => {
+      if (type === 'choose category') return item;
+      if (item.categories.includes(type)) return true;
+
+      return false;
+    });
+    setCurrentData(() => sorted);
+  };
+
+  function updateCategories(testData: RecipeData[]) {
     const test: string[] = [];
     testData.map((item) => {
       return item.categories.filter((item2) => {
@@ -114,27 +148,9 @@ function App() {
     setCategories(test);
   }
 
-  useEffect(() => {
-    console.log('ran');
-    const sortArray = (type: any) => {
-      const sorted = recipeData.Lunch.concat(
-        recipeData.Sides,
-        recipeData.Dinner,
-        recipeData.Dessert
-      ).filter((item) => {
-        if (type === 'choose category') return item;
-        if (item.categories.includes(type)) return true;
-
-        return false;
-      });
-      setAllRecipesData(() => sorted);
-    };
-
-    sortArray(type);
-  }, [type]);
-
-  // useEffect(() => {
-  // }, []);
+  function updateSortedData(data: RecipeData[]) {
+    setSortedData(() => data);
+  }
 
   return (
     <>
@@ -144,94 +160,45 @@ function App() {
           <Routes>
             <Route path='/recipe-website/' element={<Home />} />
 
-            <Route
-              path='/all-recipes'
-              element={
-                <Recipes
-                  addToFavorite={addToFavorites}
-                  removeFromFavorite={removeFromFavorite}
-                  bookmarked={favorites}
-                  setType={updateType}
-                  categories={categories}
-                  testFunction={testFunction}
-                  recipes={All_Recipes_Data}
+            {Recipe_Data.map((item) => {
+              return (
+                <Route
+                  key={item.id}
+                  path={item.path}
+                  element={
+                    <Recipes
+                      name={item.name}
+                      addToFavorites={addToFavorites}
+                      removeFromFavorites={removeFromFavorite}
+                      favorites={favorites}
+                      updateType={updateType}
+                      categories={categories}
+                      updateCategories={updateCategories}
+                      updateCurrentData={updateCurrentData}
+                      sortArray={sortArray}
+                      currentData={Current_Data}
+                      recipes={item.recipe_data}
+                    />
+                  }
                 />
-              }
-            />
-
-            <Route
-              path='/lunch-recipes'
-              element={
-                <Lunch
-                  addToFavorite={addToFavorites}
-                  removeFromFavorite={removeFromFavorite}
-                  bookmarked={favorites}
-                  setType={updateType}
-                  categories={categories}
-                  testFunction={testFunction}
-                  lunchRecipes={Lunch_Data}
-                />
-              }
-            />
-            <Route
-              path='/dinner-recipes'
-              element={
-                <Dinner
-                  addToFavorite={addToFavorites}
-                  removeFromFavorite={removeFromFavorite}
-                  bookmarked={favorites}
-                  setType={updateType}
-                  categories={categories}
-                  dinnerRecipes={Dinner_Data}
-                />
-              }
-            />
-
-            <Route
-              path='/side-recipes'
-              element={
-                <Sides
-                  addToFavorite={addToFavorites}
-                  removeFromFavorite={removeFromFavorite}
-                  bookmarked={favorites}
-                  setType={updateType}
-                  categories={categories}
-                  testFunction={testFunction}
-                  sideRecipes={Side_Data}
-                />
-              }
-            />
-
-            <Route
-              path='/dessert-recipes'
-              element={
-                <Dessert
-                  addToFavorite={addToFavorites}
-                  removeFromFavorite={removeFromFavorite}
-                  bookmarked={favorites}
-                  setType={updateType}
-                  categories={categories}
-                  dessertRecipes={Dessert_Data}
-                />
-              }
-            />
+              );
+            })}
 
             {/* TODO fix key attribute */}
             {All_Recipes_Data.map((item) => {
               return (
-                <>
-                  <Route
-                    path={item.extension}
-                    element={
-                      <Recipe
-                        addToFavorite={addToFavorites}
-                        removeFromFavorite={removeFromFavorite}
-                        bookmarked={favorites}
-                        recipe={item}
-                      />
-                    }
-                  />
-                </>
+                <Route
+                  key={item.id}
+                  path={item.extension}
+                  element={
+                    <Recipe
+                      addToFavorite={addToFavorites}
+                      removeFromFavorite={removeFromFavorite}
+                      bookmarked={favorites}
+                      recipe={item}
+                    />
+                  }
+                />
               );
             })}
 
