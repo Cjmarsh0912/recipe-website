@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import Posts from '../../components/posts/Posts';
 
-import { RecipeData, PageData } from '../../interfaces/interface';
+import { PageData } from '../../interfaces/interface';
 import Sort from '../../components/sort/Sort';
 
 import styles from './recipes.module.css';
@@ -25,6 +25,11 @@ export default function Recipes(props: PageData) {
   useEffect(() => {
     props.sortArray(type, props.recipes);
   }, [type]);
+
+  useEffect(() => {
+    props.updateCategories(props.recipes);
+    props.updateCurrentData(props.recipes);
+  }, [props.favorites]);
 
   return (
     <main>

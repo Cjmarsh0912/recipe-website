@@ -4,7 +4,6 @@ interface Categories {
   category: string[];
   setType: (test: any) => void;
 }
-// TODO Add a way to automate the categories
 export default function Sort(props: Categories) {
   return (
     <div className={styles.category_container}>

@@ -25,7 +25,6 @@ export interface PageData {
   addToFavorites: (id: number) => void;
   removeFromFavorites: (id: number) => void;
   favorites: number[];
-  updateType: (test: any) => void;
   categories: string[];
   updateCategories: (recipes: RecipeData[]) => void;
   updateCurrentData: (data: RecipeData[]) => void;
