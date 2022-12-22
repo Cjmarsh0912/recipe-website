@@ -20,16 +20,11 @@ export default function Recipes(props: PageData) {
   useEffect(() => {
     props.updateCategories(props.recipes);
     props.updateCurrentData(props.recipes);
-  }, [location]);
+  }, [location, props.favorites]);
 
   useEffect(() => {
     props.sortArray(type, props.recipes);
   }, [type]);
-
-  useEffect(() => {
-    props.updateCategories(props.recipes);
-    props.updateCurrentData(props.recipes);
-  }, [props.favorites]);
 
   return (
     <main>

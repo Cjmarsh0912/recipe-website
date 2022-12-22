@@ -1,5 +1,447 @@
 {
-  "Lunch": [
+  "Recipe_Data": {
+    "Lunch": [
+      {
+        "id": 0,
+        "recipe_name": "Spicy Garlic Noodles",
+        "keywords": ["noodles", "spicy", "garlic", "dinner", "ramen"],
+        "extension": "/spicy-garlic-noodles",
+        "categories": ["Lunch", "noodles", "Meat", "No Meat"],
+        "isBookmarked": false,
+        "category_extension": "/lunch-recipes",
+        "description": "Delicious noodle dish with a kik",
+        "date_posted": "October 26, 2022",
+        "prep_time": "10",
+        "cook_time": "10-15 mins",
+        "total_time": "20-25 mins",
+        "time_num": 25,
+        "image": "recipe-website/images/spicy-noodles-placeholder.jpg",
+        "ingredients": [
+          "4 3.5 oz instant ramen/any noodle of choice",
+          "2-3 cloves garlic",
+          "1-2 peppers",
+          "chili flakes",
+          "pinch of sugar",
+          "seasonings: garlic salt, seasoning salt, pepper, salt",
+          "1/4 cup of oil",
+          "2 cups soy sauce",
+          "1 cup of sesame oil",
+          "a splash of rice wine vinegar",
+          "optional: some vegetables and some kind of protein"
+        ],
+        "steps": [
+          {
+            "header": "Salt a pot of water and bring it to a boil",
+            "step": "Cook the noodles 3-5 mins and put in a bowl aside. While cooking cut up the peppers and mince the garlic."
+          },
+          {
+            "header": "Heat up the oil",
+            "step": "When the oil is hot throw the garlic and peppers in the pan. Then throw in the seasonings, chile flakes, and sugar then mix again. Lastly, pour in the soy sauce, sesame oil, and vinegar."
+          },
+          {
+            "header": "Put the noodles, vegetables, and protein in the pan",
+            "step": "Mix everything together then serve."
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "recipe_name": "Fried Rice",
+        "keywords": ["rice", "fried"],
+        "extension": "/fried-rice",
+        "categories": ["Lunch", "rice", "Meat", "No Meat"],
+        "isBookmarked": false,
+        "category_extension": "/lunch-recipes",
+        "description": "Delicious fried rice",
+        "date_posted": "October 26, 2022",
+        "prep_time": "5 mins",
+        "cook_time": "15-20 mins",
+        "total_time": "20-25 mins",
+        "time_num": 25,
+        "image": "recipe-website/images/fried-rice-placeholder.jpg",
+        "ingredients": [
+          "steamed rice",
+          "1-2 garlic cloves",
+          "seasonings: garlic salt, seasoning salt, pepper, salt",
+          "a splash sesame oil",
+          "1/4 cup oil",
+          "optional: vegetables of your choice",
+          "optional: some kind of protein"
+        ],
+        "steps": [
+          {
+            "header": "Heat up the oil",
+            "step": "Put in a piece or two of rice if the oil starts popping it is ready."
+          },
+          {
+            "header": "Put in the garlic cloves and mix",
+            "step": "mix in the rice and the seasonings. Then you can add any vegetables or protein you want."
+          },
+          {
+            "header": "Let it cook for 10 or so minutes to get the bottom crispy.",
+            "step": "Finally, mix in the sesame oil and serve."
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "recipe_name": "Baked Potato",
+        "keywords": ["potato", "baked", "sides", "potatoes", "cheesy"],
+        "extension": "/baked-potato",
+        "categories": ["Lunch", "potato", "Meat", "No Meat"],
+        "isBookmarked": false,
+        "category_extension": "/lunch-recipes",
+        "description": "Delicious Baked Potato",
+        "date_posted": "October 29, 2022",
+        "prep_time": "10 mins",
+        "cook_time": "55-70 mins",
+        "total_time": "65-80 mins",
+        "time_num": 80,
+        "image": "recipe-website/images/baked-potato-placeholder.jpg",
+        "ingredients": [
+          "potatoes",
+          "butter",
+          "salt and pepper",
+          "seasonings",
+          "cheese",
+          "optional: bacon",
+          "optional: oil/bacon-grease",
+          "optional: some vegetables like brocoli"
+        ],
+        "steps": [
+          {
+            "header": "Preheat oven to 400 degrees",
+            "step": "Poke holes in the potato/es and cover them with the oil, salt, and pepper"
+          },
+          {
+            "header": "Bake the potatoes for 45 minutes or until soft and squishy",
+            "step": "Cut a slit down the potato and put the guts it in a bowl. Mix in the seasonings, cheese, and whatever other toppings you prefer."
+          },
+          {
+            "header": "Put the guts on some aluminum foil or back in the potato shell",
+            "step": "Cover the potato with cheese and/or bacon, bake for another 10 minutes or so, and enjoy."
+          }
+        ]
+      }
+    ],
+    "Dinner": [
+      {
+        "id": 3,
+        "recipe_name": "Country Fried Steak",
+        "keywords": ["steak", "fried", "batter", "gravy"],
+        "extension": "/country-fried-steak",
+        "categories": ["Dinner", "Steak", "Meat"],
+        "isBookmarked": false,
+        "category_extension": "/dinner-recipes",
+        "description": "Delicious Country Fried Steak",
+        "date_posted": "October 31, 2022",
+        "prep_time": "15 mins",
+        "cook_time": "20-25 mins",
+        "total_time": "30-35 mins",
+        "time_num": 35,
+        "image": "recipe-website/images/country-fried-steak-placeholder.jpg",
+        "ingredients": [
+          "1 package cube steak",
+          "oil",
+          "flour",
+          "corn meal",
+          "seasonings",
+          "soy sauce",
+          "buttermilk/milk",
+          "optional: 1 egg"
+        ],
+        "steps": [
+          {
+            "header": "Pore about an inch or two of oil and turn on the stove",
+            "step": "While that is preheating season the steaks and get two bowls for the batter"
+          },
+          {
+            "header": "Prepare the wet and dry batters",
+            "step": "For the dry batter, mix together the flour, corn meal, and the seasonings. For the wet batter, mix a little soy sauce, milk, and optionally add an egg."
+          },
+          {
+            "header": "Batter the steaks",
+            "step": "Dip them in the wet, then the dry, back in the wet, and back in the dry."
+          },
+          {
+            "header": "Fry your steaks for 3-5 minutes per side",
+            "step": "Once done place on a cooling rack to drain the oil."
+          },
+          {
+            "header": "For the gravy",
+            "step": "In a pan take the used oil and stir together a 50/50 mix of flour and oil constantly stirring for 1-2 minutes."
+          },
+          {
+            "header": "Thin it out with some milk",
+            "step": "Cook until thickened for about 2-3 minutes while constantly stirring and enjoy!"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "recipe_name": "Tacos",
+        "keywords": ["taco", "tacos", "shells"],
+        "extension": "/tacos",
+        "categories": ["Dinner", "Ground Beef", "Meat"],
+        "isBookmarked": false,
+        "category_extension": "/dinner-recipes",
+        "description": "Delicious Tacos",
+        "date_posted": "October 31, 2022",
+        "prep_time": "0",
+        "cook_time": "30 mins",
+        "total_time": "30 mins",
+        "time_num": 30,
+        "image": "recipe-website/images/tacos-placeholder.jpg",
+        "ingredients": [
+          "ground-beef",
+          "taco seasonings",
+          "seasonings",
+          "toppings",
+          "taco shells/flour tortillas"
+        ],
+        "steps": [
+          {
+            "header": "Brown the ground beef",
+            "step": "Add your seasonings to the beef when you begin cooking."
+          },
+          {
+            "header": "Optional: drain the grease",
+            "step": "After draining, add your taco seasoning and a little water."
+          },
+          {
+            "header": "Let cook down about for 10 minutes",
+            "step": "Add the meat to the shells put on the toppings and enjoy."
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "recipe_name": "Creamy Chicken and Noodles",
+        "keywords": ["creamy", "chicken", "noodles", "broccoli"],
+        "extension": "/creamy-chicken-and-noodles",
+        "categories": ["Dinner", "Chicken", "Meat"],
+        "isBookmarked": false,
+        "category_extension": "/dinner-recipes",
+        "description": "Delicious Creamy Chicken and Noodles",
+        "date_posted": "October 31, 2022",
+        "prep_time": "20 mins",
+        "cook_time": "20 mins",
+        "total_time": "40 mins",
+        "time_num": 40,
+        "image": "recipe-website/images/creamy-chicken-and-noodles-placeholder.jpg",
+        "ingredients": [
+          "chicken",
+          "angle hair noodles/noodles of choice",
+          "1/4 cup of oil",
+          "1-2 cups heavy cream",
+          "graded parmesan",
+          "a dash soy sauce",
+          "seasonings",
+          "vegetables of your choice",
+          "for the alfredo sauce:",
+          "1/2 cup butter",
+          "1 cup heavy cream",
+          "1 cup parmesan"
+        ],
+        "steps": [
+          {
+            "header": "Bring a pot of salt and water to a boil",
+            "step": "While waiting, trim the chicken and cut it into bite sized pieces."
+          },
+          {
+            "header": "Cook the noodles for about 7-10 minutes",
+            "step": "While noodles are cooking, put oil in a pan and add the chicken. Season with the soy sauce and some seasonings. Cook for at least 10 minutes."
+          },
+          {
+            "header": "Add the noodles and vegetables to the chicken and mix well.",
+            "step": "Add a little bit of the pasta water, the heavy cream, and the parmesan. If the noodles are sticking together to much add a little more pasta water."
+          },
+          {
+            "header": "Let it cook till creamy and hot",
+            "step": ""
+          },
+          {
+            "header": "Optional: make your alfredo sauce",
+            "step": "Melt the butter with some garlic salt and pepper. Once melted whisk in the heavy cream until creamy and warm. Mix in the parmesan until melted. Enjoy!"
+          }
+        ]
+      }
+    ],
+    "Sides": [
+      {
+        "id": 6,
+        "recipe_name": "Hasselback Potatoes",
+        "keywords": ["potatoes", "hasselback", "potato", "cheesy"],
+        "extension": "/hasselback-potatoes",
+        "categories": ["Sides", "potato", "Meat", "No Meat"],
+        "isBookmarked": false,
+        "category_extension": "/side-recipes",
+        "description": "Delicious Hasselback potatoes",
+        "date_posted": "October 26, 2022",
+        "prep_time": "10 mins",
+        "cook_time": "45-60 mins",
+        "total_time": "55-70 mins",
+        "time_num": 70,
+        "image": "recipe-website/images/hasselback-placeholder.jpg",
+        "ingredients": [
+          "potatoes",
+          "oil",
+          "salt and pepper",
+          "seasonings",
+          "cheese"
+        ],
+        "steps": [
+          {
+            "header": "Preheat oven to 400 degrees",
+            "step": "wash the potatoes and then make thin cuts in the them making sure you don't cut all the way through. Tip: you can use two chopsticks to prevent the knife from cutting all the way through."
+          },
+          {
+            "header": "Brush the potatoes with oil",
+            "step": "put the oil in a bowl and mix in salt and pepper. Then brush the oil mixture in the cracks."
+          },
+          {
+            "header": "Season the potatoes",
+            "step": "season the potatoes with your favorite seasonings, and throw them in the oven for 45 minutes or until soft and squishy."
+          },
+          {
+            "header": "Put cheese in every crack",
+            "step": "Put the potatoes back in the oven to melt the cheese and enjoy."
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "recipe_name": "Baked Potato",
+        "keywords": ["potato", "baked", "sides", "potatoes", "cheesy"],
+        "extension": "/baked-potato",
+        "categories": ["Sides", "potato", "Meat", "No Meat"],
+        "isBookmarked": false,
+        "category_extension": "/side-recipes",
+        "description": "Delicious Baked Potato",
+        "date_posted": "October 29, 2022",
+        "prep_time": "10 mins",
+        "cook_time": "55-70 mins",
+        "total_time": "65-80 mins",
+        "time_num": 80,
+        "image": "recipe-website/images/baked-potato-placeholder.jpg",
+        "ingredients": [
+          "potatoes",
+          "butter",
+          "salt and pepper",
+          "seasonings",
+          "cheese",
+          "optional: bacon",
+          "optional: oil/bacon-grease",
+          "optional: some vegetables like brocoli"
+        ],
+        "steps": [
+          {
+            "header": "Preheat oven to 400 degrees",
+            "step": "Poke holes in the potato/es and cover them with the oil, salt, and pepper"
+          },
+          {
+            "header": "Bake the potatoes for 45 minutes or until soft and squishy",
+            "step": "Cut a slit down the potato and put the guts it in a bowl. Mix in the seasonings, cheese, and whatever other toppings you prefer."
+          },
+          {
+            "header": "Put the guts on some aluminum foil or back in the potato shell",
+            "step": "Cover the potato with cheese and/or bacon, bake for another 10 minutes or so, and enjoy."
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "recipe_name": "Potato Skins",
+        "keywords": [
+          "potato",
+          "potatoes",
+          "baked",
+          "cheesy",
+          "cheese",
+          "baked",
+          "sides"
+        ],
+        "extension": "/potato-skins",
+        "categories": ["Sides", "potato", "Meat", "No Meat"],
+        "isBookmarked": false,
+        "category_extension": "/side-recipes",
+        "description": "Delicious Potato Skins",
+        "date_posted": "October 29, 2022",
+        "prep_time": "10",
+        "cook_time": "60-70 mins",
+        "total_time": "70-80 mins",
+        "time_num": 80,
+        "image": "recipe-website/images/potato-skins-placeholder.jpg",
+        "ingredients": [
+          "potatoes",
+          "cheese",
+          "salt and pepper",
+          "seasonings",
+          "optional: bacon",
+          "optional: butter",
+          "optional: oil/bacon-grease"
+        ],
+        "steps": [
+          {
+            "header": "Preheat oven to 400 degrees",
+            "step": "Poke holes in the potato/es and cover them with the oil or bacon grease, salt, and pepper"
+          },
+          {
+            "header": "Bake the potatoes for 45 minutes or until soft and squishy",
+            "step": "Once done cut the potatoes in half and scoop out most of the guts. In the potato shell, put in a small amount of butter, fill with cheese, and top with bacon and some seasonings."
+          },
+          {
+            "header": "Bake for another 10 minutes",
+            "step": "Enjoy!"
+          }
+        ]
+      }
+    ],
+    "Dessert": [
+      {
+        "id": 9,
+        "recipe_name": "Chocolate Cake",
+        "keywords": ["cake", "chocolate", "baked", "sugar"],
+        "extension": "/chocolate-cake",
+        "categories": ["Dessert", "cake", "chocolate", "No Meat"],
+        "isBookmarked": false,
+        "category_extension": "/dessert-recipes",
+        "description": "Delicious Chocolate Cake",
+        "date_posted": "October 30, 2022",
+        "prep_time": "15 mins",
+        "cook_time": "30 mins",
+        "total_time": "45 mins",
+        "time_num": 45,
+        "image": "recipe-website/images/chocolate-cake-placeholder.jpg",
+        "ingredients": [
+          "chocolate cake mix",
+          "5 eggs",
+          "1 small chocolate pudding",
+          "1 cup oil",
+          "3/4 - 1 cup water",
+          "for the glaze:",
+          "2 cups powdered sugar",
+          "3 tbs water",
+          "melted chocolate chips"
+        ],
+        "steps": [
+          {
+            "header": "Preheat oven to 350 degrees",
+            "step": "Mix the chocolate cake mix, eggs, pudding, oil, and water together and put the mixture in a pan."
+          },
+          {
+            "header": "Bake for 30 minutes or until inside is cooked",
+            "step": "While that is baking mix together the powdered sugar, water, and chocolate chips."
+          },
+          {
+            "header": "Poke a bunch of small holes in the top of the cake",
+            "step": "Spread the glaze around the cake while it is still hot and enjoy."
+          }
+        ]
+      }
+    ]
+  },
+  "Featured": [
     {
       "id": 0,
       "recipe_name": "Spicy Garlic Noodles",
@@ -44,52 +486,13 @@
       ]
     },
     {
-      "id": 1,
-      "recipe_name": "Fried Rice",
-      "keywords": ["rice", "fried"],
-      "extension": "/fried-rice",
-      "categories": ["Lunch", "rice", "Meat", "No Meat"],
-      "isBookmarked": false,
-      "category_extension": "/lunch-recipes",
-      "description": "Delicious fried rice",
-      "date_posted": "October 26, 2022",
-      "prep_time": "5 mins",
-      "cook_time": "15-20 mins",
-      "total_time": "20-25 mins",
-      "time_num": 25,
-      "image": "recipe-website/images/fried-rice-placeholder.jpg",
-      "ingredients": [
-        "steamed rice",
-        "1-2 garlic cloves",
-        "seasonings: garlic salt, seasoning salt, pepper, salt",
-        "a splash sesame oil",
-        "1/4 cup oil",
-        "optional: vegetables of your choice",
-        "optional: some kind of protein"
-      ],
-      "steps": [
-        {
-          "header": "Heat up the oil",
-          "step": "Put in a piece or two of rice if the oil starts popping it is ready."
-        },
-        {
-          "header": "Put in the garlic cloves and mix",
-          "step": "mix in the rice and the seasonings. Then you can add any vegetables or protein you want."
-        },
-        {
-          "header": "Let it cook for 10 or so minutes to get the bottom crispy.",
-          "step": "Finally, mix in the sesame oil and serve."
-        }
-      ]
-    },
-    {
-      "id": 2,
+      "id": 7,
       "recipe_name": "Baked Potato",
       "keywords": ["potato", "baked", "sides", "potatoes", "cheesy"],
       "extension": "/baked-potato",
-      "categories": ["Lunch", "potato", "Meat", "No Meat"],
+      "categories": ["Sides", "potato", "Meat", "No Meat"],
       "isBookmarked": false,
-      "category_extension": "/lunch-recipes",
+      "category_extension": "/side-recipes",
       "description": "Delicious Baked Potato",
       "date_posted": "October 29, 2022",
       "prep_time": "10 mins",
@@ -119,97 +522,6 @@
         {
           "header": "Put the guts on some aluminum foil or back in the potato shell",
           "step": "Cover the potato with cheese and/or bacon, bake for another 10 minutes or so, and enjoy."
-        }
-      ]
-    }
-  ],
-  "Dinner": [
-    {
-      "id": 3,
-      "recipe_name": "Country Fried Steak",
-      "keywords": ["steak", "fried", "batter", "gravy"],
-      "extension": "/country-fried-steak",
-      "categories": ["Dinner", "Steak", "Meat"],
-      "isBookmarked": false,
-      "category_extension": "/dinner-recipes",
-      "description": "Delicious Country Fried Steak",
-      "date_posted": "October 31, 2022",
-      "prep_time": "15 mins",
-      "cook_time": "20-25 mins",
-      "total_time": "30-35 mins",
-      "time_num": 35,
-      "image": "recipe-website/images/country-fried-steak-placeholder.jpg",
-      "ingredients": [
-        "1 package cube steak",
-        "oil",
-        "flour",
-        "corn meal",
-        "seasonings",
-        "soy sauce",
-        "buttermilk/milk",
-        "optional: 1 egg"
-      ],
-      "steps": [
-        {
-          "header": "Pore about an inch or two of oil and turn on the stove",
-          "step": "While that is preheating season the steaks and get two bowls for the batter"
-        },
-        {
-          "header": "Prepare the wet and dry batters",
-          "step": "For the dry batter, mix together the flour, corn meal, and the seasonings. For the wet batter, mix a little soy sauce, milk, and optionally add an egg."
-        },
-        {
-          "header": "Batter the steaks",
-          "step": "Dip them in the wet, then the dry, back in the wet, and back in the dry."
-        },
-        {
-          "header": "Fry your steaks for 3-5 minutes per side",
-          "step": "Once done place on a cooling rack to drain the oil."
-        },
-        {
-          "header": "For the gravy",
-          "step": "In a pan take the used oil and stir together a 50/50 mix of flour and oil constantly stirring for 1-2 minutes."
-        },
-        {
-          "header": "Thin it out with some milk",
-          "step": "Cook until thickened for about 2-3 minutes while constantly stirring and enjoy!"
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "recipe_name": "Tacos",
-      "keywords": ["taco", "tacos", "shells"],
-      "extension": "/tacos",
-      "categories": ["Dinner", "Ground Beef", "Meat"],
-      "isBookmarked": false,
-      "category_extension": "/dinner-recipes",
-      "description": "Delicious Tacos",
-      "date_posted": "October 31, 2022",
-      "prep_time": "0",
-      "cook_time": "30 mins",
-      "total_time": "30 mins",
-      "time_num": 30,
-      "image": "recipe-website/images/tacos-placeholder.jpg",
-      "ingredients": [
-        "ground-beef",
-        "taco seasonings",
-        "seasonings",
-        "toppings",
-        "taco shells/flour tortillas"
-      ],
-      "steps": [
-        {
-          "header": "Brown the ground beef",
-          "step": "Add your seasonings to the beef when you begin cooking."
-        },
-        {
-          "header": "Optional: drain the grease",
-          "step": "After draining, add your taco seasoning and a little water."
-        },
-        {
-          "header": "Let cook down about for 10 minutes",
-          "step": "Add the meat to the shells put on the toppings and enjoy."
         }
       ]
     },
@@ -264,89 +576,6 @@
           "step": "Melt the butter with some garlic salt and pepper. Once melted whisk in the heavy cream until creamy and warm. Mix in the parmesan until melted. Enjoy!"
         }
       ]
-    }
-  ],
-  "Sides": [
-    {
-      "id": 6,
-      "recipe_name": "Hasselback Potatoes",
-      "keywords": ["potatoes", "hasselback", "potato", "cheesy"],
-      "extension": "/hasselback-potatoes",
-      "categories": ["Sides", "potato", "Meat", "No Meat"],
-      "isBookmarked": false,
-      "category_extension": "/side-recipes",
-      "description": "Delicious Hasselback potatoes",
-      "date_posted": "October 26, 2022",
-      "prep_time": "10 mins",
-      "cook_time": "45-60 mins",
-      "total_time": "55-70 mins",
-      "time_num": 70,
-      "image": "recipe-website/images/hasselback-placeholder.jpg",
-      "ingredients": [
-        "potatoes",
-        "oil",
-        "salt and pepper",
-        "seasonings",
-        "cheese"
-      ],
-      "steps": [
-        {
-          "header": "Preheat oven to 400 degrees",
-          "step": "wash the potatoes and then make thin cuts in the them making sure you don't cut all the way through. Tip: you can use two chopsticks to prevent the knife from cutting all the way through."
-        },
-        {
-          "header": "Brush the potatoes with oil",
-          "step": "put the oil in a bowl and mix in salt and pepper. Then brush the oil mixture in the cracks."
-        },
-        {
-          "header": "Season the potatoes",
-          "step": "season the potatoes with your favorite seasonings, and throw them in the oven for 45 minutes or until soft and squishy."
-        },
-        {
-          "header": "Put cheese in every crack",
-          "step": "Put the potatoes back in the oven to melt the cheese and enjoy."
-        }
-      ]
-    },
-    {
-      "id": 7,
-      "recipe_name": "Baked Potato",
-      "keywords": ["potato", "baked", "sides", "potatoes", "cheesy"],
-      "extension": "/baked-potato",
-      "categories": ["Sides", "potato", "Meat", "No Meat"],
-      "isBookmarked": false,
-      "category_extension": "/side-recipes",
-      "description": "Delicious Baked Potato",
-      "date_posted": "October 29, 2022",
-      "prep_time": "10 mins",
-      "cook_time": "55-70 mins",
-      "total_time": "65-80 mins",
-      "time_num": 80,
-      "image": "recipe-website/images/baked-potato-placeholder.jpg",
-      "ingredients": [
-        "potatoes",
-        "butter",
-        "salt and pepper",
-        "seasonings",
-        "cheese",
-        "optional: bacon",
-        "optional: oil/bacon-grease",
-        "optional: some vegetables like brocoli"
-      ],
-      "steps": [
-        {
-          "header": "Preheat oven to 400 degrees",
-          "step": "Poke holes in the potato/es and cover them with the oil, salt, and pepper"
-        },
-        {
-          "header": "Bake the potatoes for 45 minutes or until soft and squishy",
-          "step": "Cut a slit down the potato and put the guts it in a bowl. Mix in the seasonings, cheese, and whatever other toppings you prefer."
-        },
-        {
-          "header": "Put the guts on some aluminum foil or back in the potato shell",
-          "step": "Cover the potato with cheese and/or bacon, bake for another 10 minutes or so, and enjoy."
-        }
-      ]
     },
     {
       "id": 8,
@@ -394,9 +623,7 @@
           "step": "Enjoy!"
         }
       ]
-    }
-  ],
-  "Dessert": [
+    },
     {
       "id": 9,
       "recipe_name": "Chocolate Cake",
@@ -435,6 +662,47 @@
         {
           "header": "Poke a bunch of small holes in the top of the cake",
           "step": "Spread the glaze around the cake while it is still hot and enjoy."
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "recipe_name": "Hasselback Potatoes",
+      "keywords": ["potatoes", "hasselback", "potato", "cheesy"],
+      "extension": "/hasselback-potatoes",
+      "categories": ["Sides", "potato", "Meat", "No Meat"],
+      "isBookmarked": false,
+      "category_extension": "/side-recipes",
+      "description": "Delicious Hasselback potatoes",
+      "date_posted": "October 26, 2022",
+      "prep_time": "10 mins",
+      "cook_time": "45-60 mins",
+      "total_time": "55-70 mins",
+      "time_num": 70,
+      "image": "recipe-website/images/hasselback-placeholder.jpg",
+      "ingredients": [
+        "potatoes",
+        "oil",
+        "salt and pepper",
+        "seasonings",
+        "cheese"
+      ],
+      "steps": [
+        {
+          "header": "Preheat oven to 400 degrees",
+          "step": "wash the potatoes and then make thin cuts in the them making sure you don't cut all the way through. Tip: you can use two chopsticks to prevent the knife from cutting all the way through."
+        },
+        {
+          "header": "Brush the potatoes with oil",
+          "step": "put the oil in a bowl and mix in salt and pepper. Then brush the oil mixture in the cracks."
+        },
+        {
+          "header": "Season the potatoes",
+          "step": "season the potatoes with your favorite seasonings, and throw them in the oven for 45 minutes or until soft and squishy."
+        },
+        {
+          "header": "Put cheese in every crack",
+          "step": "Put the potatoes back in the oven to melt the cheese and enjoy."
         }
       ]
     }

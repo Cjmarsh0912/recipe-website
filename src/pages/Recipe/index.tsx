@@ -93,12 +93,8 @@ export default function Recipe(props: Recipe) {
             </header>
             <div className={styles.ingredients}>
               <ul>
-                {props.recipe.ingredients.map((item) => {
-                  return (
-                    <>
-                      <li>{item}</li>
-                    </>
-                  );
+                {props.recipe.ingredients.map((item, id) => {
+                  return <li key={id}>{item}</li>;
                 })}
               </ul>
             </div>
@@ -114,17 +110,15 @@ export default function Recipe(props: Recipe) {
             <div className={styles.directions}>
               {props.recipe.steps.map((item, id) => {
                 return (
-                  <>
-                    <div className={styles.step}>
-                      <header className={styles.step_header}>
-                        <span>{id + 1}.</span>
-                        <h3>{item.header}</h3>
-                      </header>
-                      <div className={styles.step_direction}>
-                        <p>{item.step}</p>
-                      </div>
+                  <div key={id} className={styles.step}>
+                    <header className={styles.step_header}>
+                      <span>{id + 1}.</span>
+                      <h3>{item.header}</h3>
+                    </header>
+                    <div className={styles.step_direction}>
+                      <p>{item.step}</p>
                     </div>
-                  </>
+                  </div>
                 );
               })}
             </div>
@@ -134,25 +128,4 @@ export default function Recipe(props: Recipe) {
       </main>
     </>
   );
-}
-
-{
-  /* <h1>{recipe.recipe_name}</h1>
-<p>{recipe.category}</p>
-{Object.keys(recipe.ingredients).map((key) => {
-  return (
-    <>
-      <p>{recipe.ingredients[key]}</p>
-    </>
-  );
-})}
-{recipe.steps.map((item, id) => {
-  return (
-    <>
-      <span>{id}</span>
-      <h1>{item.header}</h1>
-      <p>{item.step}</p>
-    </>
-  );
-})} */
 }

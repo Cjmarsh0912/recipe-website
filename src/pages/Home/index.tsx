@@ -5,78 +5,49 @@ import Placeholder6 from '../../assets/images/placeholder6.jpg';
 import Placeholder7 from '../../assets/images/placeholder7.jpg';
 import Placeholder8 from '../../assets/images/placeholder8.jpg';
 
+import { RecipeData } from '../../interfaces/interface';
+
 import { Link } from 'react-router-dom';
 
 import { BsArrowRight, BsSearch } from 'react-icons/bs';
 
-export default function Home() {
+interface HomeData {
+  featured: RecipeData[];
+}
+
+export default function Home(props: HomeData) {
+  let count = 0;
   return (
     <>
       <main>
         <section className='featured'>
           <header className={styles.extensions}>
-            <a href='#' className={styles.extension_name}>
+            <Link to='/featured' className={styles.extension_name}>
               <h2>Featured</h2>
               <BsArrowRight className={styles.icon_arrow_right} />
-            </a>
+            </Link>
           </header>
 
           <div className={styles.posts}>
-            <article className={styles.post}>
-              <Link to='/spicy-garlic-noodles'>
-                <img
-                  loading='lazy'
-                  src='images/spicy-noodles-placeholder.jpg'
-                />
-              </Link>
-              <h3>
-                <Link
-                  className={styles.recipe_description}
-                  to='/spicy-garlic-noodles'
-                >
-                  Spicy Garlic Noodles
-                </Link>
-              </h3>
-            </article>
-
-            <article className={styles.post}>
-              <Link to='/fried-rice'>
-                <img loading='lazy' src='images/fried-rice-placeholder.jpg' />
-              </Link>
-              <h3>
-                <Link className={styles.recipe_description} to='/fried-rice'>
-                  Fried Rice
-                </Link>
-              </h3>
-            </article>
-
-            <article className={styles.post}>
-              <Link to='/baked-potato'>
-                <img loading='lazy' src='images/baked-potato-placeholder.jpg' />
-              </Link>
-              <h3>
-                <Link className={styles.recipe_description} to='/baked-potato'>
-                  Baked Potato
-                </Link>
-              </h3>
-            </article>
-
-            <article className={styles.post}>
-              <Link to='/country-fried-steak'>
-                <img
-                  loading='lazy'
-                  src='images/country-fried-steak-placeholder.jpg'
-                />
-              </Link>
-              <h3>
-                <Link
-                  className={styles.recipe_description}
-                  to='/country-fried-steak'
-                >
-                  Country Fried Steak
-                </Link>
-              </h3>
-            </article>
+            {props.featured.map((item) => {
+              if (count === 4) return;
+              count++;
+              return (
+                <article key={item.id} className={styles.post}>
+                  <Link to={item.extension}>
+                    <img loading='lazy' src={item.image.slice(15)} />
+                  </Link>
+                  <h3>
+                    <Link
+                      className={styles.recipe_description}
+                      to={item.extension}
+                    >
+                      {item.recipe_name}
+                    </Link>
+                  </h3>
+                </article>
+              );
+            })}
           </div>
         </section>
 

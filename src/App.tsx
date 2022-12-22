@@ -23,10 +23,10 @@ function App() {
 
   // Merge all recipes into on array with no duplicates
   const uniqueNames: string[] = [];
-  const All_Recipes_Data = recipeData.Lunch.concat(
-    recipeData.Sides,
-    recipeData.Dinner,
-    recipeData.Dessert
+  const All_Recipes_Data: RecipeData[] = recipeData.Recipe_Data.Lunch.concat(
+    recipeData.Recipe_Data.Sides,
+    recipeData.Recipe_Data.Dinner,
+    recipeData.Recipe_Data.Dessert
   ).filter((item) => {
     const isDuplicate = uniqueNames.includes(item.recipe_name);
 
@@ -37,14 +37,15 @@ function App() {
 
     return false;
   });
-  const Quick_Recipes_Data: RecipeData[] = recipeData.Lunch.concat(
-    recipeData.Sides,
-    recipeData.Dinner,
-    recipeData.Dessert
+  const Quick_Recipes_Data: RecipeData[] = recipeData.Recipe_Data.Lunch.concat(
+    recipeData.Recipe_Data.Sides,
+    recipeData.Recipe_Data.Dinner,
+    recipeData.Recipe_Data.Dessert
   ).filter((item) => {
     return item.time_num <= 30;
   });
-  const findFavorites = All_Recipes_Data.filter((item) =>
+
+  const findFavorites: RecipeData[] = All_Recipes_Data.filter((item) =>
     favorites.includes(item.id)
   );
 
@@ -53,25 +54,25 @@ function App() {
       id: 0,
       name: 'Side Recipes',
       path: '/side-recipes',
-      recipe_data: recipeData.Sides,
+      recipe_data: recipeData.Recipe_Data.Sides,
     },
     {
       id: 1,
       name: 'Lunch Recipes',
       path: '/lunch-recipes/',
-      recipe_data: recipeData.Lunch,
+      recipe_data: recipeData.Recipe_Data.Lunch,
     },
     {
       id: 2,
       name: 'Dinner Recipes',
       path: '/dinner-recipes/',
-      recipe_data: recipeData.Dinner,
+      recipe_data: recipeData.Recipe_Data.Dinner,
     },
     {
       id: 3,
       name: 'Dessert Recipes',
       path: '/dessert-recipes/',
-      recipe_data: recipeData.Dessert,
+      recipe_data: recipeData.Recipe_Data.Dessert,
     },
     {
       id: 4,
@@ -90,6 +91,12 @@ function App() {
       name: 'Favorites',
       path: '/favorites/',
       recipe_data: findFavorites,
+    },
+    {
+      id: 7,
+      name: 'Featured',
+      path: '/featured/',
+      recipe_data: recipeData.Featured,
     },
   ];
 
@@ -142,7 +149,10 @@ function App() {
         <Navbar />
         <div className='wrapper'>
           <Routes>
-            <Route path='/recipe-website/' element={<Home />} />
+            <Route
+              path='/recipe-website/'
+              element={<Home featured={recipeData.Featured} />}
+            />
 
             {Recipe_Data.map((item) => {
               return (
@@ -186,19 +196,6 @@ function App() {
             })}
 
             <Route path='/most-recent-recipes' element={<MostRecent />} />
-            {/* <Route
-              path='/favorites'
-              element={
-                <Favorites
-                  addToFavorite={addToFavorites}
-                  removeFromFavorite={removeFromFavorite}
-                  bookmarked={favorites}
-                  setType={updateType}
-                  categories={categories}
-                  favorites={findFavorites}
-                />
-              }
-            /> */}
           </Routes>
         </div>
         <GoToTop />
