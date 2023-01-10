@@ -64,9 +64,14 @@
     list-style-type: none;
   }
 
-  a {
+  .link {
     font-size: 1.2rem;
     font-weight: 500;
+    cursor: pointer;
+  }
+
+  .search {
+    font-size: 1.5rem;
   }
 
   .link:hover {

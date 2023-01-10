@@ -88,7 +88,7 @@
         "recipe_name": "Baked Potato",
         "keywords": ["potato", "baked", "sides", "potatoes", "cheesy"],
         "extension": "/baked-potato",
-        "categories": ["Lunch", "potato", "Meat", "No Meat"],
+        "categories": ["Lunch", "potato", "Meat", "No Meat", "Sides"],
         "isBookmarked": false,
         "category_extension": "/lunch-recipes",
         "description": "Delicious Baked Potato",
@@ -310,7 +310,7 @@
         ]
       },
       {
-        "id": 7,
+        "id": 2,
         "recipe_name": "Baked Potato",
         "keywords": ["potato", "baked", "sides", "potatoes", "cheesy"],
         "extension": "/baked-potato",

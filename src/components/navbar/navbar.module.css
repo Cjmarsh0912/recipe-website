@@ -56,9 +56,13 @@
 .navbar_links li {
   list-style-type: none;
 }
-.navbar_links a {
+.navbar_links .link {
   font-size: 1.2rem;
   font-weight: 500;
+  cursor: pointer;
+}
+.navbar_links .search {
+  font-size: 1.5rem;
 }
 .navbar_links .link:hover {
   color: #ff9f1c;

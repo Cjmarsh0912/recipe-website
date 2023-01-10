@@ -4,10 +4,10 @@ import GoToTop from './components/GoToTop';
 
 import Navbar from './components/navbar/Navbar';
 import Home from './pages/Home/';
+import Search from './pages/Search/';
 
 import Recipe from './pages/Recipe/';
 import Recipes from './pages/Recipes/';
-import MostRecent from './pages/Most-Recent/';
 
 import recipeData from './data/data.json';
 
@@ -37,6 +37,7 @@ function App() {
 
     return false;
   });
+
   const Quick_Recipes_Data: RecipeData[] = recipeData.Recipe_Data.Lunch.concat(
     recipeData.Recipe_Data.Sides,
     recipeData.Recipe_Data.Dinner,
@@ -151,7 +152,12 @@ function App() {
           <Routes>
             <Route
               path='/recipe-website/'
-              element={<Home featured={recipeData.Featured} />}
+              element={
+                <Home
+                  quickRecipes={Quick_Recipes_Data}
+                  featured={recipeData.Featured}
+                />
+              }
             />
 
             {Recipe_Data.map((item) => {
@@ -195,7 +201,7 @@ function App() {
               );
             })}
 
-            <Route path='/most-recent-recipes' element={<MostRecent />} />
+            <Route path='/search' element={<Search />} />
           </Routes>
         </div>
         <GoToTop />

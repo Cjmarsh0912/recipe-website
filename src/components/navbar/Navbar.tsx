@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-import { AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
 import { CSSTransition } from 'react-transition-group';
 import styles from './navbar.module.css';
 
@@ -127,14 +127,14 @@ export default function Navbar() {
                 </h2>
               </li>
               <li className={styles.dropdown}>
-                <a
+                <span
                   className={`${styles.link} ${styles.click_text}`}
                   ref={dropdownRef}
                   onClick={ToggleDropdown}
-                  href='#'
+                  // href='#'
                 >
                   Recipes
-                </a>
+                </span>
                 <IoIosArrowDown
                   className={
                     showDropdown == false ? styles.icon_arrow_down : styles.hide
@@ -212,18 +212,18 @@ export default function Navbar() {
                 <Link
                   onClick={HideNavbar}
                   className={styles.link}
-                  to='/most-recent-recipes'
+                  to='/favorites'
                 >
-                  Most Recent
+                  Favorites
                 </Link>
               </li>
               <li>
                 <Link
                   onClick={HideNavbar}
-                  className={styles.link}
-                  to='/favorites'
+                  className={`${styles.link} ${styles.search}`}
+                  to='/search'
                 >
-                  Favorites
+                  <AiOutlineSearch />
                 </Link>
               </li>
             </ul>

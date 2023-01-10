@@ -13,6 +13,7 @@ import { BsArrowRight, BsSearch } from 'react-icons/bs';
 
 interface HomeData {
   featured: RecipeData[];
+  quickRecipes: RecipeData[];
 }
 
 export default function Home(props: HomeData) {
@@ -29,9 +30,8 @@ export default function Home(props: HomeData) {
           </header>
 
           <div className={styles.posts}>
-            {props.featured.map((item) => {
-              if (count === 4) return;
-              count++;
+            {props.featured.map((item, id) => {
+              if (id >= 3) return;
               return (
                 <article key={item.id} className={styles.post}>
                   <Link to={item.extension}>
@@ -59,7 +59,8 @@ export default function Home(props: HomeData) {
             </Link>
           </header>
 
-          <div
+          <Link
+            to='/search'
             className={`${styles.search_bar_container} ${styles.full_width}`}
           >
             <input
@@ -68,10 +69,7 @@ export default function Home(props: HomeData) {
               spellCheck='false'
               placeholder='Search'
             />
-            <div className={styles.icon_container}>
-              <BsSearch className={styles.icon_search} />
-            </div>
-          </div>
+          </Link>
         </section>
 
         <section className={styles.quick_recipes}>
@@ -83,7 +81,26 @@ export default function Home(props: HomeData) {
           </header>
 
           <div className={styles.posts}>
-            <article className={styles.post}>
+            {props.quickRecipes.map((item, id) => {
+              if (id >= 4) return;
+              return (
+                <article key={item.id} className={styles.post}>
+                  <Link to={item.extension}>
+                    <img loading='lazy' src={item.image.slice(15)} />
+                  </Link>
+                  <h3>
+                    <Link
+                      className={styles.recipe_description}
+                      to={item.extension}
+                    >
+                      {item.recipe_name}
+                    </Link>
+                  </h3>
+                </article>
+              );
+            })}
+
+            {/* <article className={styles.post}>
               <Link to='/chicken-recipe'>
                 <img loading='lazy' src={Placeholder5} />
               </Link>
@@ -125,7 +142,7 @@ export default function Home(props: HomeData) {
                   Chicken Salad
                 </a>
               </h3>
-            </article>
+            </article> */}
           </div>
         </section>
       </main>

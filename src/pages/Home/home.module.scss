@@ -12,6 +12,7 @@
 // Search Bar
 .search_bar_container {
   background-color: $primary_color3;
+  justify-content: center;
   display: flex;
   gap: 0.8rem;
   padding: 3rem;
@@ -38,7 +39,7 @@
 }
 
 #search_bar {
-  width: 100%;
+  width: 40%;
   padding: 1rem;
   border: solid 2px $primary_color1;
 }
