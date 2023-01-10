@@ -1,0 +1,41 @@
+.test {
+  display: flex;
+  justify-content: center;
+}
+
+#testInput {
+  width: 40%;
+  padding: 1rem;
+}
+
+.results_container {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 70%;
+  margin: auto;
+}
+.results_container .results {
+  flex: 0 1 20%;
+  text-align: center;
+  width: 100%;
+}
+.results_container .results a {
+  width: inherit;
+}
+.results_container .results img {
+  width: inherit;
+  height: 10rem;
+  transition: box-shadow 0.4s;
+}
+.results_container .results img:hover {
+  box-shadow: 5px 5px 5px #ff9f1c;
+}
+.results_container .results .recipe_description {
+  font-size: 1.3rem;
+}
+.results_container .results .recipe_description:hover {
+  color: #ff9f1c;
+  text-decoration: underline;
+}/*# sourceMappingURL=search.module.css.map */

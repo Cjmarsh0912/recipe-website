@@ -201,7 +201,10 @@ function App() {
               );
             })}
 
-            <Route path='/search' element={<Search />} />
+            <Route
+              path='/search'
+              element={<Search recipe={All_Recipes_Data} />}
+            />
           </Routes>
         </div>
         <GoToTop />
