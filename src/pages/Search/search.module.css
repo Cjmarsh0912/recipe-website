@@ -6,6 +6,7 @@
 #testInput {
   width: 40%;
   padding: 1rem;
+  border: solid 2px #ff9f1c;
 }
 
 .results_container {

@@ -16,6 +16,24 @@ export default function Search(props: Test) {
     RecipeData[]
   >([]);
 
+  const getKeywords = (testData: RecipeData[]) => {
+    const test: string[] = [];
+    testData.map((item) => {
+      return item.keywords.filter((item2) => {
+        const isDuplicate = test.includes(item2);
+
+        if (!isDuplicate) {
+          test.push(item2);
+          return true;
+        }
+
+        return false;
+      });
+    });
+    return test;
+  };
+  const keywords = getKeywords(props.recipe);
+
   const handleChange = (e: any): void => {
     e.preventDefault();
     setSearchInput(e.target.value);
@@ -23,11 +41,10 @@ export default function Search(props: Test) {
 
   useEffect(() => {
     if (searchInput.length > 0) {
-      setCurrentlyDisplayedRecipes(
-        props.recipe.filter((item) => {
-          return item.recipe_name.match(searchInput);
-        })
-      );
+      const temp: RecipeData[] = props.recipe.filter((item) => {
+        return item.recipe_name.toLowerCase().match(searchInput.toLowerCase());
+      });
+      setCurrentlyDisplayedRecipes(temp);
     } else {
       setCurrentlyDisplayedRecipes([]);
     }
