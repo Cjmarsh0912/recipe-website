@@ -15,9 +15,9 @@ export default function Sort(props: Categories) {
         name='category'
       >
         <option value='choose category'>Choose Category</option>
-        {props.category.map((item) => {
+        {props.category.map((item, id) => {
           return (
-            <option value={item}>
+            <option key={id} value={item}>
               {item.charAt(0).toUpperCase() + item.slice(1)}
             </option>
           );

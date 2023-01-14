@@ -16,24 +16,6 @@ export default function Search(props: Test) {
     RecipeData[]
   >([]);
 
-  const getKeywords = (testData: RecipeData[]) => {
-    const test: string[] = [];
-    testData.map((item) => {
-      return item.keywords.filter((item2) => {
-        const isDuplicate = test.includes(item2);
-
-        if (!isDuplicate) {
-          test.push(item2);
-          return true;
-        }
-
-        return false;
-      });
-    });
-    return test;
-  };
-  const keywords = getKeywords(props.recipe);
-
   const handleChange = (e: any): void => {
     e.preventDefault();
     setSearchInput(e.target.value);

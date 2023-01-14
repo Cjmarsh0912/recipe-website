@@ -1,10 +1,8 @@
 export interface RecipeData {
   id: number;
   recipe_name: string;
-  keywords: string[];
   extension: string;
   categories: string[];
-  isBookmarked: boolean;
   category_extension: string;
   description: string;
   date_posted: string;

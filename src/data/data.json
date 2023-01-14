@@ -47,10 +47,8 @@
       {
         "id": 1,
         "recipe_name": "Fried Rice",
-        "keywords": ["rice", "fried"],
         "extension": "/fried-rice",
         "categories": ["Lunch", "rice", "Meat", "No Meat"],
-        "isBookmarked": false,
         "category_extension": "/lunch-recipes",
         "description": "Delicious fried rice",
         "date_posted": "October 26, 2022",
@@ -86,10 +84,8 @@
       {
         "id": 2,
         "recipe_name": "Baked Potato",
-        "keywords": ["potato", "baked", "sides", "potatoes", "cheesy"],
         "extension": "/baked-potato",
         "categories": ["Lunch", "potato", "Meat", "No Meat", "Sides"],
-        "isBookmarked": false,
         "category_extension": "/lunch-recipes",
         "description": "Delicious Baked Potato",
         "date_posted": "October 29, 2022",
@@ -128,10 +124,8 @@
       {
         "id": 3,
         "recipe_name": "Country Fried Steak",
-        "keywords": ["steak", "fried", "batter", "gravy"],
         "extension": "/country-fried-steak",
         "categories": ["Dinner", "Steak", "Meat"],
-        "isBookmarked": false,
         "category_extension": "/dinner-recipes",
         "description": "Delicious Country Fried Steak",
         "date_posted": "October 31, 2022",
@@ -180,10 +174,8 @@
       {
         "id": 4,
         "recipe_name": "Tacos",
-        "keywords": ["taco", "tacos", "shells"],
         "extension": "/tacos",
         "categories": ["Dinner", "Ground Beef", "Meat"],
-        "isBookmarked": false,
         "category_extension": "/dinner-recipes",
         "description": "Delicious Tacos",
         "date_posted": "October 31, 2022",
@@ -217,10 +209,8 @@
       {
         "id": 5,
         "recipe_name": "Creamy Chicken and Noodles",
-        "keywords": ["creamy", "chicken", "noodles", "broccoli"],
         "extension": "/creamy-chicken-and-noodles",
         "categories": ["Dinner", "Chicken", "Meat"],
-        "isBookmarked": false,
         "category_extension": "/dinner-recipes",
         "description": "Delicious Creamy Chicken and Noodles",
         "date_posted": "October 31, 2022",
@@ -271,10 +261,8 @@
       {
         "id": 6,
         "recipe_name": "Hasselback Potatoes",
-        "keywords": ["potatoes", "hasselback", "potato", "cheesy"],
         "extension": "/hasselback-potatoes",
         "categories": ["Sides", "potato", "Meat", "No Meat"],
-        "isBookmarked": false,
         "category_extension": "/side-recipes",
         "description": "Delicious Hasselback potatoes",
         "date_posted": "October 26, 2022",
@@ -312,10 +300,8 @@
       {
         "id": 2,
         "recipe_name": "Baked Potato",
-        "keywords": ["potato", "baked", "sides", "potatoes", "cheesy"],
         "extension": "/baked-potato",
         "categories": ["Sides", "potato", "Meat", "No Meat"],
-        "isBookmarked": false,
         "category_extension": "/side-recipes",
         "description": "Delicious Baked Potato",
         "date_posted": "October 29, 2022",
@@ -352,18 +338,8 @@
       {
         "id": 8,
         "recipe_name": "Potato Skins",
-        "keywords": [
-          "potato",
-          "potatoes",
-          "baked",
-          "cheesy",
-          "cheese",
-          "baked",
-          "sides"
-        ],
         "extension": "/potato-skins",
         "categories": ["Sides", "potato", "Meat", "No Meat"],
-        "isBookmarked": false,
         "category_extension": "/side-recipes",
         "description": "Delicious Potato Skins",
         "date_posted": "October 29, 2022",
@@ -401,10 +377,8 @@
       {
         "id": 9,
         "recipe_name": "Chocolate Cake",
-        "keywords": ["cake", "chocolate", "baked", "sugar"],
         "extension": "/chocolate-cake",
         "categories": ["Dessert", "cake", "chocolate", "No Meat"],
-        "isBookmarked": false,
         "category_extension": "/dessert-recipes",
         "description": "Delicious Chocolate Cake",
         "date_posted": "October 30, 2022",
@@ -482,46 +456,6 @@
         {
           "header": "Put the noodles, vegetables, and protein in the pan",
           "step": "Mix everything together then serve."
-        }
-      ]
-    },
-    {
-      "id": 7,
-      "recipe_name": "Baked Potato",
-      "keywords": ["potato", "baked", "sides", "potatoes", "cheesy"],
-      "extension": "/baked-potato",
-      "categories": ["Sides", "potato", "Meat", "No Meat"],
-      "isBookmarked": false,
-      "category_extension": "/side-recipes",
-      "description": "Delicious Baked Potato",
-      "date_posted": "October 29, 2022",
-      "prep_time": "10 mins",
-      "cook_time": "55-70 mins",
-      "total_time": "65-80 mins",
-      "time_num": 80,
-      "image": "recipe-website/images/baked-potato-placeholder.jpg",
-      "ingredients": [
-        "potatoes",
-        "butter",
-        "salt and pepper",
-        "seasonings",
-        "cheese",
-        "optional: bacon",
-        "optional: oil/bacon-grease",
-        "optional: some vegetables like brocoli"
-      ],
-      "steps": [
-        {
-          "header": "Preheat oven to 400 degrees",
-          "step": "Poke holes in the potato/es and cover them with the oil, salt, and pepper"
-        },
-        {
-          "header": "Bake the potatoes for 45 minutes or until soft and squishy",
-          "step": "Cut a slit down the potato and put the guts it in a bowl. Mix in the seasonings, cheese, and whatever other toppings you prefer."
-        },
-        {
-          "header": "Put the guts on some aluminum foil or back in the potato shell",
-          "step": "Cover the potato with cheese and/or bacon, bake for another 10 minutes or so, and enjoy."
         }
       ]
     },

@@ -1,10 +1,5 @@
 import styles from './home.module.css';
 
-import Placeholder5 from '../../assets/images/placeholder5.jpg';
-import Placeholder6 from '../../assets/images/placeholder6.jpg';
-import Placeholder7 from '../../assets/images/placeholder7.jpg';
-import Placeholder8 from '../../assets/images/placeholder8.jpg';
-
 import { RecipeData } from '../../interfaces/interface';
 
 import { Link } from 'react-router-dom';
@@ -14,6 +9,7 @@ import { BsArrowRight, BsSearch } from 'react-icons/bs';
 interface HomeData {
   featured: RecipeData[];
   quickRecipes: RecipeData[];
+  allRecipes: RecipeData[];
 }
 
 export default function Home(props: HomeData) {
@@ -54,12 +50,33 @@ export default function Home(props: HomeData) {
         <section className='search-bar'>
           <header className={styles.extensions}>
             <Link to='/all-recipes' className={styles.extension_name}>
-              <h2>view all recipes</h2>
+              <h2>View all recipes</h2>
               <BsArrowRight className={styles.icon_arrow_right} />
             </Link>
           </header>
 
-          <Link
+          <div className={styles.posts}>
+            {props.allRecipes.map((item, id) => {
+              if (id >= 3) return;
+              return (
+                <article key={item.id} className={styles.post}>
+                  <Link to={item.extension}>
+                    <img loading='lazy' src={item.image.slice(15)} />
+                  </Link>
+                  <h3>
+                    <Link
+                      className={styles.recipe_description}
+                      to={item.extension}
+                    >
+                      {item.recipe_name}
+                    </Link>
+                  </h3>
+                </article>
+              );
+            })}
+          </div>
+
+          {/* <Link
             to='/search'
             className={`${styles.search_bar_container} ${styles.full_width}`}
           >
@@ -69,7 +86,7 @@ export default function Home(props: HomeData) {
               spellCheck='false'
               placeholder='Search'
             />
-          </Link>
+          </Link> */}
         </section>
 
         <section className={styles.quick_recipes}>

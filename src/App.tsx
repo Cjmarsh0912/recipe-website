@@ -156,6 +156,7 @@ function App() {
                 <Home
                   quickRecipes={Quick_Recipes_Data}
                   featured={recipeData.Featured}
+                  allRecipes={All_Recipes_Data}
                 />
               }
             />
