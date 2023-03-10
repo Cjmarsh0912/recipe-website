@@ -85,7 +85,7 @@ export default function Navbar() {
         <nav className={styles.navbar}>
           <div className={`${styles.website_name} ${styles.mobile}`}>
             <h2>
-              <Link className={styles.no_underline} to='/recipe-website/'>
+              <Link className={styles.no_underline} to='/'>
                 My Favorite Recipes
               </Link>
             </h2>
@@ -120,7 +120,7 @@ export default function Navbar() {
                 <h2>
                   <Link
                     className={`${styles.link} ${styles.no_underline}`}
-                    to='/recipe-website/'
+                    to='/'
                   >
                     My Favorite Recipes
                   </Link>

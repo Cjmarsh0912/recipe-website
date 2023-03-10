@@ -151,7 +151,7 @@ function App() {
         <div className='wrapper'>
           <Routes>
             <Route
-              path='/recipe-website/'
+              path='/'
               element={
                 <Home
                   quickRecipes={Quick_Recipes_Data}
