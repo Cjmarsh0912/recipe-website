@@ -55,28 +55,7 @@ export default function Home(props: HomeData) {
             </Link>
           </header>
 
-          <div className={styles.posts}>
-            {props.allRecipes.map((item, id) => {
-              if (id >= 3) return;
-              return (
-                <article key={item.id} className={styles.post}>
-                  <Link to={item.extension}>
-                    <img loading='lazy' src={item.image.slice(15)} />
-                  </Link>
-                  <h3>
-                    <Link
-                      className={styles.recipe_description}
-                      to={item.extension}
-                    >
-                      {item.recipe_name}
-                    </Link>
-                  </h3>
-                </article>
-              );
-            })}
-          </div>
-
-          {/* <Link
+          <Link
             to='/search'
             className={`${styles.search_bar_container} ${styles.full_width}`}
           >
@@ -86,7 +65,7 @@ export default function Home(props: HomeData) {
               spellCheck='false'
               placeholder='Search'
             />
-          </Link> */}
+          </Link>
         </section>
 
         <section className={styles.quick_recipes}>
