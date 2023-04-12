@@ -1,6 +1,7 @@
 export interface RecipeData {
   id: number;
   recipe_name: string;
+  keywords: string[];
   extension: string;
   categories: string[];
   category_extension: string;
@@ -9,7 +10,6 @@ export interface RecipeData {
   prep_time: string;
   cook_time: string;
   total_time: string;
-  time_num: number;
   image: string;
   ingredients: string[];
   steps: {

@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GoToTop from './components/GoToTop';
+import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
+import { db } from './components/firebase';
 
 import Navbar from './components/navbar/Navbar';
 import Home from './pages/Home/';
@@ -20,89 +22,90 @@ function App() {
   const [categories, setCategories] = useState<string[]>([]);
   const [favorites, setFavorites] = useState<number[]>([]);
   const [Current_Data, setCurrentData] = useState<RecipeData[]>([]);
+  const [RecipeData, setRecipeData] = useState(recipeData.Recipe_Data);
 
   // Merge all recipes into on array with no duplicates
-  const uniqueNames: string[] = [];
-  const All_Recipes_Data: RecipeData[] = recipeData.Recipe_Data.Lunch.concat(
-    recipeData.Recipe_Data.Sides,
-    recipeData.Recipe_Data.Dinner,
-    recipeData.Recipe_Data.Dessert
-  ).filter((item) => {
-    const isDuplicate = uniqueNames.includes(item.recipe_name);
+  // const uniqueNames: string[] = [];
+  // const All_Recipes_Data: RecipeData[] = recipeData.Recipe_Data.Lunch.concat(
+  //   recipeData.Recipe_Data.Sides,
+  //   recipeData.Recipe_Data.Dinner,
+  //   recipeData.Recipe_Data.Dessert
+  // ).filter((item) => {
+  //   const isDuplicate = uniqueNames.includes(item.recipe_name);
 
-    if (!isDuplicate) {
-      uniqueNames.push(item.recipe_name);
-      return true;
-    }
+  //   if (!isDuplicate) {
+  //     uniqueNames.push(item.recipe_name);
+  //     return true;
+  //   }
 
-    return false;
-  });
+  //   return false;
+  // });
 
-  const Quick_Recipes_Data: RecipeData[] = recipeData.Recipe_Data.Lunch.concat(
-    recipeData.Recipe_Data.Sides,
-    recipeData.Recipe_Data.Dinner,
-    recipeData.Recipe_Data.Dessert
-  ).filter((item) => {
-    return item.time_num <= 30;
-  });
+  // const Quick_Recipes_Data: RecipeData[] = recipeData.Recipe_Data.Lunch.concat(
+  //   recipeData.Recipe_Data.Sides,
+  //   recipeData.Recipe_Data.Dinner,
+  //   recipeData.Recipe_Data.Dessert
+  // ).filter((item) => {
+  //   return item;
+  // });
 
-  const findFavorites: RecipeData[] = All_Recipes_Data.filter((item) =>
+  const findFavorites: RecipeData[] = RecipeData.filter((item) =>
     favorites.includes(item.id)
   );
 
-  const Recipe_Data = [
-    {
-      id: 0,
-      name: 'Side Recipes',
-      path: '/side-recipes',
-      recipe_data: recipeData.Recipe_Data.Sides,
-    },
-    {
-      id: 1,
-      name: 'Lunch Recipes',
-      path: '/lunch-recipes/',
-      recipe_data: recipeData.Recipe_Data.Lunch,
-    },
-    {
-      id: 2,
-      name: 'Dinner Recipes',
-      path: '/dinner-recipes/',
-      recipe_data: recipeData.Recipe_Data.Dinner,
-    },
-    {
-      id: 3,
-      name: 'Dessert Recipes',
-      path: '/dessert-recipes/',
-      recipe_data: recipeData.Recipe_Data.Dessert,
-    },
-    {
-      id: 4,
-      name: 'All Recipes',
-      path: '/all-recipes/',
-      recipe_data: All_Recipes_Data,
-    },
-    {
-      id: 5,
-      name: 'Quick Recipes',
-      path: '/quick-recipes/',
-      recipe_data: Quick_Recipes_Data,
-    },
-    {
-      id: 6,
-      name: 'Favorites',
-      path: '/favorites/',
-      recipe_data: findFavorites,
-    },
-    {
-      id: 7,
-      name: 'Featured',
-      path: '/featured/',
-      recipe_data: recipeData.Featured,
-    },
-  ];
+  // const Recipe_Data = [
+  //   {
+  //     id: 0,
+  //     name: 'Side Recipes',
+  //     path: '/side-recipes',
+  //     recipe_data: recipeData.Recipe_Data.Sides,
+  //   },
+  //   {
+  //     id: 1,
+  //     name: 'Lunch Recipes',
+  //     path: '/lunch-recipes/',
+  //     recipe_data: recipeData.Recipe_Data.Lunch,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Dinner Recipes',
+  //     path: '/dinner-recipes/',
+  //     recipe_data: recipeData.Recipe_Data.Dinner,
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'Dessert Recipes',
+  //     path: '/dessert-recipes/',
+  //     recipe_data: recipeData.Recipe_Data.Dessert,
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'All Recipes',
+  //     path: '/all-recipes/',
+  //     recipe_data: All_Recipes_Data,
+  //   },
+  //   // {
+  //   //   id: 5,
+  //   //   name: 'Quick Recipes',
+  //   //   path: '/quick-recipes/',
+  //   //   recipe_data: Quick_Recipes_Data,
+  //   // },
+  //   {
+  //     id: 6,
+  //     name: 'Favorites',
+  //     path: '/favorites/',
+  //     recipe_data: findFavorites,
+  //   },
+  //   {
+  //     id: 7,
+  //     name: 'Featured',
+  //     path: '/featured/',
+  //     recipe_data: recipeData.Featured,
+  //   },
+  // ];
 
   const addToFavorites = (id: number) => {
-    if (!favorites.includes(id)) setFavorites(favorites.concat(id));
+    if (!favorites.includes(id)) setFavorites((lastVal) => lastVal.concat(id));
     alert('added to favorites');
   };
 
@@ -144,6 +147,69 @@ function App() {
     setCategories(test);
   }
 
+  // const addPost = async () => {
+  //   try {
+  //     const docRef: any = await setDoc(
+  //       doc(db, 'Recipes', 'all_recipes', 'lunch_recipes', 'lunch'),
+  //       {
+  //         All_Recipes_Data,
+  //       }
+  //     );
+  //   } catch (e) {
+  //     console.error('Error add document: ', e);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   addPost();
+  // }, []);
+
+  const setData = [
+    {
+      name: 'All Recipes',
+      extension: '/all-recipes/',
+      data: RecipeData,
+    },
+    {
+      name: 'Lunch Recipes',
+      extension: '/lunch-recipes/',
+      data: RecipeData.filter((item) => {
+        return item.categories.includes('Lunch');
+      }),
+    },
+    {
+      name: 'Side Recipes',
+      extension: '/side-recipes/',
+      data: RecipeData.filter((item) => {
+        return item.categories.includes('Sides');
+      }),
+    },
+    {
+      name: 'Dinner Recipes',
+      extension: '/dinner-recipes/',
+      data: RecipeData.filter((item) => {
+        return item.categories.includes('Dinner');
+      }),
+    },
+    {
+      name: 'Dessert Recipes',
+      extension: '/dessert-recipes/',
+      data: RecipeData.filter((item) => {
+        return item.categories.includes('Dessert');
+      }),
+    },
+    {
+      name: 'Favorites',
+      extension: '/favorites/',
+      data: findFavorites,
+    },
+    {
+      name: 'Featured',
+      extension: '/featured/',
+      data: recipeData.Featured,
+    },
+  ];
+
   return (
     <>
       <BrowserRouter>
@@ -153,39 +219,32 @@ function App() {
             <Route
               path='/recipe-website/'
               element={
-                <Home
-                  quickRecipes={Quick_Recipes_Data}
-                  featured={recipeData.Featured}
-                  allRecipes={All_Recipes_Data}
-                />
+                <Home featured={recipeData.Featured} allRecipes={RecipeData} />
               }
             />
 
-            {Recipe_Data.map((item) => {
-              return (
-                <Route
-                  key={item.id}
-                  path={item.path}
-                  element={
-                    <Recipes
-                      name={item.name}
-                      addToFavorites={addToFavorites}
-                      removeFromFavorites={removeFromFavorite}
-                      favorites={favorites}
-                      categories={categories}
-                      updateCategories={updateCategories}
-                      updateCurrentData={updateCurrentData}
-                      sortArray={sortArray}
-                      currentData={Current_Data}
-                      recipes={item.recipe_data}
-                    />
-                  }
-                />
-              );
-            })}
+            {setData.map((item, id) => (
+              <Route
+                key={id}
+                path={item.extension}
+                element={
+                  <Recipes
+                    name={item.name}
+                    addToFavorites={addToFavorites}
+                    removeFromFavorites={removeFromFavorite}
+                    favorites={favorites}
+                    categories={categories}
+                    updateCategories={updateCategories}
+                    updateCurrentData={updateCurrentData}
+                    sortArray={sortArray}
+                    currentData={Current_Data}
+                    recipes={item.data}
+                  />
+                }
+              />
+            ))}
 
-            {/* TODO fix key attribute */}
-            {All_Recipes_Data.map((item) => {
+            {RecipeData.map((item) => {
               return (
                 <Route
                   key={item.id}
@@ -202,10 +261,7 @@ function App() {
               );
             })}
 
-            <Route
-              path='/search'
-              element={<Search recipe={All_Recipes_Data} />}
-            />
+            <Route path='/search' element={<Search recipe={RecipeData} />} />
           </Routes>
         </div>
         <GoToTop />

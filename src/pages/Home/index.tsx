@@ -8,7 +8,6 @@ import { BsArrowRight, BsSearch } from 'react-icons/bs';
 
 interface HomeData {
   featured: RecipeData[];
-  quickRecipes: RecipeData[];
   allRecipes: RecipeData[];
 }
 
@@ -70,15 +69,15 @@ export default function Home(props: HomeData) {
 
         <section className={styles.quick_recipes}>
           <header className={styles.extensions}>
-            <Link to='/quick-recipes' className={styles.extension_name}>
+            <Link to='/all-recipes' className={styles.extension_name}>
               <h2>Quick recipes</h2>
               <BsArrowRight className={styles.icon_arrow_right} />
             </Link>
           </header>
 
           <div className={styles.posts}>
-            {props.quickRecipes.map((item, id) => {
-              if (id >= 4) return;
+            {props.allRecipes.map((item, id) => {
+              if (id >= 3) return;
               return (
                 <article key={item.id} className={styles.post}>
                   <Link to={item.extension}>
