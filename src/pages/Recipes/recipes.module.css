@@ -1,7 +1,6 @@
 .test_header {
   margin: auto;
   text-align: center;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   margin-bottom: 3rem;

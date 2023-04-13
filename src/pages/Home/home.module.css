@@ -44,7 +44,6 @@
 .extensions .extension_name {
   display: flex !important;
   align-items: center;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
