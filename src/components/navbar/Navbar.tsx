@@ -1,44 +1,33 @@
-import {
-  useRef,
-  useEffect,
-  useState,
-  MutableRefObject,
-  ChangeEvent,
-} from 'react';
+import { useRef, useState, ChangeEvent } from 'react';
+
+import SearchBar from '../search_bar/SearchBar';
+
 import { Link } from 'react-router-dom';
+
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
+import { BsBookmarkHeart } from 'react-icons/bs';
+
 import { CSSTransition } from 'react-transition-group';
 import styles from './navbar.module.css';
 
-// custom hook for detecting when you click outside of an element and running a function as a result
-const useOutsideClick = (
-  ref: MutableRefObject<HTMLElement | null>,
-  callback: () => void
-) => {
-  const handleClick = (event: MouseEvent) => {
-    if (ref.current && !ref.current.contains(event.target as Node)) {
-      callback();
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClick);
-    return () => {
-      document.removeEventListener('mousedown', handleClick);
-    };
-  }, [ref, callback]);
-};
+import { useOutsideClick } from '../../hooks/useOutsideClick';
 
 export default function Navbar() {
-  const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const [showRecipesDropdown, setShowRecipesDropdown] =
+    useState<boolean>(false);
+  const [showLogin, setShowLogin] = useState<boolean>(false);
   const [showNavbarMobile, setShowNavbarMobile] = useState<boolean>(false);
   const [navbarClasses, setNavbarClasses] = useState<string>(styles.hide);
+
   const [searchInput, setSearchInput] = useState<string>('');
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  const dropdownMenuRef = useRef<HTMLLIElement>(null);
+
+  const recipeDropdownRef = useRef<HTMLLIElement>(null);
+  const loginDropdownRef = useRef<HTMLLIElement>(null);
   const navbarRef = useRef<HTMLUListElement>(null);
-  useOutsideClick(dropdownMenuRef, HideDropdown);
+  useOutsideClick(recipeDropdownRef, HideRecipesDropdown);
+  useOutsideClick(loginDropdownRef, HideLoginDropdown);
   useOutsideClick(navbarRef, HideNavbarMobile);
 
   // Shows the navbar on the click of the menu. Used on smaller screens.
@@ -53,15 +42,19 @@ export default function Navbar() {
   // Hides the navbar on the click of a x. Used on smaller screens.
   function HideNavbarMobile(): void {
     setShowNavbarMobile(() => false);
-    if (showDropdown) setShowDropdown(() => false);
+    if (showRecipesDropdown) setShowRecipesDropdown(() => false);
   }
 
   function SlideOutNavbarMobile(): void {
     setNavbarClasses(styles.hide);
   }
 
-  function HideDropdown(): void {
-    setShowDropdown(() => false);
+  function HideRecipesDropdown(): void {
+    setShowRecipesDropdown(() => false);
+  }
+
+  function HideLoginDropdown(): void {
+    setShowLogin(() => false);
   }
 
   function HandleSearch(): void {}
@@ -70,14 +63,6 @@ export default function Navbar() {
     <>
       <header className='wrapper'>
         <nav className={styles.navbar}>
-          <div className={`${styles.website_name} ${styles.mobile}`}>
-            <h2>
-              <Link className={styles.no_underline} to='/recipe-website/'>
-                My Favorite Recipes
-              </Link>
-            </h2>
-          </div>
-
           <div
             onClick={ShowNavbarMobile}
             className={`${styles.toggle_btn} ${styles.mobile}`}
@@ -86,12 +71,21 @@ export default function Navbar() {
             <span></span>
             <span></span>
           </div>
+
+          <div className={styles.website_name}>
+            <h2>
+              <Link className={styles.no_underline} to='/recipe-website/'>
+                My Favorite Recipes
+              </Link>
+            </h2>
+          </div>
+
           <CSSTransition
             in={showNavbarMobile}
             timeout={1000}
             classNames={{
-              enterActive: 'animate__fadeInRight',
-              exitActive: 'animate__fadeOutRight',
+              enterActive: 'animate__fadeInLeft',
+              exitActive: 'animate__fadeOutLeft',
             }}
             onEnter={SlideInNavbarMobile}
             onExited={SlideOutNavbarMobile}
@@ -103,36 +97,63 @@ export default function Navbar() {
                 className={`${styles.close_btn} ${styles.mobile}`}
               />
 
-              <li className={styles.website_name}>
-                <h2>
-                  <Link
-                    className={`${styles.link} ${styles.no_underline}`}
-                    to='/recipe-website/'
-                  >
-                    My Favorite Recipes
+              <li className={`${styles.mobile} mobile_search`}>
+                <div className={styles.search_bar_mobile}>
+                  <div className={styles.search_bar_mobile_container}>
+                    <button
+                      className={styles.search_button}
+                      type='button'
+                      onClick={HandleSearch}
+                    >
+                      <AiOutlineSearch />
+                    </button>
+                    <input
+                      type='search'
+                      placeholder='Search for recipes here'
+                      onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                        setSearchInput(e.target.value)
+                      }
+                      value={searchInput}
+                    />
+                  </div>
+                </div>
+              </li>
+
+              <li className={`${styles.mobile} mobile_favorites`}>
+                <div className={styles.mobile_favorites_container}>
+                  <Link onClick={HideNavbarMobile} to='/favorites'>
+                    <BsBookmarkHeart />
+                    <span>Bookmarked Recipes</span>
                   </Link>
-                </h2>
+                </div>
               </li>
 
               {/* Recipes Tab Start */}
-              <li className={styles.dropdown} ref={dropdownMenuRef}>
-                <span
-                  className={`${styles.link} ${styles.click_text}`}
-                  onClick={() => setShowDropdown(!showDropdown)}
-                >
-                  Recipes
-                </span>
-                <IoIosArrowDown
-                  className={
-                    showDropdown == false ? styles.icon_arrow_down : styles.hide
-                  }
-                />
-                <IoIosArrowUp
-                  className={
-                    showDropdown == true ? styles.icon_arrow_up : styles.hide
-                  }
-                />
-                {showDropdown && (
+              <li
+                className={` ${styles.dropdown} ${styles.recipes} `}
+                ref={recipeDropdownRef}
+              >
+                <div>
+                  <span
+                    className={`${styles.link} ${styles.click_text}`}
+                    onClick={() => setShowRecipesDropdown(!showRecipesDropdown)}
+                  >
+                    Recipes
+                  </span>
+                  <IoIosArrowDown
+                    className={
+                      !showRecipesDropdown
+                        ? styles.icon_arrow_down
+                        : styles.hide
+                    }
+                  />
+                  <IoIosArrowUp
+                    className={
+                      showRecipesDropdown ? styles.icon_arrow_up : styles.hide
+                    }
+                  />
+                </div>
+                {showRecipesDropdown && (
                   <ul
                     className={`${styles.dropdown_content} animate__animated animate__fadeIn`}
                   >
@@ -186,64 +207,64 @@ export default function Navbar() {
               </li>
               {/* Recipes Tab End */}
 
-              <li>
-                <Link
-                  onClick={HideNavbarMobile}
-                  className={styles.link}
-                  to='/favorites'
-                >
-                  Favorites
-                </Link>
+              <li
+                className={`${styles.mobile} ${styles.mobile_button_container} ${styles.dropdown}`}
+                ref={loginDropdownRef}
+              >
+                <div>
+                  <span
+                    className={`${styles.link} ${styles.click_text}`}
+                    onClick={() => setShowLogin(!showLogin)}
+                  >
+                    More
+                  </span>
+                  <IoIosArrowDown
+                    className={
+                      !showLogin ? styles.icon_arrow_down : styles.hide
+                    }
+                  />
+                  <IoIosArrowUp
+                    className={showLogin ? styles.icon_arrow_up : styles.hide}
+                  />
+                </div>
+                {showLogin && (
+                  <ul
+                    className={`${styles.dropdown_content} animate__animated animate__fadeIn`}
+                  >
+                    <li>
+                      <button type='button' className={styles.login_button}>
+                        Log In
+                      </button>
+                    </li>
+                    <li>
+                      <button type='button' className={styles.signUp_button}>
+                        Sign Up
+                      </button>
+                    </li>
+                  </ul>
+                )}
               </li>
 
-              <li className={styles.search_bar}>
-                <div
-                  className={`${styles.search_bar_container} ${
-                    isExpanded ? styles.expanded : ''
-                  }`}
-                >
-                  <button
-                    className={styles.search_button}
-                    type='button'
-                    onClick={HandleSearch}
-                  >
-                    <AiOutlineSearch />
-                  </button>
-                  <input
-                    type='search'
-                    placeholder='Search for recipes here ex: beef'
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      setSearchInput(e.target.value)
-                    }
-                    value={searchInput}
-                  />
-                  <button
-                    className={styles.close_button}
-                    type='button'
-                    onClick={() => setIsExpanded(false)}
-                  >
-                    <AiOutlineClose />
-                  </button>
-                </div>
-                <button
-                  className={isExpanded ? styles.hide : styles.search_icon}
-                  type='button'
-                  onClick={() => setIsExpanded(true)}
-                >
-                  <AiOutlineSearch />
+              <li className={styles.button_container}>
+                <button type='button' className={styles.login_button}>
+                  Log In
                 </button>
-                {/* <Link
-                  onClick={HideNavbarMobile}
-                  className={`${styles.link} ${styles.search}`}
-                  to='/search'
-                >
-                  <AiOutlineSearch />
-                </Link> */}
+              </li>
+
+              <li className={styles.button_container}>
+                <button type='button' className={styles.signUp_button}>
+                  Sign Up
+                </button>
               </li>
             </ul>
           </CSSTransition>
 
-          {/* <hr /> */}
+          <div className={styles.favorites}>
+            <Link onClick={HideNavbarMobile} to='/favorites'>
+              <BsBookmarkHeart />
+            </Link>
+          </div>
+          <SearchBar />
         </nav>
       </header>
     </>

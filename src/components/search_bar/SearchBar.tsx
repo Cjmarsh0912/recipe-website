@@ -1,22 +1,49 @@
-import { BsSearch } from 'react-icons/bs';
+import { useState, ChangeEvent } from 'react';
+import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
+import styles from '../navbar/navbar.module.css';
 
-import './search-bar.css';
+export default function SearchBar() {
+  const [searchInput, setSearchInput] = useState<string>('');
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
-interface SearchBar {
-  size?: string;
-}
-export default function SearchBar(props: SearchBar) {
+  function HandleSearch(): void {}
   return (
-    <div className={`search-bar-container ${props.size}`}>
-      <input
-        id='search-bar'
-        autoComplete='off'
-        spellCheck='false'
-        placeholder='Search'
-      />
-      <div className='icon-container'>
-        <BsSearch className='icon-search' />
+    <div className={styles.search_bar}>
+      <div
+        className={`${styles.search_bar_container} ${
+          isExpanded ? styles.expanded : ''
+        }`}
+      >
+        <button
+          className={styles.search_button}
+          type='button'
+          onClick={HandleSearch}
+        >
+          <AiOutlineSearch />
+        </button>
+        <input
+          type='search'
+          placeholder='Search for recipes here ex: beef'
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setSearchInput(e.target.value)
+          }
+          value={searchInput}
+        />
+        <button
+          className={styles.close_button}
+          type='button'
+          onClick={() => setIsExpanded(false)}
+        >
+          <AiOutlineClose />
+        </button>
       </div>
+      <button
+        className={styles.search_icon}
+        type='button'
+        onClick={() => setIsExpanded(true)}
+      >
+        <AiOutlineSearch />
+      </button>
     </div>
   );
 }
