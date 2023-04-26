@@ -1,43 +1,64 @@
-import Posts from '../../../components/posts/Posts';
-import { RecipeData } from '../../../interfaces/interface';
+import { useEffect, useState } from 'react';
 
-import styles from '../recipes.module.css';
+import Posts from '../../../components/posts/Posts';
+
+import { RecipeData } from '../../../interfaces/interface';
 import Sort from '../../../components/sort/Sort';
 
-interface Dinner_Recipes {
-  dinnerRecipes: RecipeData[];
-  addToFavorite: (id: number) => void;
-  removeFromFavorite: (id: number) => void;
-  bookmarked: number[];
-  setType: (test: any) => void;
+import styles from './recipes.module.css';
+
+type RecipesPageProps = {
+  name: string;
+  addToBookmarks: (id: number) => void;
+  removeFromBookmarks: (id: number) => void;
+  bookmarks: number[];
   categories: string[];
-}
-export default function Dinner(props: Dinner_Recipes) {
-  const categories: string[] = [];
-  props.dinnerRecipes.map((item) => {
-    return item.categories.filter((item2) => {
-      const isDuplicate = categories.includes(item2);
+  updateCategories: (recipes: RecipeData[]) => void;
+  updateCurrentRecipes: (data: RecipeData[]) => void;
+  sortArray: (type: string, data: RecipeData[]) => void;
+  currentRecipes: RecipeData[];
+  recipes: RecipeData[];
+};
 
-      if (!isDuplicate && item2 !== 'Dinner') {
-        categories.push(item2);
-        return true;
-      }
+export default function RecipesPage({
+  name,
+  addToBookmarks,
+  removeFromBookmarks,
+  bookmarks,
+  categories,
+  updateCategories,
+  updateCurrentRecipes,
+  sortArray,
+  currentRecipes,
+  recipes,
+}: RecipesPageProps) {
+  const [category, setCategory] = useState<string>('choose category');
 
-      return false;
-    });
-  });
+  const updateCategory = (data: string) => {
+    setCategory(data);
+  };
+
+  useEffect(() => {
+    updateCategories(recipes);
+    updateCurrentRecipes(recipes);
+  }, [recipes]);
+
+  useEffect(() => {
+    sortArray(category, recipes);
+  }, [category]);
+
   return (
     <main>
       <header className={styles.test_header}>
-        <h3>Dinner Recipes</h3>
-        <Sort setType={props.setType} category={props.categories} />
+        <h3>{name}</h3>
+        <Sort updateCategory={updateCategory} category={categories} />
       </header>
 
       <Posts
-        addToFavorite={props.addToFavorite}
-        removeFromFavorite={props.removeFromFavorite}
-        bookmarked={props.bookmarked}
-        posts={props.dinnerRecipes}
+        addToFavorite={addToBookmarks}
+        removeFromFavorite={removeFromBookmarks}
+        bookmarked={bookmarks}
+        posts={currentRecipes}
       />
     </main>
   );

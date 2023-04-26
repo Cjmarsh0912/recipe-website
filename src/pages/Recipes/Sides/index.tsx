@@ -1,38 +1,64 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import Posts from '../../../components/posts/Posts';
-
-import styles from '../recipes.module.css';
 
 import { RecipeData } from '../../../interfaces/interface';
 import Sort from '../../../components/sort/Sort';
 
-interface Side_Recipes {
-  sideRecipes: RecipeData[];
-  addToFavorite: (id: number) => void;
-  removeFromFavorite: (id: number) => void;
-  bookmarked: number[];
-  setType: (test: any) => void;
-  categories: string[];
-  testFunction: (testData: RecipeData[]) => void;
-}
+import styles from './recipes.module.css';
 
-export default function Breakfast(props: Side_Recipes) {
+type RecipesPageProps = {
+  name: string;
+  addToBookmarks: (id: number) => void;
+  removeFromBookmarks: (id: number) => void;
+  bookmarks: number[];
+  categories: string[];
+  updateCategories: (recipes: RecipeData[]) => void;
+  updateCurrentRecipes: (data: RecipeData[]) => void;
+  sortArray: (type: string, data: RecipeData[]) => void;
+  currentRecipes: RecipeData[];
+  recipes: RecipeData[];
+};
+
+export default function RecipesPage({
+  name,
+  addToBookmarks,
+  removeFromBookmarks,
+  bookmarks,
+  categories,
+  updateCategories,
+  updateCurrentRecipes,
+  sortArray,
+  currentRecipes,
+  recipes,
+}: RecipesPageProps) {
+  const [category, setCategory] = useState<string>('choose category');
+
+  const updateCategory = (data: string) => {
+    setCategory(data);
+  };
+
   useEffect(() => {
-    props.testFunction(props.sideRecipes);
-  }, []);
+    updateCategories(recipes);
+    updateCurrentRecipes(recipes);
+  }, [recipes]);
+
+  useEffect(() => {
+    sortArray(category, recipes);
+  }, [category]);
+
   return (
     <main>
       <header className={styles.test_header}>
-        <h3>Side Recipes</h3>
-        <Sort setType={props.setType} category={props.categories} />
+        <h3>{name}</h3>
+        <Sort updateCategory={updateCategory} category={categories} />
       </header>
 
       <Posts
-        addToFavorite={props.addToFavorite}
-        removeFromFavorite={props.removeFromFavorite}
-        bookmarked={props.bookmarked}
-        posts={props.sideRecipes}
+        addToFavorite={addToBookmarks}
+        removeFromFavorite={removeFromBookmarks}
+        bookmarked={bookmarks}
+        posts={currentRecipes}
       />
     </main>
   );

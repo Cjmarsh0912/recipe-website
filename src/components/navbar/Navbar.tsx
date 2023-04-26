@@ -21,7 +21,6 @@ export default function Navbar() {
   const [navbarClasses, setNavbarClasses] = useState<string>(styles.hide);
 
   const [searchInput, setSearchInput] = useState<string>('');
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const recipeDropdownRef = useRef<HTMLLIElement>(null);
   const loginDropdownRef = useRef<HTMLLIElement>(null);
@@ -97,7 +96,7 @@ export default function Navbar() {
                 className={`${styles.close_btn} ${styles.mobile}`}
               />
 
-              <li className={`${styles.mobile} mobile_search`}>
+              <li className={`${styles.mobile} ${styles.mobile_search}`}>
                 <div className={styles.search_bar_mobile}>
                   <div className={styles.search_bar_mobile_container}>
                     <button
@@ -119,9 +118,9 @@ export default function Navbar() {
                 </div>
               </li>
 
-              <li className={`${styles.mobile} mobile_favorites`}>
+              <li className={`${styles.mobile} ${styles.mobile_favorites}`}>
                 <div className={styles.mobile_favorites_container}>
-                  <Link onClick={HideNavbarMobile} to='/favorites'>
+                  <Link onClick={HideNavbarMobile} to='/bookmarked'>
                     <BsBookmarkHeart />
                     <span>Bookmarked Recipes</span>
                   </Link>
@@ -260,7 +259,7 @@ export default function Navbar() {
           </CSSTransition>
 
           <div className={styles.favorites}>
-            <Link onClick={HideNavbarMobile} to='/favorites'>
+            <Link onClick={HideNavbarMobile} to='/bookmarked'>
               <BsBookmarkHeart />
             </Link>
           </div>

@@ -17,16 +17,3 @@ export interface RecipeData {
     step: string;
   }[];
 }
-
-export interface PageData {
-  name: string;
-  addToFavorites: (id: number) => void;
-  removeFromFavorites: (id: number) => void;
-  favorites: number[];
-  categories: string[];
-  updateCategories: (recipes: RecipeData[]) => void;
-  updateCurrentData: (data: RecipeData[]) => void;
-  sortArray: (type: any, data: RecipeData[]) => void;
-  currentData: RecipeData[];
-  recipes: RecipeData[];
-}

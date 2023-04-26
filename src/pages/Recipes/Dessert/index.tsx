@@ -1,45 +1,64 @@
-import Posts from '../../../components/posts/Posts';
+import { useEffect, useState } from 'react';
 
-import styles from '../recipes.module.css';
+import Posts from '../../../components/posts/Posts';
 
 import { RecipeData } from '../../../interfaces/interface';
 import Sort from '../../../components/sort/Sort';
 
-interface Dessert_Recipes {
-  dessertRecipes: RecipeData[];
-  addToFavorite: (id: number) => void;
-  removeFromFavorite: (id: number) => void;
-  bookmarked: number[];
-  setType: (test: any) => void;
+import styles from './recipes.module.css';
+
+type RecipesPageProps = {
+  name: string;
+  addToBookmarks: (id: number) => void;
+  removeFromBookmarks: (id: number) => void;
+  bookmarks: number[];
   categories: string[];
-}
+  updateCategories: (recipes: RecipeData[]) => void;
+  updateCurrentRecipes: (data: RecipeData[]) => void;
+  sortArray: (type: string, data: RecipeData[]) => void;
+  currentRecipes: RecipeData[];
+  recipes: RecipeData[];
+};
 
-export default function Dessert(props: Dessert_Recipes) {
-  const categories: string[] = [];
-  props.dessertRecipes.map((item) => {
-    return item.categories.filter((item2) => {
-      const isDuplicate = categories.includes(item2);
+export default function RecipesPage({
+  name,
+  addToBookmarks,
+  removeFromBookmarks,
+  bookmarks,
+  categories,
+  updateCategories,
+  updateCurrentRecipes,
+  sortArray,
+  currentRecipes,
+  recipes,
+}: RecipesPageProps) {
+  const [category, setCategory] = useState<string>('choose category');
 
-      if (!isDuplicate && item2 !== 'Dessert' && item2 !== 'No Meat') {
-        categories.push(item2);
-        return true;
-      }
+  const updateCategory = (data: string) => {
+    setCategory(data);
+  };
 
-      return false;
-    });
-  });
+  useEffect(() => {
+    updateCategories(recipes);
+    updateCurrentRecipes(recipes);
+  }, [recipes]);
+
+  useEffect(() => {
+    sortArray(category, recipes);
+  }, [category]);
+
   return (
     <main>
       <header className={styles.test_header}>
-        <h3>Dessert Recipes</h3>
-        <Sort setType={props.setType} category={props.categories} />
+        <h3>{name}</h3>
+        <Sort updateCategory={updateCategory} category={categories} />
       </header>
 
       <Posts
-        addToFavorite={props.addToFavorite}
-        removeFromFavorite={props.removeFromFavorite}
-        bookmarked={props.bookmarked}
-        posts={props.dessertRecipes}
+        addToFavorite={addToBookmarks}
+        removeFromFavorite={removeFromBookmarks}
+        bookmarked={bookmarks}
+        posts={currentRecipes}
       />
     </main>
   );
