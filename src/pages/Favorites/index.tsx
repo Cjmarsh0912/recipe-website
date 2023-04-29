@@ -5,7 +5,7 @@ import Posts from '../../components/posts/Posts';
 import { RecipeData } from '../../interfaces/interface';
 import Sort from '../../components/sort/Sort';
 
-import styles from './recipes.module.css';
+import styles from '../Recipes/recipes.module.css';
 
 type RecipesPageProps = {
   name: string;
@@ -20,7 +20,7 @@ type RecipesPageProps = {
   recipes: RecipeData[];
 };
 
-export default function RecipesPage({
+export default function Bookmarked({
   name,
   addToBookmarks,
   removeFromBookmarks,
@@ -49,17 +49,27 @@ export default function RecipesPage({
 
   return (
     <main>
-      <header className={styles.test_header}>
+      {/* <header className={styles.test_header}>
         <h3>{name}</h3>
         <Sort updateCategory={updateCategory} category={categories} />
-      </header>
+      </header> */}
 
-      <Posts
-        addToFavorite={addToBookmarks}
-        removeFromFavorite={removeFromBookmarks}
-        bookmarked={bookmarks}
-        posts={currentRecipes}
-      />
+      {bookmarks.length > 0 ? (
+        <>
+          <header className={styles.test_header}>
+            <h3>{name}</h3>
+            <Sort updateCategory={updateCategory} category={categories} />
+          </header>
+          <Posts
+            addToFavorite={addToBookmarks}
+            removeFromFavorite={removeFromBookmarks}
+            bookmarked={bookmarks}
+            posts={currentRecipes}
+          />
+        </>
+      ) : (
+        <h3>Hello</h3>
+      )}
     </main>
   );
 }

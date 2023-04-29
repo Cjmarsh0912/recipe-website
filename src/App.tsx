@@ -10,6 +10,9 @@ import Search from './pages/Search/';
 
 import Recipe from './pages/Recipe/';
 import RecipesPage from './pages/Recipes/';
+import Bookmarked from './pages/Favorites';
+import Login from './pages/LogIn';
+import SignUp from './pages/Sign Up';
 
 import recipeData from './data/data.json';
 
@@ -148,9 +151,9 @@ function App() {
     setRecipeData(newData);
   };
 
-  useEffect(() => {
-    fetchPosts();
-  }, []);
+  // useEffect(() => {
+  //   fetchPosts();
+  // }, []);
   return (
     <>
       <BrowserRouter>
@@ -257,8 +260,8 @@ function App() {
             <Route
               path='/bookmarked'
               element={
-                <RecipesPage
-                  name='Favorites'
+                <Bookmarked
+                  name='Bookmarked'
                   addToBookmarks={addToFavorites}
                   removeFromBookmarks={removeFromFavorite}
                   bookmarks={favorites}
@@ -271,6 +274,9 @@ function App() {
                 />
               }
             />
+
+            <Route path='/login' element={<Login />} />
+            <Route path='/signUp' element={<SignUp />} />
 
             {RecipeData.map((item) => {
               return (

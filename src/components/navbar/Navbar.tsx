@@ -245,15 +245,19 @@ export default function Navbar() {
               </li>
 
               <li className={styles.button_container}>
-                <button type='button' className={styles.login_button}>
-                  Log In
-                </button>
+                <Link to='login'>
+                  <button type='button' className={styles.login_button}>
+                    Log In
+                  </button>
+                </Link>
               </li>
 
               <li className={styles.button_container}>
-                <button type='button' className={styles.signUp_button}>
-                  Sign Up
-                </button>
+                <Link to='/signUp'>
+                  <button type='button' className={styles.signUp_button}>
+                    Sign Up
+                  </button>
+                </Link>
               </li>
             </ul>
           </CSSTransition>
