@@ -151,9 +151,9 @@ function App() {
     setRecipeData(newData);
   };
 
-  // useEffect(() => {
-  //   fetchPosts();
-  // }, []);
+  useEffect(() => {
+    fetchPosts();
+  }, []);
   return (
     <>
       <BrowserRouter>
