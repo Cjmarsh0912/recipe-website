@@ -11,7 +11,7 @@ type RecipesPageProps = {
   name: string;
   addToBookmarks: (id: number) => void;
   removeFromBookmarks: (id: number) => void;
-  bookmarks: number[];
+  bookmarks: number[] | undefined;
   categories: string[];
   updateCategories: (recipes: RecipeData[]) => void;
   updateCurrentRecipes: (data: RecipeData[]) => void;
@@ -54,7 +54,7 @@ export default function Bookmarked({
         <Sort updateCategory={updateCategory} category={categories} />
       </header> */}
 
-      {bookmarks.length > 0 ? (
+      {bookmarks && bookmarks.length > 0 ? (
         <>
           <header className={styles.test_header}>
             <h3>{name}</h3>

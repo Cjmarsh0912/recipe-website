@@ -1,19 +1,28 @@
 import { useState, useRef } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './logIn.module.css';
 
+import { user } from '../../interfaces/interface';
+
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../components/firebase';
+
 import { BiHide, BiShow } from 'react-icons/bi';
 
-interface LoginProps {}
+interface LoginProps {
+  updateIsSignedIn: () => void;
+  updateUserData: (user: user) => void;
+}
 
 interface LoginState {
   email: string;
   password: string;
 }
 
-function Login(props: LoginProps) {
+function Login({ updateIsSignedIn, updateUserData }: LoginProps) {
   const [state, setState] = useState<LoginState>({
     email: '',
     password: '',
@@ -27,7 +36,40 @@ function Login(props: LoginProps) {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const navigate = useNavigate();
+
+  const auth = getAuth();
+
+  async function logIn() {
+    try {
+      const email: string = state.email;
+      const password: string = state.password;
+
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      const userRef = doc(db, 'users', userCredential.user?.uid);
+      const userDoc = (await getDoc(userRef)).data();
+
+      const userData: user = {
+        uid: userDoc?.uid,
+        email: userDoc?.email,
+        bookmarks: [],
+      };
+
+      return userData;
+    } catch (error: any) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode + ' ' + errorMessage);
+      return;
+    }
+  }
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const showErrorAnimation = (input: HTMLInputElement | null) => {
@@ -76,6 +118,15 @@ function Login(props: LoginProps) {
 
       passwordInput?.classList.remove(`${styles.invalidInput}`);
       passwordInput?.classList.add(`${styles.validInput}`);
+    }
+
+    const user = await logIn();
+
+    if (user !== undefined) {
+      updateUserData(user);
+      updateIsSignedIn();
+      alert('signed in with email: ' + user.email);
+      navigate('/recipe-website/');
     }
   }
 

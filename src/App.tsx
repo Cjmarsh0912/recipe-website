@@ -1,7 +1,17 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GoToTop from './components/GoToTop';
-import { collection, query, where, orderBy, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  orderBy,
+  getDocs,
+  doc,
+  getDoc,
+  updateDoc,
+} from 'firebase/firestore';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { User } from 'firebase/auth';
 import { db } from './components/firebase';
 
 import Navbar from './components/navbar/Navbar';
@@ -19,13 +29,16 @@ import recipeData from './data/data.json';
 import 'animate.css';
 import './assets/App.css';
 
-import { RecipeData } from './interfaces/interface';
+import { RecipeData, user } from './interfaces/interface';
 
 function App() {
   const [categories, setCategories] = useState<string[]>([]);
   const [favorites, setFavorites] = useState<number[]>([]);
   const [CurrentRecipes, setCurrentRecipes] = useState<RecipeData[]>([]);
   const [RecipeData, setRecipeData] = useState<RecipeData[]>([]);
+  const [userData, setUserData] = useState((): user | null => null);
+  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const SideRecipes = useMemo(
     () =>
@@ -57,12 +70,18 @@ function App() {
   );
 
   const findFavorites: RecipeData[] = useMemo(
-    () => [...RecipeData].filter((item) => favorites.includes(item.id)),
-    [favorites]
+    () =>
+      [...RecipeData].filter((item) => userData?.bookmarks.includes(item.id)),
+    [userData?.bookmarks]
   );
 
   const addToFavorites = (id: number) => {
-    if (!favorites.includes(id)) setFavorites((lastVal) => lastVal.concat(id));
+    if (!userData?.bookmarks?.includes(id) && userData?.uid !== undefined)
+      setUserData({
+        ...userData,
+        bookmarks: userData?.bookmarks?.concat(id),
+      });
+    //if (!favorites.includes(id)) setFavorites((lastVal) => lastVal.concat(id));
     alert('added to favorites');
   };
 
@@ -106,6 +125,16 @@ function App() {
     });
     setCategories(test);
   }
+
+  function updateIsSignedIn() {
+    setIsSignedIn(!isSignedIn);
+  }
+
+  const updateUserData = (user: user | null) =>
+    setUserData(() => {
+      if (user !== null) return { ...user };
+      else return null;
+    });
 
   // const addPost = async () => {
   //   RecipeData.forEach(async (item) => {
@@ -151,155 +180,224 @@ function App() {
     setRecipeData(newData);
   };
 
+  const fetchUser = async (user: User) => {
+    const userRef = doc(db, 'users', user?.uid);
+    const userDoc = (await getDoc(userRef)).data();
+    return userDoc;
+  };
+
+  const updateUserInDatabase = async (user: user) => {
+    const userRef = doc(db, 'users', user.uid);
+    await updateDoc(userRef, {
+      uid: user.uid,
+      email: user.email,
+      bookmarks: user.bookmarks,
+    });
+  };
+
   useEffect(() => {
     fetchPosts();
+
+    const auth = getAuth();
+
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const newUserData = (await fetchUser(user)) as user;
+        updateUserData(newUserData);
+        setIsSignedIn(true);
+        console.log('signed in: ' + newUserData?.email);
+      } else {
+        console.log('not signed in');
+        setUserData(null);
+        setIsSignedIn(false);
+      }
+      setIsLoading(false);
+    });
+    return unsubscribe();
   }, []);
+
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
   return (
     <>
-      <BrowserRouter>
-        <Navbar />
-        <div className='wrapper'>
-          <Routes>
-            <Route
-              path='/recipe-website/'
-              element={
-                <Home featured={recipeData.Featured} allRecipes={RecipeData} />
-              }
+      {isLoading ? (
+        <></>
+      ) : (
+        <>
+          <BrowserRouter>
+            <Navbar
+              isSignedIn={isSignedIn}
+              updateIsSignedIn={updateIsSignedIn}
+              updateUserData={updateUserData}
+              userData={userData}
             />
-
-            <Route
-              path='/all-recipes/'
-              element={
-                <RecipesPage
-                  name='All Recipes'
-                  addToBookmarks={addToFavorites}
-                  removeFromBookmarks={removeFromFavorite}
-                  bookmarks={favorites}
-                  categories={categories}
-                  updateCategories={updateCategories}
-                  updateCurrentRecipes={updateCurrentRecipes}
-                  sortArray={sortArray}
-                  currentRecipes={CurrentRecipes}
-                  recipes={RecipeData}
-                />
-              }
-            />
-
-            <Route
-              path='/lunch-recipes/'
-              element={
-                <RecipesPage
-                  name='Lunch Recipes'
-                  addToBookmarks={addToFavorites}
-                  removeFromBookmarks={removeFromFavorite}
-                  bookmarks={favorites}
-                  categories={categories}
-                  updateCategories={updateCategories}
-                  updateCurrentRecipes={updateCurrentRecipes}
-                  sortArray={sortArray}
-                  currentRecipes={CurrentRecipes}
-                  recipes={LunchRecipes}
-                />
-              }
-            />
-
-            <Route
-              path='/dinner-recipes/'
-              element={
-                <RecipesPage
-                  name='Dinner Recipes'
-                  addToBookmarks={addToFavorites}
-                  removeFromBookmarks={removeFromFavorite}
-                  bookmarks={favorites}
-                  categories={categories}
-                  updateCategories={updateCategories}
-                  updateCurrentRecipes={updateCurrentRecipes}
-                  sortArray={sortArray}
-                  currentRecipes={CurrentRecipes}
-                  recipes={DinnerRecipes}
-                />
-              }
-            />
-
-            <Route
-              path='/side-recipes/'
-              element={
-                <RecipesPage
-                  name='Side Recipes'
-                  addToBookmarks={addToFavorites}
-                  removeFromBookmarks={removeFromFavorite}
-                  bookmarks={favorites}
-                  categories={categories}
-                  updateCategories={updateCategories}
-                  updateCurrentRecipes={updateCurrentRecipes}
-                  sortArray={sortArray}
-                  currentRecipes={CurrentRecipes}
-                  recipes={SideRecipes}
-                />
-              }
-            />
-
-            <Route
-              path='/dessert-recipes/'
-              element={
-                <RecipesPage
-                  name='Dessert Recipes'
-                  addToBookmarks={addToFavorites}
-                  removeFromBookmarks={removeFromFavorite}
-                  bookmarks={favorites}
-                  categories={categories}
-                  updateCategories={updateCategories}
-                  updateCurrentRecipes={updateCurrentRecipes}
-                  sortArray={sortArray}
-                  currentRecipes={CurrentRecipes}
-                  recipes={DessertRecipes}
-                />
-              }
-            />
-
-            <Route
-              path='/bookmarked'
-              element={
-                <Bookmarked
-                  name='Bookmarked'
-                  addToBookmarks={addToFavorites}
-                  removeFromBookmarks={removeFromFavorite}
-                  bookmarks={favorites}
-                  categories={categories}
-                  updateCategories={updateCategories}
-                  updateCurrentRecipes={updateCurrentRecipes}
-                  sortArray={sortArray}
-                  currentRecipes={CurrentRecipes}
-                  recipes={findFavorites}
-                />
-              }
-            />
-
-            <Route path='/login' element={<Login />} />
-            <Route path='/signUp' element={<SignUp />} />
-
-            {RecipeData.map((item) => {
-              return (
+            <div className='wrapper'>
+              <Routes>
                 <Route
-                  key={item.id}
-                  path={item.extension}
+                  path='/recipe-website/'
                   element={
-                    <Recipe
-                      addToFavorite={addToFavorites}
-                      removeFromFavorite={removeFromFavorite}
-                      bookmarked={favorites}
-                      recipe={item}
+                    <Home
+                      featured={recipeData.Featured}
+                      allRecipes={RecipeData}
                     />
                   }
                 />
-              );
-            })}
 
-            <Route path='/search' element={<Search recipe={RecipeData} />} />
-          </Routes>
-        </div>
-        <GoToTop />
-      </BrowserRouter>
+                <Route
+                  path='/all-recipes/'
+                  element={
+                    <RecipesPage
+                      name='All Recipes'
+                      addToBookmarks={addToFavorites}
+                      removeFromBookmarks={removeFromFavorite}
+                      bookmarks={favorites}
+                      categories={categories}
+                      updateCategories={updateCategories}
+                      updateCurrentRecipes={updateCurrentRecipes}
+                      sortArray={sortArray}
+                      currentRecipes={CurrentRecipes}
+                      recipes={RecipeData}
+                    />
+                  }
+                />
+
+                <Route
+                  path='/lunch-recipes/'
+                  element={
+                    <RecipesPage
+                      name='Lunch Recipes'
+                      addToBookmarks={addToFavorites}
+                      removeFromBookmarks={removeFromFavorite}
+                      bookmarks={favorites}
+                      categories={categories}
+                      updateCategories={updateCategories}
+                      updateCurrentRecipes={updateCurrentRecipes}
+                      sortArray={sortArray}
+                      currentRecipes={CurrentRecipes}
+                      recipes={LunchRecipes}
+                    />
+                  }
+                />
+
+                <Route
+                  path='/dinner-recipes/'
+                  element={
+                    <RecipesPage
+                      name='Dinner Recipes'
+                      addToBookmarks={addToFavorites}
+                      removeFromBookmarks={removeFromFavorite}
+                      bookmarks={favorites}
+                      categories={categories}
+                      updateCategories={updateCategories}
+                      updateCurrentRecipes={updateCurrentRecipes}
+                      sortArray={sortArray}
+                      currentRecipes={CurrentRecipes}
+                      recipes={DinnerRecipes}
+                    />
+                  }
+                />
+
+                <Route
+                  path='/side-recipes/'
+                  element={
+                    <RecipesPage
+                      name='Side Recipes'
+                      addToBookmarks={addToFavorites}
+                      removeFromBookmarks={removeFromFavorite}
+                      bookmarks={favorites}
+                      categories={categories}
+                      updateCategories={updateCategories}
+                      updateCurrentRecipes={updateCurrentRecipes}
+                      sortArray={sortArray}
+                      currentRecipes={CurrentRecipes}
+                      recipes={SideRecipes}
+                    />
+                  }
+                />
+
+                <Route
+                  path='/dessert-recipes/'
+                  element={
+                    <RecipesPage
+                      name='Dessert Recipes'
+                      addToBookmarks={addToFavorites}
+                      removeFromBookmarks={removeFromFavorite}
+                      bookmarks={favorites}
+                      categories={categories}
+                      updateCategories={updateCategories}
+                      updateCurrentRecipes={updateCurrentRecipes}
+                      sortArray={sortArray}
+                      currentRecipes={CurrentRecipes}
+                      recipes={DessertRecipes}
+                    />
+                  }
+                />
+
+                <Route
+                  path='/bookmarked'
+                  element={
+                    <Bookmarked
+                      name='Bookmarked'
+                      addToBookmarks={addToFavorites}
+                      removeFromBookmarks={removeFromFavorite}
+                      bookmarks={userData?.bookmarks}
+                      categories={categories}
+                      updateCategories={updateCategories}
+                      updateCurrentRecipes={updateCurrentRecipes}
+                      sortArray={sortArray}
+                      currentRecipes={CurrentRecipes}
+                      recipes={findFavorites}
+                    />
+                  }
+                />
+
+                <Route
+                  path='/login'
+                  element={
+                    <Login
+                      updateIsSignedIn={updateIsSignedIn}
+                      updateUserData={updateUserData}
+                    />
+                  }
+                />
+                <Route
+                  path='/signUp'
+                  element={
+                    <SignUp
+                      updateIsSignedIn={updateIsSignedIn}
+                      updateUserData={updateUserData}
+                    />
+                  }
+                />
+
+                {RecipeData.map((item) => {
+                  return (
+                    <Route
+                      key={item.id}
+                      path={item.extension}
+                      element={
+                        <Recipe
+                          addToFavorite={addToFavorites}
+                          removeFromFavorite={removeFromFavorite}
+                          bookmarked={favorites}
+                          recipe={item}
+                        />
+                      }
+                    />
+                  );
+                })}
+
+                <Route
+                  path='/search'
+                  element={<Search recipe={RecipeData} />}
+                />
+              </Routes>
+            </div>
+            <GoToTop />
+          </BrowserRouter>
+        </>
+      )}
     </>
   );
 }

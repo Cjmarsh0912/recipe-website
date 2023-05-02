@@ -17,3 +17,9 @@ export interface RecipeData {
     step: string;
   }[];
 }
+
+export interface user {
+  uid: string;
+  email: string | null;
+  bookmarks: number[];
+}

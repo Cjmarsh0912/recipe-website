@@ -1,19 +1,27 @@
 import { useState, useRef } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './signUp.module.css';
 
-import { BiHide, BiShow } from 'react-icons/bi';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { setDoc, doc } from 'firebase/firestore';
+import { db } from '../../components/firebase';
 
-interface LoginProps {}
+import { BiHide, BiShow } from 'react-icons/bi';
+import { user } from '../../interfaces/interface';
+
+interface SignUpProps {
+  updateIsSignedIn: () => void;
+  updateUserData: (user: user) => void;
+}
 
 interface SignUpState {
   email: string;
   password: string;
 }
 
-function SignUp(props: LoginProps) {
+function SignUp({ updateIsSignedIn, updateUserData }: SignUpProps) {
   const [state, setState] = useState<SignUpState>({
     email: '',
     password: '',
@@ -27,7 +35,44 @@ function SignUp(props: LoginProps) {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  const navigate = useNavigate();
+
+  const auth = getAuth();
+
+  async function createAccount() {
+    try {
+      const email = state.email;
+      const password = state.password;
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      const userData: user = {
+        uid: userCredentials.user.uid,
+        email: userCredentials.user.email,
+        bookmarks: [],
+      };
+
+      const userRef = doc(db, 'users', userCredentials.user?.uid);
+      await setDoc(userRef, {
+        uid: userCredentials.user.uid,
+        email: userCredentials.user.email,
+        bookmarks: [],
+      });
+
+      return userData;
+    } catch (error: any) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      setEmailErrorMessage(errorMessage);
+      console.log(errorCode + ' ' + errorMessage);
+      return;
+    }
+  }
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const showErrorAnimation = (input: HTMLInputElement | null) => {
@@ -85,6 +130,15 @@ function SignUp(props: LoginProps) {
 
       passwordInput?.classList.remove(`${styles.invalidInput}`);
       passwordInput?.classList.add(`${styles.validInput}`);
+    }
+
+    const userData = await createAccount();
+
+    if (userData !== undefined) {
+      updateUserData(userData);
+      updateIsSignedIn();
+      alert('Account Created: ' + userData.email);
+      navigate('/recipe-website/');
     }
   }
 

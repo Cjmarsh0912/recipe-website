@@ -1,5 +1,7 @@
 import { useRef, useState, ChangeEvent } from 'react';
 
+import { getAuth } from 'firebase/auth';
+
 import SearchBar from '../search_bar/SearchBar';
 
 import { Link } from 'react-router-dom';
@@ -12,8 +14,21 @@ import { CSSTransition } from 'react-transition-group';
 import styles from './navbar.module.css';
 
 import { useOutsideClick } from '../../hooks/useOutsideClick';
+import { user } from '../../interfaces/interface';
 
-export default function Navbar() {
+type NavbarProps = {
+  isSignedIn: boolean;
+  updateIsSignedIn: () => void;
+  updateUserData: (user: user | null) => void;
+  userData: user | null;
+};
+
+export default function Navbar({
+  isSignedIn,
+  updateIsSignedIn,
+  updateUserData,
+  userData,
+}: NavbarProps) {
   const [showRecipesDropdown, setShowRecipesDropdown] =
     useState<boolean>(false);
   const [showLogin, setShowLogin] = useState<boolean>(false);
@@ -28,6 +43,8 @@ export default function Navbar() {
   useOutsideClick(recipeDropdownRef, HideRecipesDropdown);
   useOutsideClick(loginDropdownRef, HideLoginDropdown);
   useOutsideClick(navbarRef, HideNavbarMobile);
+
+  const auth = getAuth();
 
   // Shows the navbar on the click of the menu. Used on smaller screens.
   function ShowNavbarMobile(): void {
@@ -57,6 +74,13 @@ export default function Navbar() {
   }
 
   function HandleSearch(): void {}
+
+  function HandleSignOut(): void {
+    updateUserData(null);
+    updateIsSignedIn();
+    auth.signOut();
+    alert('Signed Out!');
+  }
 
   return (
     <>
@@ -244,21 +268,38 @@ export default function Navbar() {
                 )}
               </li>
 
-              <li className={styles.button_container}>
-                <Link to='login'>
-                  <button type='button' className={styles.login_button}>
-                    Log In
-                  </button>
-                </Link>
-              </li>
+              {!isSignedIn ? (
+                <>
+                  <li className={styles.button_container}>
+                    <Link to='login'>
+                      <button type='button' className={styles.login_button}>
+                        Log In
+                      </button>
+                    </Link>
+                  </li>
 
-              <li className={styles.button_container}>
-                <Link to='/signUp'>
-                  <button type='button' className={styles.signUp_button}>
-                    Sign Up
-                  </button>
-                </Link>
-              </li>
+                  <li className={styles.button_container}>
+                    <Link to='/signUp' className={styles.signUp_button}>
+                      <button type='button' className={styles.signUp_button}>
+                        Sign Up
+                      </button>
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>{userData?.email}</li>
+                  <li className={styles.button_container}>
+                    <button
+                      type='button'
+                      className={styles.login_button}
+                      onClick={HandleSignOut}
+                    >
+                      Log Out
+                    </button>
+                  </li>
+                </>
+              )}
             </ul>
           </CSSTransition>
 
