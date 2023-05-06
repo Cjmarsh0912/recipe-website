@@ -1,13 +1,13 @@
-.loginBox {
+.box {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.loginBox h1 {
+.box h1 {
   margin-bottom: 2rem;
   font-size: 2.5rem;
 }
-.loginBox form {
+.box form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,64 +17,64 @@
   border-radius: 1rem;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
-.loginBox form .container {
+.box form .container {
   display: flex;
   flex-direction: column;
   width: 100%;
   margin-bottom: 1rem;
 }
-.loginBox form label {
+.box form label {
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
-.loginBox form input:-webkit-autofill {
+.box form input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px #f5f5f5 inset !important;
   -webkit-text-fill-color: #333 !important;
   background-color: transparent !important;
 }
-.loginBox form input {
+.box form input {
   font-size: 1.2rem;
   padding: 0.5rem;
   border: none;
   background-color: transparent;
 }
-.loginBox form input:focus {
+.box form input:focus {
   outline: none;
 }
-.loginBox form .invalidInput {
+.box form .invalidInput {
   border: #f00 solid;
 }
-.loginBox form .validInput {
+.box form .validInput {
   border: green solid;
 }
-.loginBox form .labelWrapper {
+.box form .labelWrapper {
   display: flex;
 }
-.loginBox form .labelWrapper span {
+.box form .labelWrapper span {
   margin-left: auto;
   display: flex;
   gap: 0.3rem;
 }
-.loginBox form .labelWrapper span a {
+.box form .labelWrapper span a {
   color: #ff9f1c;
 }
-.loginBox form .emailInputContainer {
+.box form .emailInputContainer {
   margin-bottom: 0.5rem;
   background-color: #f5f5f5;
   border-radius: 0.5rem;
   box-shadow: none;
   width: 100%;
 }
-.loginBox form .emailInputContainer:focus-within {
+.box form .emailInputContainer:focus-within {
   box-shadow: 0px 0px 4px #ccc;
   outline: none;
 }
-.loginBox form .emailInputContainer input {
+.box form .emailInputContainer input {
   width: 100%;
   border-radius: 0.5rem;
 }
-.loginBox form .passwordInputContainer {
+.box form .passwordInputContainer {
   display: flex;
   align-items: center;
   margin-bottom: 0.5rem;
@@ -83,18 +83,18 @@
   box-shadow: none;
   width: 100%;
 }
-.loginBox form .passwordInputContainer:focus-within {
+.box form .passwordInputContainer:focus-within {
   box-shadow: 0px 0px 4px #ccc;
   outline: none;
 }
-.loginBox form .passwordInputContainer input {
+.box form .passwordInputContainer input {
   flex: 1 1 90%;
 }
-.loginBox form .passwordInputContainer input:focus {
+.box form .passwordInputContainer input:focus {
   outline: none;
   box-shadow: none;
 }
-.loginBox form .passwordInputContainer .showPasswordButton {
+.box form .passwordInputContainer .showPasswordButton {
   margin-left: auto;
   display: flex;
   justify-content: flex-end;
@@ -106,10 +106,10 @@
   cursor: pointer;
   margin-right: 0.5rem;
 }
-.loginBox form .passwordInputContainer .showPasswordButton:focus {
+.box form .passwordInputContainer .showPasswordButton:focus {
   outline: none;
 }
-.loginBox form .loginButton {
+.box form .loginButton {
   font-size: 1.2rem;
   padding: 0.5rem 1rem;
   background-color: #008080;
@@ -120,10 +120,10 @@
   transition: background-color 0.3s ease;
   width: 100%;
 }
-.loginBox form .loginButton:hover {
+.box form .loginButton:hover {
   background-color: #006666;
 }
-.loginBox .errorMessage {
+.box .errorMessage {
   align-self: flex-start;
   font-size: 1.2rem;
   color: #ff0000;

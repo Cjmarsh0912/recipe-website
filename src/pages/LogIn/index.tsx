@@ -40,6 +40,16 @@ function Login({ updateIsSignedIn, updateUserData }: LoginProps) {
 
   const auth = getAuth();
 
+  const showErrorAnimation = (input: HTMLInputElement | null) => {
+    input?.classList.remove('animate__flash');
+    void input?.offsetWidth;
+    input?.classList.add(
+      'animate__animated',
+      'animate__flash',
+      `${styles.invalidInput}`
+    );
+  };
+
   async function logIn() {
     try {
       const email: string = state.email;
@@ -52,19 +62,60 @@ function Login({ updateIsSignedIn, updateUserData }: LoginProps) {
       );
 
       const userRef = doc(db, 'users', userCredential.user?.uid);
-      const userDoc = (await getDoc(userRef)).data();
+      const userDoc = await getDoc(userRef);
+      const userData = (userDoc?.data?.() as user) ?? undefined;
 
-      const userData: user = {
-        uid: userDoc?.uid,
-        email: userDoc?.email,
-        bookmarks: [],
-      };
+      if (userData !== undefined) {
+        updateUserData(userData);
+        updateIsSignedIn();
 
-      return userData;
+        alert('signed in with email: ' + userData.email);
+        navigate('/recipe-website/');
+      } else {
+        alert('Error: no user found!');
+      }
     } catch (error: any) {
       const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode + ' ' + errorMessage);
+
+      const emailInput = emailRef?.current;
+      const passwordInput = passwordRef?.current;
+
+      emailInput?.classList.remove(`${styles.validInput}`);
+      passwordInput?.classList.remove(`${styles.validInput}`);
+      showErrorAnimation(passwordInput);
+      showErrorAnimation(emailInput);
+
+      switch (errorCode) {
+        case 'auth/wrong-password':
+          setPasswordErrorMessage(
+            'The password you entered is incorrect. Please enter the correct password and try again.'
+          );
+          break;
+        case 'auth/user-not-found':
+          setEmailErrorMessage(
+            'The email you entered is not registered. Please check your email address and try again.'
+          );
+          break;
+        case 'auth/invalid-email':
+          setEmailErrorMessage(
+            'The email you entered is not in a valid format. Please enter a valid email address.'
+          );
+          break;
+        case 'auth/user-disabled':
+          setEmailErrorMessage('Your account has been disabled.');
+        case 'auth/network-request-failed':
+          setEmailErrorMessage(
+            'There was a problem with your network connection. Please check your internet connection and try again.'
+          );
+          break;
+        case 'auth/operation-not-allowed':
+          setEmailErrorMessage(
+            "Sorry, we're unable to process your request at this time. Please try again later."
+          );
+          break;
+        default:
+          alert(errorCode);
+      }
       return;
     }
   }
@@ -72,32 +123,34 @@ function Login({ updateIsSignedIn, updateUserData }: LoginProps) {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const showErrorAnimation = (input: HTMLInputElement | null) => {
-      input?.classList.remove('animate__flash');
-      void input?.offsetWidth;
-      input?.classList.add(
-        'animate__animated',
-        'animate__flash',
-        `${styles.invalidInput}`
-      );
-    };
-
     const emailInput = emailRef?.current;
     const passwordInput = passwordRef?.current;
 
     const emailRegex = /^\S+@\S+\.\S+$/;
-    const validEmail = emailRegex.test(state.email);
+    const passwordRegex = /^(?=.*[A-Z]).{8,}$/;
 
-    emailInput?.classList.remove(`${styles.validInput}`);
-    passwordInput?.classList.remove(`${styles.validInput}`);
+    const validEmail = emailRegex.test(state.email);
+    const validPassword = passwordRegex.test(state.password);
+
+    setEmailErrorMessage('');
+    setPasswordErrorMessage('');
+
+    emailInput?.classList.remove(
+      `${styles.validInput}`,
+      `${styles.invalidInput}`
+    );
+    passwordInput?.classList.remove(
+      `${styles.validInput}`,
+      `${styles.invalidInput}`
+    );
 
     if (state.email === '') {
-      setEmailErrorMessage('Please enter your email!');
+      setEmailErrorMessage('Please enter your email.');
       showErrorAnimation(emailInput);
 
       return;
     } else if (!validEmail) {
-      setEmailErrorMessage('Please enter a valid email address!');
+      setEmailErrorMessage('Please enter a valid email address.');
       showErrorAnimation(emailInput);
 
       return;
@@ -109,7 +162,14 @@ function Login({ updateIsSignedIn, updateUserData }: LoginProps) {
     }
 
     if (state.password === '') {
-      setPasswordErrorMessage('Please enter your password!');
+      setPasswordErrorMessage('Please enter your password.');
+      showErrorAnimation(passwordInput);
+
+      return;
+    } else if (!validPassword) {
+      setPasswordErrorMessage(
+        'Password must contain at least 8 Characters and 1 uppercase letter.'
+      );
       showErrorAnimation(passwordInput);
 
       return;
@@ -120,22 +180,15 @@ function Login({ updateIsSignedIn, updateUserData }: LoginProps) {
       passwordInput?.classList.add(`${styles.validInput}`);
     }
 
-    const user = await logIn();
-
-    if (user !== undefined) {
-      updateUserData(user);
-      updateIsSignedIn();
-      alert('signed in with email: ' + user.email);
-      navigate('/recipe-website/');
-    }
+    await logIn();
   }
 
   function handleShowPassword() {
-    setShowPassword(!showPassword);
+    setShowPassword((prevPassword) => !prevPassword);
   }
 
   return (
-    <div className={styles.loginBox}>
+    <div className={styles.box}>
       <h1>Login Here</h1>
       <form onSubmit={handleSubmit}>
         <div className={styles.container}>

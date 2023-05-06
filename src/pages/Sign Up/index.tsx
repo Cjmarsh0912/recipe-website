@@ -39,17 +39,28 @@ function SignUp({ updateIsSignedIn, updateUserData }: SignUpProps) {
 
   const auth = getAuth();
 
+  const showErrorAnimation = (input: HTMLInputElement | null) => {
+    input?.classList.remove('animate__flash');
+    void input?.offsetWidth;
+    input?.classList.add(
+      'animate__animated',
+      'animate__flash',
+      `${styles.invalidInput}`
+    );
+  };
+
   async function createAccount() {
     try {
       const email = state.email;
       const password = state.password;
+
       const userCredentials = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
 
-      const userData: user = {
+      const userData: user | undefined = {
         uid: userCredentials.user.uid,
         email: userCredentials.user.email,
         bookmarks: [],
@@ -57,33 +68,60 @@ function SignUp({ updateIsSignedIn, updateUserData }: SignUpProps) {
 
       const userRef = doc(db, 'users', userCredentials.user?.uid);
       await setDoc(userRef, {
-        uid: userCredentials.user.uid,
-        email: userCredentials.user.email,
-        bookmarks: [],
+        ...userData,
       });
 
-      return userData;
+      if (userData !== undefined) {
+        updateUserData(userData);
+        updateIsSignedIn();
+
+        alert('Account Created: ' + userData.email);
+        navigate('/recipe-website/');
+      } else {
+        alert('Error: error creating user');
+      }
     } catch (error: any) {
       const errorCode = error.code;
-      const errorMessage = error.message;
-      setEmailErrorMessage(errorMessage);
-      console.log(errorCode + ' ' + errorMessage);
+
+      const emailInput = emailRef?.current;
+      const passwordInput = passwordRef?.current;
+
+      emailInput?.classList.remove(`${styles.validInput}`);
+      passwordInput?.classList.remove(`${styles.validInput}`);
+      showErrorAnimation(passwordInput);
+      showErrorAnimation(emailInput);
+
+      switch (errorCode) {
+        case 'auth/email-already-in-use':
+          setEmailErrorMessage(
+            'The email you entered is already registered. Please use a different email address or try logging in with your existing account.'
+          );
+          break;
+        case 'auth/invalid-email':
+          setEmailErrorMessage(
+            'The email you entered is not in a valid format. Please enter a valid email address.'
+          );
+          break;
+        case 'auth/operation-not-allowed':
+          setEmailErrorMessage(
+            "Sorry, we're unable to process your request at this time. Please try again later."
+          );
+          break;
+        case 'auth/network-request-failed':
+          setEmailErrorMessage(
+            'There was a problem with your network connection. Please check your internet connection and try again.'
+          );
+          break;
+        default:
+          alert(errorCode);
+      }
+
       return;
     }
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
-    const showErrorAnimation = (input: HTMLInputElement | null) => {
-      input?.classList.remove('animate__flash');
-      void input?.offsetWidth;
-      input?.classList.add(
-        'animate__animated',
-        'animate__flash',
-        `${styles.invalidInput}`
-      );
-    };
 
     const emailInput = emailRef?.current;
     const passwordInput = passwordRef?.current;
@@ -93,16 +131,25 @@ function SignUp({ updateIsSignedIn, updateUserData }: SignUpProps) {
     const validEmail = emailRegex.test(state.email);
     const validPassword = passwordRegex.test(state.password);
 
-    emailInput?.classList.remove(`${styles.validInput}`);
-    passwordInput?.classList.remove(`${styles.validInput}`);
+    setEmailErrorMessage('');
+    setPasswordErrorMessage('');
+
+    emailInput?.classList.remove(
+      `${styles.validInput}`,
+      `${styles.invalidInput}`
+    );
+    passwordInput?.classList.remove(
+      `${styles.validInput}`,
+      `${styles.invalidInput}`
+    );
 
     if (state.email === '') {
-      setEmailErrorMessage('Please enter your email!');
+      setEmailErrorMessage('Please enter your email.');
       showErrorAnimation(emailInput);
 
       return;
     } else if (!validEmail) {
-      setEmailErrorMessage('Please enter a valid email address!');
+      setEmailErrorMessage('Please enter a valid email address.');
       showErrorAnimation(emailInput);
 
       return;
@@ -114,13 +161,13 @@ function SignUp({ updateIsSignedIn, updateUserData }: SignUpProps) {
     }
 
     if (state.password === '') {
-      setPasswordErrorMessage('Please enter your password!');
+      setPasswordErrorMessage('Please enter your password.');
       showErrorAnimation(passwordInput);
 
       return;
     } else if (!validPassword) {
       setPasswordErrorMessage(
-        'Password must contain at least 8 Characters and 1 uppercase letter'
+        'Password must contain at least 8 Characters and 1 uppercase letter.'
       );
       showErrorAnimation(passwordInput);
 
@@ -132,22 +179,15 @@ function SignUp({ updateIsSignedIn, updateUserData }: SignUpProps) {
       passwordInput?.classList.add(`${styles.validInput}`);
     }
 
-    const userData = await createAccount();
-
-    if (userData !== undefined) {
-      updateUserData(userData);
-      updateIsSignedIn();
-      alert('Account Created: ' + userData.email);
-      navigate('/recipe-website/');
-    }
+    await createAccount();
   }
 
   function handleShowPassword() {
-    setShowPassword(!showPassword);
+    setShowPassword((prevPassword) => !prevPassword);
   }
 
   return (
-    <div className={styles.loginBox}>
+    <div className={styles.box}>
       <h1>Sign Up Here</h1>
       <form onSubmit={handleSubmit}>
         <div className={styles.container}>

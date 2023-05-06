@@ -20,6 +20,7 @@ type NavbarProps = {
   isSignedIn: boolean;
   updateIsSignedIn: () => void;
   updateUserData: (user: user | null) => void;
+  resetFavorites: () => void;
   userData: user | null;
 };
 
@@ -27,6 +28,7 @@ export default function Navbar({
   isSignedIn,
   updateIsSignedIn,
   updateUserData,
+  resetFavorites,
   userData,
 }: NavbarProps) {
   const [showRecipesDropdown, setShowRecipesDropdown] =
@@ -80,6 +82,7 @@ export default function Navbar({
     updateIsSignedIn();
     auth.signOut();
     alert('Signed Out!');
+    window.location.reload();
   }
 
   return (

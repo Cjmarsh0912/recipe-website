@@ -9,6 +9,7 @@ import {
   doc,
   getDoc,
   updateDoc,
+  limit,
 } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { User } from 'firebase/auth';
@@ -40,49 +41,45 @@ function App() {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  function filterRecipesByCategory(category: string, recipes: RecipeData[]) {
+    return [...recipes].filter((item) => item.categories.includes(category));
+  }
+
   const SideRecipes = useMemo(
-    () =>
-      [...RecipeData].filter((item) => {
-        return item.categories.includes('Sides');
-      }),
+    () => filterRecipesByCategory('Sides', RecipeData),
     [RecipeData]
   );
   const LunchRecipes = useMemo(
-    () =>
-      [...RecipeData].filter((item) => {
-        return item.categories.includes('Lunch');
-      }),
+    () => filterRecipesByCategory('Lunch', RecipeData),
     [RecipeData]
   );
   const DinnerRecipes = useMemo(
-    () =>
-      [...RecipeData].filter((item) => {
-        return item.categories.includes('Dinner');
-      }),
+    () => filterRecipesByCategory('Dinner', RecipeData),
     [RecipeData]
   );
   const DessertRecipes = useMemo(
-    () =>
-      [...RecipeData].filter((item) => {
-        return item.categories.includes('Dessert');
-      }),
+    () => filterRecipesByCategory('Dessert', RecipeData),
     [RecipeData]
   );
 
   const findFavorites: RecipeData[] = useMemo(
-    () =>
-      [...RecipeData].filter((item) => userData?.bookmarks.includes(item.id)),
-    [userData?.bookmarks]
+    () => [...RecipeData].filter((item) => favorites.includes(item.id)),
+    [favorites]
   );
 
   const addToFavorites = (id: number) => {
-    if (!userData?.bookmarks?.includes(id) && userData?.uid !== undefined)
-      setUserData({
-        ...userData,
-        bookmarks: userData?.bookmarks?.concat(id),
+    if (!favorites.includes(id)) {
+      setFavorites((prevFavorites) => {
+        const newFavorites = [...prevFavorites, id];
+        if (isSignedIn && userData?.uid !== undefined) {
+          const newUserData = { ...userData, bookmarks: newFavorites };
+          setUserData(newUserData);
+          updateUserInDatabase(newUserData);
+        }
+        alert('added to favorites');
+        return newFavorites;
       });
-    //if (!favorites.includes(id)) setFavorites((lastVal) => lastVal.concat(id));
-    alert('added to favorites');
+    }
   };
 
   const removeFromFavorite = (id: number) => {
@@ -132,9 +129,16 @@ function App() {
 
   const updateUserData = (user: user | null) =>
     setUserData(() => {
-      if (user !== null) return { ...user };
-      else return null;
+      if (user !== null) {
+        setFavorites(user.bookmarks);
+        return { ...user };
+      } else {
+        setFavorites([]);
+        return null;
+      }
     });
+
+  const resetFavorites = () => setFavorites([]);
 
   // const addPost = async () => {
   //   RecipeData.forEach(async (item) => {
@@ -157,6 +161,8 @@ function App() {
     const q = query(docRef, orderBy('recipe_name'));
 
     const querySnapshot = await getDocs(q);
+
+    console.log(querySnapshot.size);
 
     const newData: RecipeData[] = querySnapshot.docs.map((doc) => {
       const recipe: RecipeData = {
@@ -204,6 +210,7 @@ function App() {
       if (user) {
         const newUserData = (await fetchUser(user)) as user;
         updateUserData(newUserData);
+        // setFavorites(newUserData.bookmarks);
         setIsSignedIn(true);
         console.log('signed in: ' + newUserData?.email);
       } else {
@@ -213,11 +220,12 @@ function App() {
       }
       setIsLoading(false);
     });
-    return unsubscribe();
+    return unsubscribe;
   }, []);
 
   useEffect(() => {
     console.log(userData);
+    console.log(favorites);
   }, [userData]);
   return (
     <>
@@ -230,6 +238,7 @@ function App() {
               isSignedIn={isSignedIn}
               updateIsSignedIn={updateIsSignedIn}
               updateUserData={updateUserData}
+              resetFavorites={resetFavorites}
               userData={userData}
             />
             <div className='wrapper'>
@@ -341,7 +350,7 @@ function App() {
                       name='Bookmarked'
                       addToBookmarks={addToFavorites}
                       removeFromBookmarks={removeFromFavorite}
-                      bookmarks={userData?.bookmarks}
+                      bookmarks={favorites}
                       categories={categories}
                       updateCategories={updateCategories}
                       updateCurrentRecipes={updateCurrentRecipes}
