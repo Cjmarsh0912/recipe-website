@@ -4,7 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './signUp.module.css';
 
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
 import { db } from '../../components/firebase';
 
@@ -60,6 +64,8 @@ function SignUp({ updateIsSignedIn, updateUserData }: SignUpProps) {
         password
       );
 
+      // await sendEmailVerification(userCredentials.user);
+
       const userData: user | undefined = {
         uid: userCredentials.user.uid,
         email: userCredentials.user.email,
@@ -110,6 +116,11 @@ function SignUp({ updateIsSignedIn, updateUserData }: SignUpProps) {
         case 'auth/network-request-failed':
           setEmailErrorMessage(
             'There was a problem with your network connection. Please check your internet connection and try again.'
+          );
+          break;
+        case 'auth/user-not-found':
+          setEmailErrorMessage(
+            'Error sending verification email: user not found'
           );
           break;
         default:

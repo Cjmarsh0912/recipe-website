@@ -2,6 +2,10 @@
   --animate-duration: 0.5s;
 }
 
+.navbar_mobile {
+  display: flex;
+}
+
 .icon_arrow_down,
 .icon_arrow_up {
   font-size: 1.2rem;
@@ -9,7 +13,7 @@
 }
 
 .mobile {
-  display: none;
+  display: none !important;
 }
 
 .close_btn {
@@ -41,7 +45,8 @@
   display: none;
 }
 
-.navbar {
+.navbar,
+.navbar_mobile {
   border-bottom: #ff9f1c solid 2px;
   display: flex;
   gap: 2rem;
@@ -214,8 +219,14 @@
   body {
     position: relative;
   }
+  .navbar {
+    display: none;
+  }
   .mobile {
-    display: block;
+    display: flex !important;
+  }
+  .navbar_mobile {
+    align-items: center;
   }
   .toggle_btn {
     display: flex;
@@ -224,10 +235,6 @@
   }
   .button_container {
     display: none;
-  }
-  .navbar {
-    display: flex;
-    align-items: center;
   }
   .website_name {
     margin: auto auto;

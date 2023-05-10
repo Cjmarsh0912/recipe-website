@@ -4,6 +4,10 @@
   --animate-duration: 0.5s;
 }
 
+.navbar_mobile {
+  display: flex;
+}
+
 .icon_arrow_down,
 .icon_arrow_up {
   font-size: 1.2rem;
@@ -11,7 +15,7 @@
 }
 
 .mobile {
-  display: none;
+  display: none !important;
 }
 
 .close_btn {
@@ -44,11 +48,11 @@
   display: none;
 }
 
-.navbar {
+.navbar,
+.navbar_mobile {
   border-bottom: $primary_color1 solid 2px;
   display: flex;
   gap: 2rem;
-  // flex-direction: column;
 }
 
 .website_name {
@@ -244,8 +248,16 @@
     position: relative;
   }
 
+  .navbar {
+    display: none;
+  }
+
   .mobile {
-    display: block;
+    display: flex !important;
+  }
+
+  .navbar_mobile {
+    align-items: center;
   }
 
   .toggle_btn {
@@ -256,11 +268,6 @@
 
   .button_container {
     display: none;
-  }
-
-  .navbar {
-    display: flex;
-    align-items: center;
   }
 
   .website_name {

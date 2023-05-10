@@ -5,6 +5,18 @@ export interface RecipeData {
   extension: string;
   categories: string[];
   category_extension: string;
+
+  rating: number;
+  times_rated: number;
+  comments: {
+    comment_id: string;
+    name: string;
+    date: string;
+    comment: string;
+    rating: number;
+    likes: number;
+  }[];
+
   description: string;
   date_posted: string;
   prep_time: string;

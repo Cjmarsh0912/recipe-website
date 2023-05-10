@@ -68,7 +68,10 @@ export default function Bookmarked({
           />
         </>
       ) : (
-        <h3>Hello</h3>
+        <p>
+          Welcome to your bookmarked recipes page! You haven't bookmarked any
+          recipes yet.
+        </p>
       )}
     </main>
   );

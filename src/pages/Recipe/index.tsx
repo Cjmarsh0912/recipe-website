@@ -1,3 +1,4 @@
+import RecipeReviews from './RecipeReviews/index';
 import styles from './recipe.module.css';
 
 import {
@@ -11,24 +12,33 @@ import { RecipeData } from '../../interfaces/interface';
 
 import { Link } from 'react-router-dom';
 
-interface Recipe {
+type RecipeProps = {
   recipe: RecipeData;
+  bookmarked: number[];
+  isSignedIn: boolean;
   addToFavorite: (id: number) => void;
   removeFromFavorite: (id: number) => void;
-  bookmarked: number[];
-}
+  updateRecipe: (recipe: RecipeData) => void;
+};
 
-export default function Recipe(props: Recipe) {
+export default function Recipe({
+  recipe,
+  isSignedIn,
+  addToFavorite,
+  removeFromFavorite,
+  bookmarked,
+  updateRecipe,
+}: RecipeProps) {
   return (
     <>
       {/* Extensions Start */}
       <div className={styles.extensions_container}>
         <div className={styles.extensions}>
           <Link
-            to={props.recipe.category_extension}
+            to={recipe.category_extension}
             className={styles.extension_name}
           >
-            <h2>{props.recipe.categories[0]} Recipes</h2>
+            <h2>{recipe.categories[0]} Recipes</h2>
             <BsArrowRight className={styles.icon_arrow_right} />
           </Link>
         </div>
@@ -43,10 +53,10 @@ export default function Recipe(props: Recipe) {
 
       {/* Recipe Header Start */}
       <header className={styles.recipe_header}>
-        <h1 className={styles.recipe_name}>{props.recipe.recipe_name}</h1>
-        <p className={styles.description}>{props.recipe.description}</p>
+        <h1 className={styles.recipe_name}>{recipe.recipe_name}</h1>
+        <p className={styles.description}>{recipe.description}</p>
         <p className={styles.date_posted}>
-          Date Posted: <span>{props.recipe.date_posted}</span>
+          Date Posted: <span>{recipe.date_posted}</span>
         </p>
       </header>
 
@@ -55,32 +65,32 @@ export default function Recipe(props: Recipe) {
           {/* Recipe Details Start */}
           <div className={styles.recipe_details}>
             <div className={styles.img_container}>
-              <img src={props.recipe.image} />
+              <img src={recipe.image} />
             </div>
             <div className={styles.recipe_container}>
-              <h3>{props.recipe.recipe_name}</h3>
-              {props.bookmarked.includes(props.recipe.id) && (
+              <h3>{recipe.recipe_name}</h3>
+              {bookmarked.includes(recipe.id) && (
                 <BsHeartFill
-                  onClick={() => props.removeFromFavorite(props.recipe.id)}
+                  onClick={() => removeFromFavorite(recipe.id)}
                   className={styles.icon_heart}
                 />
               )}
-              {!props.bookmarked.includes(props.recipe.id) && (
+              {!bookmarked.includes(recipe.id) && (
                 <BsHeart
-                  onClick={() => props.addToFavorite(props.recipe.id)}
+                  onClick={() => addToFavorite(recipe.id)}
                   className={styles.icon_heart}
                 />
               )}
             </div>
             <div className={styles.time}>
               <p>
-                Prep Time: <span>{props.recipe.prep_time}</span>
+                Prep Time: <span>{recipe.prep_time}</span>
               </p>
               <p>
-                Cook Time: <span>{props.recipe.cook_time}</span>
+                Cook Time: <span>{recipe.cook_time}</span>
               </p>
               <p>
-                Total: <span>{props.recipe.total_time}</span>
+                Total: <span>{recipe.total_time}</span>
               </p>
             </div>
           </div>
@@ -93,7 +103,7 @@ export default function Recipe(props: Recipe) {
             </header>
             <div className={styles.ingredients}>
               <ul>
-                {props.recipe.ingredients.map((item, id) => {
+                {recipe.ingredients.map((item, id) => {
                   return <li key={id}>{item}</li>;
                 })}
               </ul>
@@ -108,7 +118,7 @@ export default function Recipe(props: Recipe) {
             </header>
 
             <div className={styles.directions}>
-              {props.recipe.steps.map((item, id) => {
+              {recipe.steps.map((item, id) => {
                 return (
                   <div key={id} className={styles.step}>
                     <header className={styles.step_header}>
@@ -125,6 +135,11 @@ export default function Recipe(props: Recipe) {
           </div>
           {/* Recipe Directions End */}
         </section>
+        <RecipeReviews
+          isSignedIn={isSignedIn}
+          updateRecipe={updateRecipe}
+          recipeData={recipe}
+        />
       </main>
     </>
   );

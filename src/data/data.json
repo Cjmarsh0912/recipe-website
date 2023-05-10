@@ -418,6 +418,18 @@
       "categories": ["Lunch", "noodles", "Meat", "No Meat"],
       "isBookmarked": false,
       "category_extension": "/lunch-recipes",
+      "rating": 0,
+      "times_rated": 0,
+      "comments": [
+        {
+          "comment_id": "string",
+          "name": "string",
+          "date": "string",
+          "comment": "string",
+          "rating": 0,
+          "likes": 0
+        }
+      ],
       "description": "Delicious noodle dish with a kik",
       "date_posted": "October 26, 2022",
       "prep_time": "10",
@@ -454,183 +466,112 @@
       ]
     },
     {
-      "id": 5,
-      "recipe_name": "Creamy Chicken and Noodles",
-      "keywords": ["creamy", "chicken", "noodles", "broccoli"],
-      "extension": "/creamy-chicken-and-noodles",
-      "categories": ["Dinner", "Chicken", "Meat"],
+      "id": 0,
+      "recipe_name": "Spicy Garlic Noodles",
+      "keywords": ["noodles", "spicy", "garlic", "dinner", "ramen"],
+      "extension": "/spicy-garlic-noodles",
+      "categories": ["Lunch", "noodles", "Meat", "No Meat"],
       "isBookmarked": false,
-      "category_extension": "/dinner-recipes",
-      "description": "Delicious Creamy Chicken and Noodles",
-      "date_posted": "October 31, 2022",
-      "prep_time": "20 mins",
-      "cook_time": "20 mins",
-      "total_time": "40 mins",
-      "time_num": 40,
-      "image": "recipe-website/images/creamy-chicken-and-noodles-placeholder.jpg",
-      "ingredients": [
-        "chicken",
-        "angle hair noodles/noodles of choice",
-        "1/4 cup of oil",
-        "1-2 cups heavy cream",
-        "graded parmesan",
-        "a dash soy sauce",
-        "seasonings",
-        "vegetables of your choice",
-        "for the alfredo sauce:",
-        "1/2 cup butter",
-        "1 cup heavy cream",
-        "1 cup parmesan"
-      ],
-      "steps": [
+      "category_extension": "/lunch-recipes",
+      "rating": 0,
+      "times_rated": 0,
+      "comments": [
         {
-          "header": "Bring a pot of salt and water to a boil",
-          "step": "While waiting, trim the chicken and cut it into bite sized pieces."
-        },
-        {
-          "header": "Cook the noodles for about 7-10 minutes",
-          "step": "While noodles are cooking, put oil in a pan and add the chicken. Season with the soy sauce and some seasonings. Cook for at least 10 minutes."
-        },
-        {
-          "header": "Add the noodles and vegetables to the chicken and mix well.",
-          "step": "Add a little bit of the pasta water, the heavy cream, and the parmesan. If the noodles are sticking together to much add a little more pasta water."
-        },
-        {
-          "header": "Let it cook till creamy and hot",
-          "step": ""
-        },
-        {
-          "header": "Optional: make your alfredo sauce",
-          "step": "Melt the butter with some garlic salt and pepper. Once melted whisk in the heavy cream until creamy and warm. Mix in the parmesan until melted. Enjoy!"
+          "comment_id": "string",
+          "name": "string",
+          "date": "string",
+          "comment": "string",
+          "rating": 0,
+          "likes": 0
         }
-      ]
-    },
-    {
-      "id": 8,
-      "recipe_name": "Potato Skins",
-      "keywords": [
-        "potato",
-        "potatoes",
-        "baked",
-        "cheesy",
-        "cheese",
-        "baked",
-        "sides"
       ],
-      "extension": "/potato-skins",
-      "categories": ["Sides", "potato", "Meat", "No Meat"],
-      "isBookmarked": false,
-      "category_extension": "/side-recipes",
-      "description": "Delicious Potato Skins",
-      "date_posted": "October 29, 2022",
-      "prep_time": "10",
-      "cook_time": "60-70 mins",
-      "total_time": "70-80 mins",
-      "time_num": 80,
-      "image": "recipe-website/images/potato-skins-placeholder.jpg",
-      "ingredients": [
-        "potatoes",
-        "cheese",
-        "salt and pepper",
-        "seasonings",
-        "optional: bacon",
-        "optional: butter",
-        "optional: oil/bacon-grease"
-      ],
-      "steps": [
-        {
-          "header": "Preheat oven to 400 degrees",
-          "step": "Poke holes in the potato/es and cover them with the oil or bacon grease, salt, and pepper"
-        },
-        {
-          "header": "Bake the potatoes for 45 minutes or until soft and squishy",
-          "step": "Once done cut the potatoes in half and scoop out most of the guts. In the potato shell, put in a small amount of butter, fill with cheese, and top with bacon and some seasonings."
-        },
-        {
-          "header": "Bake for another 10 minutes",
-          "step": "Enjoy!"
-        }
-      ]
-    },
-    {
-      "id": 9,
-      "recipe_name": "Chocolate Cake",
-      "keywords": ["cake", "chocolate", "baked", "sugar"],
-      "extension": "/chocolate-cake",
-      "categories": ["Dessert", "cake", "chocolate", "No Meat"],
-      "isBookmarked": false,
-      "category_extension": "/dessert-recipes",
-      "description": "Delicious Chocolate Cake",
-      "date_posted": "October 30, 2022",
-      "prep_time": "15 mins",
-      "cook_time": "30 mins",
-      "total_time": "45 mins",
-      "time_num": 45,
-      "image": "recipe-website/images/chocolate-cake-placeholder.jpg",
-      "ingredients": [
-        "chocolate cake mix",
-        "5 eggs",
-        "1 small chocolate pudding",
-        "1 cup oil",
-        "3/4 - 1 cup water",
-        "for the glaze:",
-        "2 cups powdered sugar",
-        "3 tbs water",
-        "melted chocolate chips"
-      ],
-      "steps": [
-        {
-          "header": "Preheat oven to 350 degrees",
-          "step": "Mix the chocolate cake mix, eggs, pudding, oil, and water together and put the mixture in a pan."
-        },
-        {
-          "header": "Bake for 30 minutes or until inside is cooked",
-          "step": "While that is baking mix together the powdered sugar, water, and chocolate chips."
-        },
-        {
-          "header": "Poke a bunch of small holes in the top of the cake",
-          "step": "Spread the glaze around the cake while it is still hot and enjoy."
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "recipe_name": "Hasselback Potatoes",
-      "keywords": ["potatoes", "hasselback", "potato", "cheesy"],
-      "extension": "/hasselback-potatoes",
-      "categories": ["Sides", "potato", "Meat", "No Meat"],
-      "isBookmarked": false,
-      "category_extension": "/side-recipes",
-      "description": "Delicious Hasselback potatoes",
+      "description": "Delicious noodle dish with a kik",
       "date_posted": "October 26, 2022",
-      "prep_time": "10 mins",
-      "cook_time": "45-60 mins",
-      "total_time": "55-70 mins",
-      "time_num": 70,
-      "image": "recipe-website/images/hasselback-placeholder.jpg",
+      "prep_time": "10",
+      "cook_time": "10-15 mins",
+      "total_time": "20-25 mins",
+      "time_num": 25,
+      "image": "recipe-website/images/spicy-noodles-placeholder.jpg",
       "ingredients": [
-        "potatoes",
-        "oil",
-        "salt and pepper",
-        "seasonings",
-        "cheese"
+        "4 3.5 oz instant ramen/any noodle of choice",
+        "2-3 cloves garlic",
+        "1-2 peppers",
+        "chili flakes",
+        "pinch of sugar",
+        "seasonings: garlic salt, seasoning salt, pepper, salt",
+        "1/4 cup of oil",
+        "2 cups soy sauce",
+        "1 cup of sesame oil",
+        "a splash of rice wine vinegar",
+        "optional: some vegetables and some kind of protein"
       ],
       "steps": [
         {
-          "header": "Preheat oven to 400 degrees",
-          "step": "wash the potatoes and then make thin cuts in the them making sure you don't cut all the way through. Tip: you can use two chopsticks to prevent the knife from cutting all the way through."
+          "header": "Salt a pot of water and bring it to a boil",
+          "step": "Cook the noodles 3-5 mins and put in a bowl aside. While cooking cut up the peppers and mince the garlic."
         },
         {
-          "header": "Brush the potatoes with oil",
-          "step": "put the oil in a bowl and mix in salt and pepper. Then brush the oil mixture in the cracks."
+          "header": "Heat up the oil",
+          "step": "When the oil is hot throw the garlic and peppers in the pan. Then throw in the seasonings, chile flakes, and sugar then mix again. Lastly, pour in the soy sauce, sesame oil, and vinegar."
         },
         {
-          "header": "Season the potatoes",
-          "step": "season the potatoes with your favorite seasonings, and throw them in the oven for 45 minutes or until soft and squishy."
+          "header": "Put the noodles, vegetables, and protein in the pan",
+          "step": "Mix everything together then serve."
+        }
+      ]
+    },
+    {
+      "id": 0,
+      "recipe_name": "Spicy Garlic Noodles",
+      "keywords": ["noodles", "spicy", "garlic", "dinner", "ramen"],
+      "extension": "/spicy-garlic-noodles",
+      "categories": ["Lunch", "noodles", "Meat", "No Meat"],
+      "isBookmarked": false,
+      "category_extension": "/lunch-recipes",
+      "rating": 0,
+      "times_rated": 0,
+      "comments": [
+        {
+          "comment_id": "string",
+          "name": "string",
+          "date": "string",
+          "comment": "string",
+          "rating": 0,
+          "likes": 0
+        }
+      ],
+      "description": "Delicious noodle dish with a kik",
+      "date_posted": "October 26, 2022",
+      "prep_time": "10",
+      "cook_time": "10-15 mins",
+      "total_time": "20-25 mins",
+      "time_num": 25,
+      "image": "recipe-website/images/spicy-noodles-placeholder.jpg",
+      "ingredients": [
+        "4 3.5 oz instant ramen/any noodle of choice",
+        "2-3 cloves garlic",
+        "1-2 peppers",
+        "chili flakes",
+        "pinch of sugar",
+        "seasonings: garlic salt, seasoning salt, pepper, salt",
+        "1/4 cup of oil",
+        "2 cups soy sauce",
+        "1 cup of sesame oil",
+        "a splash of rice wine vinegar",
+        "optional: some vegetables and some kind of protein"
+      ],
+      "steps": [
+        {
+          "header": "Salt a pot of water and bring it to a boil",
+          "step": "Cook the noodles 3-5 mins and put in a bowl aside. While cooking cut up the peppers and mince the garlic."
         },
         {
-          "header": "Put cheese in every crack",
-          "step": "Put the potatoes back in the oven to melt the cheese and enjoy."
+          "header": "Heat up the oil",
+          "step": "When the oil is hot throw the garlic and peppers in the pan. Then throw in the seasonings, chile flakes, and sugar then mix again. Lastly, pour in the soy sauce, sesame oil, and vinegar."
+        },
+        {
+          "header": "Put the noodles, vegetables, and protein in the pan",
+          "step": "Mix everything together then serve."
         }
       ]
     }

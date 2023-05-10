@@ -9,6 +9,7 @@ import {
   doc,
   getDoc,
   updateDoc,
+  setDoc,
   limit,
 } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
@@ -138,12 +139,44 @@ function App() {
       }
     });
 
-  const resetFavorites = () => setFavorites([]);
+  const updateRecipeData = (recipe: RecipeData) => {
+    const newRecipeData: RecipeData[] = RecipeData.map((item) => {
+      if (item.id === recipe.id) return recipe;
+      return item;
+    });
+    setRecipeData(newRecipeData);
+  };
 
   // const addPost = async () => {
-  //   RecipeData.forEach(async (item) => {
+  //   const docRef = collection(db, 'Recipes');
+  //   const q = query(docRef, orderBy('recipe_name'));
+  //   const querySnapshot = await getDocs(q);
+  //   const newData: RecipeData[] = querySnapshot.docs.map((doc) => {
+  //     const recipe: RecipeData = {
+  //       id: doc.data().id,
+  //       recipe_name: doc.data().recipe_name,
+  //       keywords: doc.data().keywords,
+  //       extension: doc.data().extension,
+  //       categories: doc.data().categories,
+  //       category_extension: doc.data().category_extension,
+  //       rating: 0,
+  //       times_rated: 0,
+  //       comments: [],
+  //       description: doc.data().description,
+  //       date_posted: doc.data().date_posted,
+  //       prep_time: doc.data().prep_time,
+  //       cook_time: doc.data().cook_time,
+  //       total_time: doc.data().total_time,
+  //       image: doc.data().image,
+  //       ingredients: doc.data().ingredients,
+  //       steps: doc.data().steps,
+  //     };
+  //     return recipe;
+  //   });
+
+  //   newData.forEach(async (item) => {
   //     try {
-  //       const docRef: any = await setDoc(doc(db, 'Recipes', item.recipe_name), {
+  //       await setDoc(doc(db, 'Recipes', item.recipe_name), {
   //         ...item,
   //       });
   //     } catch (e) {
@@ -172,6 +205,9 @@ function App() {
         extension: doc.data().extension,
         categories: doc.data().categories,
         category_extension: doc.data().category_extension,
+        rating: doc.data().rating,
+        times_rated: doc.data().times_rated,
+        comments: doc.data().comments,
         description: doc.data().description,
         date_posted: doc.data().date_posted,
         prep_time: doc.data().prep_time,
@@ -201,6 +237,18 @@ function App() {
     });
   };
 
+  const updateRecipe = async (recipe: RecipeData) => {
+    const recipeRef = doc(db, 'Recipes', recipe.recipe_name);
+    await updateDoc(recipeRef, {
+      ...recipe,
+    });
+    updateRecipeData(recipe);
+  };
+
+  // useEffect(() => {
+  //   addPost();
+  // }, []);
+
   useEffect(() => {
     fetchPosts();
 
@@ -210,7 +258,6 @@ function App() {
       if (user) {
         const newUserData = (await fetchUser(user)) as user;
         updateUserData(newUserData);
-        // setFavorites(newUserData.bookmarks);
         setIsSignedIn(true);
         console.log('signed in: ' + newUserData?.email);
       } else {
@@ -224,13 +271,14 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log(userData);
-    console.log(favorites);
-  }, [userData]);
+    // console.log(userData);
+    // console.log(favorites);
+    console.log(RecipeData);
+  }, [RecipeData]);
   return (
     <>
       {isLoading ? (
-        <></>
+        <h3>Loading</h3>
       ) : (
         <>
           <BrowserRouter>
@@ -238,7 +286,6 @@ function App() {
               isSignedIn={isSignedIn}
               updateIsSignedIn={updateIsSignedIn}
               updateUserData={updateUserData}
-              resetFavorites={resetFavorites}
               userData={userData}
             />
             <div className='wrapper'>
@@ -387,10 +434,12 @@ function App() {
                       path={item.extension}
                       element={
                         <Recipe
+                          recipe={item}
+                          bookmarked={favorites}
+                          isSignedIn={isSignedIn}
+                          updateRecipe={updateRecipe}
                           addToFavorite={addToFavorites}
                           removeFromFavorite={removeFromFavorite}
-                          bookmarked={favorites}
-                          recipe={item}
                         />
                       }
                     />

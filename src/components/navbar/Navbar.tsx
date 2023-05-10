@@ -20,7 +20,6 @@ type NavbarProps = {
   isSignedIn: boolean;
   updateIsSignedIn: () => void;
   updateUserData: (user: user | null) => void;
-  resetFavorites: () => void;
   userData: user | null;
 };
 
@@ -28,25 +27,57 @@ export default function Navbar({
   isSignedIn,
   updateIsSignedIn,
   updateUserData,
-  resetFavorites,
   userData,
 }: NavbarProps) {
-  const [showRecipesDropdown, setShowRecipesDropdown] =
+  const [isRecipesDropdownVisible, setIsRecipesDropdownVisible] =
     useState<boolean>(false);
-  const [showLogin, setShowLogin] = useState<boolean>(false);
+
+  const [isRecipesDropdownMobileVisible, setIsRecipesDropdownMobileVisible] =
+    useState<boolean>(false);
+  const [isLoginDropdownVisible, setIsLoginDropdownVisible] =
+    useState<boolean>(false);
+
   const [showNavbarMobile, setShowNavbarMobile] = useState<boolean>(false);
   const [navbarClasses, setNavbarClasses] = useState<string>(styles.hide);
 
   const [searchInput, setSearchInput] = useState<string>('');
 
+  // References DOM elements to be used for the outside clicker
   const recipeDropdownRef = useRef<HTMLLIElement>(null);
+  const recipeDropdownMobileRef = useRef<HTMLLIElement>(null);
   const loginDropdownRef = useRef<HTMLLIElement>(null);
   const navbarRef = useRef<HTMLUListElement>(null);
+
+  // Handles clicking outside of the referenced DOM element
+  const HideRecipesDropdownMobile = (): void => {
+    setIsRecipesDropdownMobileVisible(() => false);
+  };
+  useOutsideClick(recipeDropdownMobileRef, HideRecipesDropdownMobile);
+
+  const HideRecipesDropdown = (): void => {
+    setIsRecipesDropdownVisible(() => false);
+  };
   useOutsideClick(recipeDropdownRef, HideRecipesDropdown);
+
+  const HideLoginDropdown = (): void => {
+    setIsLoginDropdownVisible(() => false);
+  };
   useOutsideClick(loginDropdownRef, HideLoginDropdown);
+
+  const HideNavbarMobile = (): void => {
+    setShowNavbarMobile(() => false);
+    if (isRecipesDropdownMobileVisible || isLoginDropdownVisible) {
+      setIsRecipesDropdownMobileVisible(() => false);
+      setIsLoginDropdownVisible(() => false);
+    }
+  };
   useOutsideClick(navbarRef, HideNavbarMobile);
 
-  const auth = getAuth();
+  const hideDropdown = (
+    callback: (value?: React.SetStateAction<boolean>) => void
+  ) => {
+    callback((prevVal: any) => !prevVal);
+  };
 
   // Shows the navbar on the click of the menu. Used on smaller screens.
   function ShowNavbarMobile(): void {
@@ -57,42 +88,160 @@ export default function Navbar({
     setNavbarClasses(styles.show);
   }
 
-  // Hides the navbar on the click of a x. Used on smaller screens.
-  function HideNavbarMobile(): void {
-    setShowNavbarMobile(() => false);
-    if (showRecipesDropdown) setShowRecipesDropdown(() => false);
-  }
-
   function SlideOutNavbarMobile(): void {
     setNavbarClasses(styles.hide);
   }
 
-  function HideRecipesDropdown(): void {
-    setShowRecipesDropdown(() => false);
-  }
+  const HandleSearch = (): void => {};
 
-  function HideLoginDropdown(): void {
-    setShowLogin(() => false);
-  }
-
-  function HandleSearch(): void {}
-
-  function HandleSignOut(): void {
+  const auth = getAuth();
+  const HandleSignOut = (): void => {
     updateUserData(null);
     updateIsSignedIn();
     auth.signOut();
     alert('Signed Out!');
-    window.location.reload();
-  }
+  };
 
   return (
     <>
       <header className='wrapper'>
         <nav className={styles.navbar}>
-          <div
-            onClick={ShowNavbarMobile}
-            className={`${styles.toggle_btn} ${styles.mobile}`}
-          >
+          <div className={styles.website_name}>
+            <h2>
+              <Link className={styles.no_underline} to='/recipe-website/'>
+                My Favorite Recipes
+              </Link>
+            </h2>
+          </div>
+
+          <ul ref={navbarRef} className={styles.navbar_links}>
+            {/* Recipes Tab Start */}
+            <li
+              className={` ${styles.dropdown} ${styles.recipes} `}
+              ref={recipeDropdownRef}
+            >
+              <div>
+                <span
+                  className={`${styles.link} ${styles.click_text}`}
+                  onClick={() =>
+                    setIsRecipesDropdownVisible(!isRecipesDropdownVisible)
+                  }
+                >
+                  Recipes
+                </span>
+                <IoIosArrowDown
+                  className={
+                    !isRecipesDropdownVisible
+                      ? styles.icon_arrow_down
+                      : styles.hide
+                  }
+                />
+                <IoIosArrowUp
+                  className={
+                    isRecipesDropdownVisible
+                      ? styles.icon_arrow_up
+                      : styles.hide
+                  }
+                />
+              </div>
+              {isRecipesDropdownVisible && (
+                <ul
+                  className={`${styles.dropdown_content} animate__animated animate__fadeIn`}
+                >
+                  <li>
+                    <Link
+                      onClick={HideRecipesDropdown}
+                      className={styles.dropdown_link}
+                      to='/lunch-recipes'
+                    >
+                      Lunch
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={HideRecipesDropdown}
+                      className={styles.dropdown_link}
+                      to='/dinner-recipes'
+                    >
+                      Dinner
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={HideRecipesDropdown}
+                      className={styles.dropdown_link}
+                      to='/side-recipes'
+                    >
+                      Sides
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={HideRecipesDropdown}
+                      className={styles.dropdown_link}
+                      to='/dessert-recipes'
+                    >
+                      Dessert
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={HideRecipesDropdown}
+                      className={styles.dropdown_link}
+                      to='/all-recipes'
+                    >
+                      View All
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </li>
+            {/* Recipes Tab End */}
+
+            {!isSignedIn ? (
+              <>
+                <li className={styles.button_container}>
+                  <Link to='login'>
+                    <button type='button' className={styles.login_button}>
+                      Log In
+                    </button>
+                  </Link>
+                </li>
+
+                <li className={styles.button_container}>
+                  <Link to='/signUp' className={styles.signUp_button}>
+                    <button type='button' className={styles.signUp_button}>
+                      Sign Up
+                    </button>
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>{userData?.email}</li>
+                <li className={styles.button_container}>
+                  <button
+                    type='button'
+                    className={styles.login_button}
+                    onClick={HandleSignOut}
+                  >
+                    Log Out
+                  </button>
+                </li>
+              </>
+            )}
+          </ul>
+
+          <div className={styles.favorites}>
+            <Link to='/bookmarked'>
+              <BsBookmarkHeart />
+            </Link>
+          </div>
+          <SearchBar />
+        </nav>
+
+        <nav className={`${styles.navbar_mobile} ${styles.mobile}`}>
+          <div onClick={ShowNavbarMobile} className={`${styles.toggle_btn}`}>
             <span></span>
             <span></span>
             <span></span>
@@ -120,10 +269,10 @@ export default function Navbar({
             <ul ref={navbarRef}>
               <AiOutlineClose
                 onClick={HideNavbarMobile}
-                className={`${styles.close_btn} ${styles.mobile}`}
+                className={`${styles.close_btn}`}
               />
 
-              <li className={`${styles.mobile} ${styles.mobile_search}`}>
+              <li className={`${styles.mobile_search}`}>
                 <div className={styles.search_bar_mobile}>
                   <div className={styles.search_bar_mobile_container}>
                     <button
@@ -145,7 +294,7 @@ export default function Navbar({
                 </div>
               </li>
 
-              <li className={`${styles.mobile} ${styles.mobile_favorites}`}>
+              <li className={`${styles.mobile_favorites}`}>
                 <div className={styles.mobile_favorites_container}>
                   <Link onClick={HideNavbarMobile} to='/bookmarked'>
                     <BsBookmarkHeart />
@@ -156,30 +305,36 @@ export default function Navbar({
 
               {/* Recipes Tab Start */}
               <li
-                className={` ${styles.dropdown} ${styles.recipes} `}
-                ref={recipeDropdownRef}
+                className={` ${styles.dropdown} ${styles.recipes}`}
+                ref={recipeDropdownMobileRef}
               >
                 <div>
                   <span
                     className={`${styles.link} ${styles.click_text}`}
-                    onClick={() => setShowRecipesDropdown(!showRecipesDropdown)}
+                    onClick={() =>
+                      setIsRecipesDropdownMobileVisible(
+                        !isRecipesDropdownMobileVisible
+                      )
+                    }
                   >
                     Recipes
                   </span>
                   <IoIosArrowDown
                     className={
-                      !showRecipesDropdown
+                      !isRecipesDropdownMobileVisible
                         ? styles.icon_arrow_down
                         : styles.hide
                     }
                   />
                   <IoIosArrowUp
                     className={
-                      showRecipesDropdown ? styles.icon_arrow_up : styles.hide
+                      isRecipesDropdownMobileVisible
+                        ? styles.icon_arrow_up
+                        : styles.hide
                     }
                   />
                 </div>
-                {showRecipesDropdown && (
+                {isRecipesDropdownMobileVisible && (
                   <ul
                     className={`${styles.dropdown_content} animate__animated animate__fadeIn`}
                   >
@@ -234,26 +389,34 @@ export default function Navbar({
               {/* Recipes Tab End */}
 
               <li
-                className={`${styles.mobile} ${styles.mobile_button_container} ${styles.dropdown}`}
+                className={`${styles.mobile_button_container} ${styles.dropdown}`}
                 ref={loginDropdownRef}
               >
                 <div>
                   <span
                     className={`${styles.link} ${styles.click_text}`}
-                    onClick={() => setShowLogin(!showLogin)}
+                    onClick={() =>
+                      setIsLoginDropdownVisible(!isLoginDropdownVisible)
+                    }
                   >
                     More
                   </span>
                   <IoIosArrowDown
                     className={
-                      !showLogin ? styles.icon_arrow_down : styles.hide
+                      !isLoginDropdownVisible
+                        ? styles.icon_arrow_down
+                        : styles.hide
                     }
                   />
                   <IoIosArrowUp
-                    className={showLogin ? styles.icon_arrow_up : styles.hide}
+                    className={
+                      isLoginDropdownVisible
+                        ? styles.icon_arrow_up
+                        : styles.hide
+                    }
                   />
                 </div>
-                {showLogin && (
+                {isLoginDropdownVisible && (
                   <ul
                     className={`${styles.dropdown_content} animate__animated animate__fadeIn`}
                   >
@@ -270,39 +433,6 @@ export default function Navbar({
                   </ul>
                 )}
               </li>
-
-              {!isSignedIn ? (
-                <>
-                  <li className={styles.button_container}>
-                    <Link to='login'>
-                      <button type='button' className={styles.login_button}>
-                        Log In
-                      </button>
-                    </Link>
-                  </li>
-
-                  <li className={styles.button_container}>
-                    <Link to='/signUp' className={styles.signUp_button}>
-                      <button type='button' className={styles.signUp_button}>
-                        Sign Up
-                      </button>
-                    </Link>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li>{userData?.email}</li>
-                  <li className={styles.button_container}>
-                    <button
-                      type='button'
-                      className={styles.login_button}
-                      onClick={HandleSignOut}
-                    >
-                      Log Out
-                    </button>
-                  </li>
-                </>
-              )}
             </ul>
           </CSSTransition>
 

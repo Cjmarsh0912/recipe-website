@@ -1,0 +1,103 @@
+.container {
+  padding: 0 10rem;
+  margin-bottom: 100rem;
+}
+.container .header {
+  border-bottom: 2px solid #ff9f1c;
+  width: 40rem;
+}
+.container .commentSection {
+  width: 40rem;
+}
+.container .commentSection .star {
+  cursor: pointer;
+}
+.container .commentSection .commentSectionForm {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  gap: 2rem;
+}
+.container .commentSection .commentSectionForm input {
+  font-size: 1.2rem;
+  padding: 0.5rem;
+}
+.container .commentSection .commentSectionForm textarea {
+  resize: vertical;
+}
+.container .commentSection .commentSectionForm label {
+  font-size: 1.2rem;
+}
+.container .commentSection .commentSectionForm .ratingInput {
+  display: none;
+}
+.container .commentSection .commentSectionForm .nameInputContainer,
+.container .commentSection .commentSectionForm .commentInputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.container .commentSection .commentSectionForm .submitButtonContainer {
+  margin: auto;
+}
+.container .commentSection .commentSectionForm .submitButtonContainer .submit {
+  padding: 0.5rem 3rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background-color: #ff9f1c;
+  border: none;
+}
+.container .commentSection .commentSectionForm .submitButtonContainer .submit:hover {
+  color: white;
+}
+.container .commentSection .comments {
+  margin-top: 3rem;
+  font-size: 1.1rem;
+}
+.container .commentSection .comments .header {
+  border-bottom: 2px solid #ff9f1c;
+}
+.container .commentSection .comments ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.container .commentSection .comments li {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid gray;
+  border-radius: 0.5rem;
+}
+.container .commentSection .comments .commentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.container .commentSection .comments .commentText {
+  margin: 1rem 0;
+}
+.container .commentSection .comments .ratingContainer svg {
+  color: #ffc107;
+}
+.container .commentSection .comments .commentIcons {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+.container .commentSection .comments .commentIcons button {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.container .commentSection .comments .commentIcons button:hover {
+  cursor: pointer;
+}
+.container .commentSection .comments .commentIcons button p {
+  font-size: 1.1rem;
+}
+.container .commentSection .comments .commentIcons button svg {
+  width: 1.3rem;
+  height: 1.3rem;
+}/*# sourceMappingURL=recipeReviews.module.css.map */
