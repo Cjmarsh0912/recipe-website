@@ -62,8 +62,16 @@
   margin: 0;
   padding: 0;
 }
-.container .commentSection .comments li {
+.container .commentSection .comments ul li {
   margin: 1rem 0;
+}
+.container .commentSection .comments ul .your_comment {
+  font-style: italic;
+  font-weight: 500;
+  padding: 0 0 0.3rem 1rem;
+  font-size: 0.9rem;
+}
+.container .commentSection .comments ul .comment {
   padding: 1rem;
   border: 1px solid gray;
   border-radius: 0.5rem;
@@ -100,4 +108,10 @@
 .container .commentSection .comments .commentIcons button svg {
   width: 1.3rem;
   height: 1.3rem;
+}
+.container .commentSection .comments .commentIcons .delete_button {
+  margin-left: auto;
+}
+.container .commentSection .comments .commentIcons .delete_button:hover {
+  color: red;
 }/*# sourceMappingURL=recipeReviews.module.css.map */

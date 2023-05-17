@@ -76,10 +76,19 @@
     display: flex;
     width: 100%;
 
-    h3 {
-      font-size: 2rem;
-      font-weight: 500;
+    & > div {
       margin-right: auto;
+      h3 {
+        font-size: 2rem;
+        font-weight: 500;
+      }
+
+      .rating_container {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        // justify-content: center;
+      }
     }
 
     .icon_heart {

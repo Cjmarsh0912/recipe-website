@@ -5,28 +5,40 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { useNavigate } from 'react-router-dom';
 
-import { AiOutlineLike } from 'react-icons/ai';
+import { AiOutlineLike, AiOutlineDelete } from 'react-icons/ai';
 import { BsReply } from 'react-icons/bs';
 import { FaStar } from 'react-icons/fa';
-import { RecipeData } from '../../../interfaces/interface';
+import { RecipeData, user } from '../../../interfaces/interface';
 
 type Comment = {
   comment_id: string;
+  user_uid: string;
   name: string;
   date: string;
   comment: string;
   rating: number;
   likes: number;
+  replies: {
+    comment_id: string;
+    user_uid: string;
+    name: string;
+    date: string;
+    comment: string;
+    rating: number;
+    likes: number;
+  }[];
 };
 
 type RecipeReviewsProps = {
   recipeData: RecipeData;
+  userData: user | null;
   isSignedIn: boolean;
   updateRecipe: (recipe: RecipeData) => void;
 };
 
 const RecipeReviews = ({
   recipeData,
+  userData,
   isSignedIn,
   updateRecipe,
 }: RecipeReviewsProps) => {
@@ -34,8 +46,6 @@ const RecipeReviews = ({
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number>(0);
   const [tempRating, setTempRating] = useState<number>(0);
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const stars: number[] = [0, 1, 2, 3, 4];
   const date = new Date();
@@ -46,49 +56,56 @@ const RecipeReviews = ({
     year: 'numeric',
   });
 
-  const comments: Comment[] = [
-    {
-      comment_id: 'sjdbsjdkm',
-      name: 'John Doe',
-      date: 'May 1, 2023',
-      comment: 'This recipe was amazing!',
-      rating: 5,
-      likes: 100,
-    },
-    {
-      comment_id: 'kassuhndk',
-      name: 'Jane Smith',
-      date: 'May 2, 2023',
-      comment: "I didn't like this recipe very much.",
-      rating: 2,
-      likes: 3,
-    },
-  ];
+  const handleDeleteComment = (comment_id: string) => {
+    if (userData === null) return;
+
+    const newComments: Comment[] = recipeData.comments.filter((item) => {
+      return item.comment_id !== comment_id;
+    });
+
+    const newRecipe: RecipeData = {
+      ...recipeData,
+      comments: newComments,
+      times_rated: recipeData.times_rated - 1,
+    };
+
+    updateRecipe(newRecipe);
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!isSignedIn) {
       alert('must be signed in to comment');
+      setName('');
+      setComment('');
+      setRating(0);
       return;
     }
 
-    const newRecipe: RecipeData = {
-      ...recipeData,
-      comments: [
-        ...recipeData.comments,
-        {
-          comment: comment,
-          comment_id: uuidv4(),
-          date: formattedDate,
-          likes: 0,
-          name: name,
-          rating: rating,
-        },
-      ],
-      times_rated: recipeData.times_rated + 1,
-    };
-    updateRecipe(newRecipe);
+    if (userData !== null) {
+      const newRecipe: RecipeData = {
+        ...recipeData,
+        comments: [
+          ...recipeData.comments,
+          {
+            comment: comment,
+            comment_id: uuidv4(),
+            date: formattedDate,
+            likes: 0,
+            name: name,
+            rating: rating,
+            user_uid: userData?.uid,
+            replies: [],
+          },
+        ],
+        times_rated: recipeData.times_rated + 1,
+      };
+      setName('');
+      setComment('');
+      setRating(0);
+      updateRecipe(newRecipe);
+    }
   };
 
   return (
@@ -158,12 +175,13 @@ const RecipeReviews = ({
 
         <div className={styles.comments}>
           <header className={styles.header}></header>
-          {isLoading ? (
-            <h3>Loading</h3>
-          ) : (
-            <ul>
-              {recipeData.comments.map((comment, index) => (
-                <li key={comment.comment_id}>
+          <ul>
+            {recipeData.comments.map((comment) => (
+              <li>
+                {userData?.uid === comment.user_uid ? (
+                  <h3 className={styles.your_comment}>Your comment</h3>
+                ) : null}
+                <div className={styles.comment} key={comment.comment_id}>
                   <div className={styles.commentHeader}>
                     <h4>{comment.name}</h4>
                     <p>{comment.date}</p>
@@ -187,11 +205,21 @@ const RecipeReviews = ({
                       <BsReply />
                       <p>Reply</p>
                     </button>
+                    {userData?.uid === comment.user_uid ? (
+                      <button
+                        onClick={() => handleDeleteComment(comment.comment_id)}
+                        className={styles.delete_button}
+                        type='button'
+                      >
+                        <AiOutlineDelete />
+                        <p>Delete</p>
+                      </button>
+                    ) : null}
                   </div>
-                </li>
-              ))}
-            </ul>
-          )}
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     </div>

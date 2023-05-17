@@ -10,11 +10,21 @@ export interface RecipeData {
   times_rated: number;
   comments: {
     comment_id: string;
+    user_uid: string;
     name: string;
     date: string;
     comment: string;
     rating: number;
     likes: number;
+    replies: {
+      comment_id: string;
+      user_uid: string;
+      name: string;
+      date: string;
+      comment: string;
+      rating: number;
+      likes: number;
+    }[];
   }[];
 
   description: string;

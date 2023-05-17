@@ -1,5 +1,6 @@
 import RecipeReviews from './RecipeReviews/index';
 import styles from './recipe.module.css';
+import { FaStar } from 'react-icons/fa';
 
 import {
   BsHeart,
@@ -8,12 +9,13 @@ import {
   BsArrowLeft,
 } from 'react-icons/bs';
 
-import { RecipeData } from '../../interfaces/interface';
+import { RecipeData, user } from '../../interfaces/interface';
 
 import { Link } from 'react-router-dom';
 
 type RecipeProps = {
   recipe: RecipeData;
+  userData: user | null;
   bookmarked: number[];
   isSignedIn: boolean;
   addToFavorite: (id: number) => void;
@@ -23,12 +25,15 @@ type RecipeProps = {
 
 export default function Recipe({
   recipe,
+  userData,
   isSignedIn,
   addToFavorite,
   removeFromFavorite,
   bookmarked,
   updateRecipe,
 }: RecipeProps) {
+  const stars: number[] = [0, 1, 2, 3, 4];
+  console.log(recipe.rating);
   return (
     <>
       {/* Extensions Start */}
@@ -68,7 +73,19 @@ export default function Recipe({
               <img src={recipe.image} />
             </div>
             <div className={styles.recipe_container}>
-              <h3>{recipe.recipe_name}</h3>
+              <div>
+                <h3>{recipe.recipe_name}</h3>
+                <div className={styles.rating_container}>
+                  {[...stars].map((star) => (
+                    <FaStar
+                      key={star}
+                      color={recipe.rating >= star ? '#ffc107' : '#e4e5e9'}
+                      size={20}
+                    />
+                  ))}
+                  <p>{recipe.times_rated} rating(s)</p>
+                </div>
+              </div>
               {bookmarked.includes(recipe.id) && (
                 <BsHeartFill
                   onClick={() => removeFromFavorite(recipe.id)}
@@ -139,6 +156,7 @@ export default function Recipe({
           isSignedIn={isSignedIn}
           updateRecipe={updateRecipe}
           recipeData={recipe}
+          userData={userData}
         />
       </main>
     </>

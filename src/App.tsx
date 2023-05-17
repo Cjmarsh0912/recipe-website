@@ -11,6 +11,7 @@ import {
   updateDoc,
   setDoc,
   limit,
+  deleteField,
 } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { User } from 'firebase/auth';
@@ -245,6 +246,16 @@ function App() {
     updateRecipeData(recipe);
   };
 
+  // const deleteComment = async (recipe: RecipeData, comment_id: string) => {
+  //   const recipeRef = doc(db, 'Recipes', recipe.recipe_name);
+  //   await updateDoc(recipeRef, {
+  //     comments: [
+  //       ...recipe.comments,
+  //       {}
+  //     ]
+  //   })
+  // }
+
   // useEffect(() => {
   //   addPost();
   // }, []);
@@ -278,7 +289,9 @@ function App() {
   return (
     <>
       {isLoading ? (
-        <h3>Loading</h3>
+        <div className='loading'>
+          <h1 data-text='Loading...'>Loading...</h1>
+        </div>
       ) : (
         <>
           <BrowserRouter>
@@ -293,10 +306,7 @@ function App() {
                 <Route
                   path='/recipe-website/'
                   element={
-                    <Home
-                      featured={recipeData.Featured}
-                      allRecipes={RecipeData}
-                    />
+                    <Home featured={RecipeData} allRecipes={RecipeData} />
                   }
                 />
 
@@ -435,6 +445,7 @@ function App() {
                       element={
                         <Recipe
                           recipe={item}
+                          userData={userData}
                           bookmarked={favorites}
                           isSignedIn={isSignedIn}
                           updateRecipe={updateRecipe}
