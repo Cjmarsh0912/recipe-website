@@ -21,6 +21,7 @@ type RecipeProps = {
   addToFavorite: (id: number) => void;
   removeFromFavorite: (id: number) => void;
   updateRecipe: (recipe: RecipeData) => void;
+  updateUserData: (user: user) => void;
 };
 
 export default function Recipe({
@@ -31,9 +32,9 @@ export default function Recipe({
   removeFromFavorite,
   bookmarked,
   updateRecipe,
+  updateUserData,
 }: RecipeProps) {
   const stars: number[] = [0, 1, 2, 3, 4];
-  console.log(recipe.rating);
   return (
     <>
       {/* Extensions Start */}
@@ -157,6 +158,7 @@ export default function Recipe({
           updateRecipe={updateRecipe}
           recipeData={recipe}
           userData={userData}
+          updateUserData={updateUserData}
         />
       </main>
     </>

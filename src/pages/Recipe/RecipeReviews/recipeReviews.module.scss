@@ -19,7 +19,8 @@
       cursor: pointer;
     }
 
-    .commentSectionForm {
+    .commentSectionForm,
+    .replyFormContainer {
       display: flex;
       flex-direction: column;
       padding: 1rem 2rem;
@@ -65,7 +66,12 @@
       }
     }
 
-    .comments {
+    // .replyComments {
+    //   margin-left: 2rem;
+    // }
+
+    .comments,
+    .replyComments {
       margin-top: 3rem;
       font-size: 1.1rem;
 
@@ -89,7 +95,12 @@
           font-size: 0.9rem;
         }
 
-        .comment {
+        .replyComment {
+          margin-left: 2rem;
+        }
+
+        .comment,
+        .replyComment {
           padding: 1rem;
           border: 1px solid gray;
           border-radius: 0.5rem;

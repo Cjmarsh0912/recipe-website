@@ -15,7 +15,7 @@ export interface RecipeData {
     date: string;
     comment: string;
     rating: number;
-    likes: number;
+    likes: string[];
     replies: {
       comment_id: string;
       user_uid: string;
@@ -23,7 +23,7 @@ export interface RecipeData {
       date: string;
       comment: string;
       rating: number;
-      likes: number;
+      likes: string[];
     }[];
   }[];
 
@@ -44,4 +44,15 @@ export interface user {
   uid: string;
   email: string | null;
   bookmarks: number[];
+  likes: string[];
+}
+
+export interface InitialState {
+  categories: string[];
+  favorites: number[];
+  currentRecipes: RecipeData[];
+  recipeData: RecipeData[];
+  userData: user | null;
+  isSignedIn: boolean;
+  isLoading: boolean;
 }

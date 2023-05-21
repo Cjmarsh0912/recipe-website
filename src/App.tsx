@@ -1,4 +1,9 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useEffect, useMemo, useCallback } from 'react';
+import {
+  useStateContext,
+  useDispatchContext,
+  useFunctionContext,
+} from './Context/RecipeContext';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GoToTop from './components/GoToTop';
 import {
@@ -11,7 +16,6 @@ import {
   updateDoc,
   setDoc,
   limit,
-  deleteField,
 } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { User } from 'firebase/auth';
@@ -32,67 +36,71 @@ import recipeData from './data/data.json';
 import 'animate.css';
 import './assets/App.css';
 
-import { RecipeData, user } from './interfaces/interface';
+import { RecipeData, user, InitialState } from './interfaces/interface';
 
 function App() {
-  const [categories, setCategories] = useState<string[]>([]);
-  const [favorites, setFavorites] = useState<number[]>([]);
-  const [CurrentRecipes, setCurrentRecipes] = useState<RecipeData[]>([]);
-  const [RecipeData, setRecipeData] = useState<RecipeData[]>([]);
-  const [userData, setUserData] = useState((): user | null => null);
-  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { state } = useStateContext();
+  const { dispatch } = useDispatchContext();
+  const { addToFavorites, updateUserInDatabase } = useFunctionContext();
+  const {
+    categories,
+    favorites,
+    currentRecipes,
+    recipeData,
+    userData,
+    isSignedIn,
+    isLoading,
+  }: InitialState = state;
 
   function filterRecipesByCategory(category: string, recipes: RecipeData[]) {
     return [...recipes].filter((item) => item.categories.includes(category));
   }
 
   const SideRecipes = useMemo(
-    () => filterRecipesByCategory('Sides', RecipeData),
-    [RecipeData]
+    () => filterRecipesByCategory('Sides', recipeData),
+    [recipeData]
   );
   const LunchRecipes = useMemo(
-    () => filterRecipesByCategory('Lunch', RecipeData),
-    [RecipeData]
+    () => filterRecipesByCategory('Lunch', recipeData),
+    [recipeData]
   );
   const DinnerRecipes = useMemo(
-    () => filterRecipesByCategory('Dinner', RecipeData),
-    [RecipeData]
+    () => filterRecipesByCategory('Dinner', recipeData),
+    [recipeData]
   );
   const DessertRecipes = useMemo(
-    () => filterRecipesByCategory('Dessert', RecipeData),
-    [RecipeData]
+    () => filterRecipesByCategory('Dessert', recipeData),
+    [recipeData]
   );
 
   const findFavorites: RecipeData[] = useMemo(
-    () => [...RecipeData].filter((item) => favorites.includes(item.id)),
+    () => [...recipeData].filter((item) => favorites.includes(item.id)),
     [favorites]
   );
 
-  const addToFavorites = (id: number) => {
-    if (!favorites.includes(id)) {
-      setFavorites((prevFavorites) => {
-        const newFavorites = [...prevFavorites, id];
-        if (isSignedIn && userData?.uid !== undefined) {
-          const newUserData = { ...userData, bookmarks: newFavorites };
-          setUserData(newUserData);
-          updateUserInDatabase(newUserData);
-        }
-        alert('added to favorites');
-        return newFavorites;
-      });
-    }
-  };
+  // const addToFavorites = (id: number) => {
+  //   if (!favorites.includes(id)) {
+  //     const newFavorites = [...favorites, id];
+  //     if (isSignedIn && userData?.uid !== undefined) {
+  //       const newUserData = { ...userData, bookmarks: newFavorites };
+  //       dispatch({ type: 'SET_USER_DATA', payload: newUserData });
+  //       updateUserInDatabase(newUserData);
+  //     }
+  //     dispatch({ type: 'SET_FAVORITES', payload: newFavorites });
+  //     alert('added to favorites');
+  //   }
+  // };
 
   const removeFromFavorite = (id: number) => {
-    let index = favorites.indexOf(id);
-    let temp = [...favorites.slice(0, index), ...favorites.slice(index + 1)];
-    setFavorites(temp);
+    let newFavorites = favorites.filter((item) => {
+      return item !== id;
+    });
+    dispatch({ type: 'SET_FAVORITES', payload: newFavorites });
     alert('removed from favorites');
   };
 
   const updateCurrentRecipes = (data: RecipeData[]) => {
-    setCurrentRecipes(() => data);
+    dispatch({ type: 'SET_CURRENT_RECIPES', payload: data });
   };
 
   const sortArray = useCallback(
@@ -103,9 +111,9 @@ function App() {
 
         return false;
       });
-      setCurrentRecipes(() => sorted);
+      dispatch({ type: 'SET_CURRENT_RECIPES', payload: sorted });
     },
-    [CurrentRecipes]
+    [currentRecipes]
   );
 
   function updateCategories(testData: RecipeData[]) {
@@ -122,30 +130,28 @@ function App() {
         return false;
       });
     });
-    setCategories(test);
+    dispatch({ type: 'SET_CATEGORIES', payload: test });
   }
 
   function updateIsSignedIn() {
-    setIsSignedIn(!isSignedIn);
+    dispatch({ type: 'SET_IS_SIGNED_IN', payload: !isSignedIn });
   }
 
-  const updateUserData = (user: user | null) =>
-    setUserData(() => {
-      if (user !== null) {
-        setFavorites(user.bookmarks);
-        return { ...user };
-      } else {
-        setFavorites([]);
-        return null;
-      }
-    });
+  const updateFavorites = (newFavorites: number[]) => {
+    dispatch({ type: 'SET_FAVORITES', payload: newFavorites });
+  };
+
+  const updateUserData = (newUserData: user | null) => {
+    if (newUserData === null) dispatch({ type: 'SET_FAVORITES', payload: [] });
+    dispatch({ type: 'SET_USER_DATA', payload: newUserData });
+  };
 
   const updateRecipeData = (recipe: RecipeData) => {
-    const newRecipeData: RecipeData[] = RecipeData.map((item) => {
+    const newRecipeData: RecipeData[] = [...recipeData].map((item) => {
       if (item.id === recipe.id) return recipe;
       return item;
     });
-    setRecipeData(newRecipeData);
+    dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipeData });
   };
 
   // const addPost = async () => {
@@ -198,7 +204,7 @@ function App() {
 
     console.log(querySnapshot.size);
 
-    const newData: RecipeData[] = querySnapshot.docs.map((doc) => {
+    const newRecipeData: RecipeData[] = querySnapshot.docs.map((doc) => {
       const recipe: RecipeData = {
         id: doc.data().id,
         recipe_name: doc.data().recipe_name,
@@ -220,7 +226,7 @@ function App() {
       };
       return recipe;
     });
-    setRecipeData(newData);
+    dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipeData });
   };
 
   const fetchUser = async (user: User) => {
@@ -229,14 +235,16 @@ function App() {
     return userDoc;
   };
 
-  const updateUserInDatabase = async (user: user) => {
-    const userRef = doc(db, 'users', user.uid);
-    await updateDoc(userRef, {
-      uid: user.uid,
-      email: user.email,
-      bookmarks: user.bookmarks,
-    });
-  };
+  // const updateUserInDatabase = async (newUserData: user) => {
+  //   const userRef = doc(db, 'users', newUserData.uid);
+  //   await updateDoc(userRef, {
+  //     uid: newUserData.uid,
+  //     email: newUserData.email,
+  //     bookmarks: newUserData.bookmarks,
+  //     likes: newUserData.likes,
+  //   });
+  //   dispatch({ type: 'SET_USER_DATA', payload: newUserData });
+  // };
 
   const updateRecipe = async (recipe: RecipeData) => {
     const recipeRef = doc(db, 'Recipes', recipe.recipe_name);
@@ -269,23 +277,24 @@ function App() {
       if (user) {
         const newUserData = (await fetchUser(user)) as user;
         updateUserData(newUserData);
-        setIsSignedIn(true);
+        dispatch({ type: 'SET_FAVORITES', payload: newUserData.bookmarks });
+        dispatch({ type: 'SET_IS_SIGNED_IN', payload: true });
         console.log('signed in: ' + newUserData?.email);
       } else {
         console.log('not signed in');
-        setUserData(null);
-        setIsSignedIn(false);
+        updateUserData(null);
+        dispatch({ type: 'SET_IS_SIGNED_IN', payload: false });
       }
-      setIsLoading(false);
+      dispatch({ type: 'SET_IS_LOADING', payload: false });
     });
     return unsubscribe;
   }, []);
 
-  useEffect(() => {
-    // console.log(userData);
-    // console.log(favorites);
-    console.log(RecipeData);
-  }, [RecipeData]);
+  // useEffect(() => {
+  //   // console.log(userData);
+  //   // console.log(favorites);
+  //   // console.log(RecipeData);
+  // }, [RecipeData]);
   return (
     <>
       {isLoading ? (
@@ -306,7 +315,7 @@ function App() {
                 <Route
                   path='/recipe-website/'
                   element={
-                    <Home featured={RecipeData} allRecipes={RecipeData} />
+                    <Home featured={recipeData} allRecipes={recipeData} />
                   }
                 />
 
@@ -322,8 +331,8 @@ function App() {
                       updateCategories={updateCategories}
                       updateCurrentRecipes={updateCurrentRecipes}
                       sortArray={sortArray}
-                      currentRecipes={CurrentRecipes}
-                      recipes={RecipeData}
+                      currentRecipes={currentRecipes}
+                      recipes={recipeData}
                     />
                   }
                 />
@@ -340,7 +349,7 @@ function App() {
                       updateCategories={updateCategories}
                       updateCurrentRecipes={updateCurrentRecipes}
                       sortArray={sortArray}
-                      currentRecipes={CurrentRecipes}
+                      currentRecipes={currentRecipes}
                       recipes={LunchRecipes}
                     />
                   }
@@ -358,7 +367,7 @@ function App() {
                       updateCategories={updateCategories}
                       updateCurrentRecipes={updateCurrentRecipes}
                       sortArray={sortArray}
-                      currentRecipes={CurrentRecipes}
+                      currentRecipes={currentRecipes}
                       recipes={DinnerRecipes}
                     />
                   }
@@ -376,7 +385,7 @@ function App() {
                       updateCategories={updateCategories}
                       updateCurrentRecipes={updateCurrentRecipes}
                       sortArray={sortArray}
-                      currentRecipes={CurrentRecipes}
+                      currentRecipes={currentRecipes}
                       recipes={SideRecipes}
                     />
                   }
@@ -394,7 +403,7 @@ function App() {
                       updateCategories={updateCategories}
                       updateCurrentRecipes={updateCurrentRecipes}
                       sortArray={sortArray}
-                      currentRecipes={CurrentRecipes}
+                      currentRecipes={currentRecipes}
                       recipes={DessertRecipes}
                     />
                   }
@@ -412,7 +421,7 @@ function App() {
                       updateCategories={updateCategories}
                       updateCurrentRecipes={updateCurrentRecipes}
                       sortArray={sortArray}
-                      currentRecipes={CurrentRecipes}
+                      currentRecipes={currentRecipes}
                       recipes={findFavorites}
                     />
                   }
@@ -433,11 +442,12 @@ function App() {
                     <SignUp
                       updateIsSignedIn={updateIsSignedIn}
                       updateUserData={updateUserData}
+                      updateFavorites={updateFavorites}
                     />
                   }
                 />
 
-                {RecipeData.map((item) => {
+                {[...recipeData].map((item) => {
                   return (
                     <Route
                       key={item.id}
@@ -451,6 +461,7 @@ function App() {
                           updateRecipe={updateRecipe}
                           addToFavorite={addToFavorites}
                           removeFromFavorite={removeFromFavorite}
+                          updateUserData={updateUserInDatabase}
                         />
                       }
                     />
@@ -459,7 +470,7 @@ function App() {
 
                 <Route
                   path='/search'
-                  element={<Search recipe={RecipeData} />}
+                  element={<Search recipe={recipeData} />}
                 />
               </Routes>
             </div>

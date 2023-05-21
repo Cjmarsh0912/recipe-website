@@ -12,106 +12,138 @@
 .container .commentSection .star {
   cursor: pointer;
 }
-.container .commentSection .commentSectionForm {
+.container .commentSection .commentSectionForm,
+.container .commentSection .replyFormContainer {
   display: flex;
   flex-direction: column;
   padding: 1rem 2rem;
   gap: 2rem;
 }
-.container .commentSection .commentSectionForm input {
+.container .commentSection .commentSectionForm input,
+.container .commentSection .replyFormContainer input {
   font-size: 1.2rem;
   padding: 0.5rem;
 }
-.container .commentSection .commentSectionForm textarea {
+.container .commentSection .commentSectionForm textarea,
+.container .commentSection .replyFormContainer textarea {
   resize: vertical;
 }
-.container .commentSection .commentSectionForm label {
+.container .commentSection .commentSectionForm label,
+.container .commentSection .replyFormContainer label {
   font-size: 1.2rem;
 }
-.container .commentSection .commentSectionForm .ratingInput {
+.container .commentSection .commentSectionForm .ratingInput,
+.container .commentSection .replyFormContainer .ratingInput {
   display: none;
 }
 .container .commentSection .commentSectionForm .nameInputContainer,
-.container .commentSection .commentSectionForm .commentInputContainer {
+.container .commentSection .commentSectionForm .commentInputContainer,
+.container .commentSection .replyFormContainer .nameInputContainer,
+.container .commentSection .replyFormContainer .commentInputContainer {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
 }
-.container .commentSection .commentSectionForm .submitButtonContainer {
+.container .commentSection .commentSectionForm .submitButtonContainer,
+.container .commentSection .replyFormContainer .submitButtonContainer {
   margin: auto;
 }
-.container .commentSection .commentSectionForm .submitButtonContainer .submit {
+.container .commentSection .commentSectionForm .submitButtonContainer .submit,
+.container .commentSection .replyFormContainer .submitButtonContainer .submit {
   padding: 0.5rem 3rem;
   font-size: 1.5rem;
   cursor: pointer;
   background-color: #ff9f1c;
   border: none;
 }
-.container .commentSection .commentSectionForm .submitButtonContainer .submit:hover {
+.container .commentSection .commentSectionForm .submitButtonContainer .submit:hover,
+.container .commentSection .replyFormContainer .submitButtonContainer .submit:hover {
   color: white;
 }
-.container .commentSection .comments {
+.container .commentSection .comments,
+.container .commentSection .replyComments {
   margin-top: 3rem;
   font-size: 1.1rem;
 }
-.container .commentSection .comments .header {
+.container .commentSection .comments .header,
+.container .commentSection .replyComments .header {
   border-bottom: 2px solid #ff9f1c;
 }
-.container .commentSection .comments ul {
+.container .commentSection .comments ul,
+.container .commentSection .replyComments ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.container .commentSection .comments ul li {
+.container .commentSection .comments ul li,
+.container .commentSection .replyComments ul li {
   margin: 1rem 0;
 }
-.container .commentSection .comments ul .your_comment {
+.container .commentSection .comments ul .your_comment,
+.container .commentSection .replyComments ul .your_comment {
   font-style: italic;
   font-weight: 500;
   padding: 0 0 0.3rem 1rem;
   font-size: 0.9rem;
 }
-.container .commentSection .comments ul .comment {
+.container .commentSection .comments ul .replyComment,
+.container .commentSection .replyComments ul .replyComment {
+  margin-left: 2rem;
+}
+.container .commentSection .comments ul .comment,
+.container .commentSection .comments ul .replyComment,
+.container .commentSection .replyComments ul .comment,
+.container .commentSection .replyComments ul .replyComment {
   padding: 1rem;
   border: 1px solid gray;
   border-radius: 0.5rem;
 }
-.container .commentSection .comments .commentHeader {
+.container .commentSection .comments .commentHeader,
+.container .commentSection .replyComments .commentHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.container .commentSection .comments .commentText {
+.container .commentSection .comments .commentText,
+.container .commentSection .replyComments .commentText {
   margin: 1rem 0;
 }
-.container .commentSection .comments .ratingContainer svg {
+.container .commentSection .comments .ratingContainer svg,
+.container .commentSection .replyComments .ratingContainer svg {
   color: #ffc107;
 }
-.container .commentSection .comments .commentIcons {
+.container .commentSection .comments .commentIcons,
+.container .commentSection .replyComments .commentIcons {
   display: flex;
   gap: 2rem;
   margin-top: 1rem;
 }
-.container .commentSection .comments .commentIcons button {
+.container .commentSection .comments .commentIcons button,
+.container .commentSection .replyComments .commentIcons button {
   background: none;
   border: none;
   display: flex;
   align-items: center;
   gap: 0.3rem;
 }
-.container .commentSection .comments .commentIcons button:hover {
+.container .commentSection .comments .commentIcons button:hover,
+.container .commentSection .replyComments .commentIcons button:hover {
   cursor: pointer;
 }
-.container .commentSection .comments .commentIcons button p {
+.container .commentSection .comments .commentIcons button p,
+.container .commentSection .replyComments .commentIcons button p {
   font-size: 1.1rem;
 }
-.container .commentSection .comments .commentIcons button svg {
+.container .commentSection .comments .commentIcons button svg,
+.container .commentSection .replyComments .commentIcons button svg {
   width: 1.3rem;
   height: 1.3rem;
 }
-.container .commentSection .comments .commentIcons .delete_button {
+.container .commentSection .comments .commentIcons .delete_button,
+.container .commentSection .replyComments .commentIcons .delete_button {
   margin-left: auto;
 }
-.container .commentSection .comments .commentIcons .delete_button:hover {
+.container .commentSection .comments .commentIcons .delete_button:hover,
+.container .commentSection .replyComments .commentIcons .delete_button:hover {
   color: red;
 }/*# sourceMappingURL=recipeReviews.module.css.map */

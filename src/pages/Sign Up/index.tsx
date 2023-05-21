@@ -18,6 +18,7 @@ import { user } from '../../interfaces/interface';
 interface SignUpProps {
   updateIsSignedIn: () => void;
   updateUserData: (user: user) => void;
+  updateFavorites: (newFavorites: number[]) => void;
 }
 
 interface SignUpState {
@@ -25,7 +26,11 @@ interface SignUpState {
   password: string;
 }
 
-function SignUp({ updateIsSignedIn, updateUserData }: SignUpProps) {
+function SignUp({
+  updateIsSignedIn,
+  updateUserData,
+  updateFavorites,
+}: SignUpProps) {
   const [state, setState] = useState<SignUpState>({
     email: '',
     password: '',
@@ -70,6 +75,7 @@ function SignUp({ updateIsSignedIn, updateUserData }: SignUpProps) {
         uid: userCredentials.user.uid,
         email: userCredentials.user.email,
         bookmarks: [],
+        likes: [],
       };
 
       const userRef = doc(db, 'users', userCredentials.user?.uid);
@@ -79,6 +85,7 @@ function SignUp({ updateIsSignedIn, updateUserData }: SignUpProps) {
 
       if (userData !== undefined) {
         updateUserData(userData);
+        updateFavorites(userData.bookmarks);
         updateIsSignedIn();
 
         alert('Account Created: ' + userData.email);
