@@ -1,4 +1,10 @@
-import { createContext, useReducer, ReactNode, useContext } from 'react';
+import {
+  createContext,
+  useReducer,
+  ReactNode,
+  useContext,
+  useCallback,
+} from 'react';
 import { RecipeData, user, InitialState } from '../interfaces/interface';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../components/firebase';
@@ -14,7 +20,14 @@ type Action = {
 
 type FunctionContext = {
   addToFavorites: (id: number) => void;
+  removeFromFavorites: (id: number) => void;
+  updateIsSignedIn: () => void;
+  updateCurrentRecipes: (data: RecipeData[]) => void;
+  updateCategories: (test: RecipeData[]) => void;
+  sortArray: (category: string, recipeData: RecipeData[]) => void;
   updateUserInDatabase: (newUserData: user) => void;
+  updateUserData: (newUserData: user | null) => void;
+  updateRecipeInDatabase: (recipe: RecipeData) => void;
 };
 
 const initialState: InitialState = {
@@ -48,8 +61,8 @@ const reducer = (state: InitialState, action: Action) => {
   }
 };
 
-export const StateContext = createContext<{ state: InitialState }>({
-  state: initialState,
+export const StateContext = createContext<InitialState>({
+  ...initialState,
 });
 
 export const DispatchContext = createContext<{
@@ -58,7 +71,14 @@ export const DispatchContext = createContext<{
 
 export const FunctionContext = createContext<FunctionContext>({
   addToFavorites: () => {},
+  removeFromFavorites: () => {},
+  updateIsSignedIn: () => {},
+  updateCurrentRecipes: () => {},
+  updateCategories: () => {},
+  sortArray: () => {},
   updateUserInDatabase: () => {},
+  updateUserData: () => {},
+  updateRecipeInDatabase: () => {},
 });
 
 export function useStateContext() {
@@ -90,6 +110,48 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({ children }) => {
     }
   };
 
+  const removeFromFavorites = (id: number) => {
+    let newFavorites = [...state.favorites].filter((item) => {
+      return item !== id;
+    });
+    dispatch({ type: 'SET_FAVORITES', payload: newFavorites });
+    alert('removed from favorites');
+  };
+
+  const updateCurrentRecipes = (data: RecipeData[]) => {
+    dispatch({ type: 'SET_CURRENT_RECIPES', payload: data });
+  };
+
+  function updateCategories(testData: RecipeData[]) {
+    const test: string[] = [];
+    testData.map((item) => {
+      return item.keywords.filter((item2) => {
+        const isDuplicate = test.includes(item2);
+
+        if (!isDuplicate) {
+          test.push(item2);
+          return true;
+        }
+
+        return false;
+      });
+    });
+    dispatch({ type: 'SET_CATEGORIES', payload: test });
+  }
+
+  const sortArray = useCallback(
+    (category: string, recipeData: RecipeData[]) => {
+      const sorted = recipeData.filter((item) => {
+        if (category === 'choose category') return item;
+        if (item.keywords.includes(category)) return true;
+
+        return false;
+      });
+      dispatch({ type: 'SET_CURRENT_RECIPES', payload: sorted });
+    },
+    [state.currentRecipes]
+  );
+
   const updateUserInDatabase = async (newUserData: user) => {
     const userRef = doc(db, 'users', newUserData.uid);
     await updateDoc(userRef, {
@@ -101,13 +163,51 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({ children }) => {
     dispatch({ type: 'SET_USER_DATA', payload: newUserData });
   };
 
+  function updateIsSignedIn() {
+    dispatch({ type: 'SET_IS_SIGNED_IN', payload: !state.isSignedIn });
+  }
+
+  const updateUserData = (newUserData: user | null) => {
+    if (newUserData === null) dispatch({ type: 'SET_FAVORITES', payload: [] });
+    dispatch({ type: 'SET_USER_DATA', payload: newUserData });
+  };
+
+  const updateRecipeInDatabase = async (recipe: RecipeData) => {
+    const recipeRef = doc(db, 'Recipes', recipe.recipe_name);
+    await updateDoc(recipeRef, {
+      ...recipe,
+    });
+    const newRecipeData: RecipeData[] = [...state.recipeData].map((item) => {
+      if (item.id === recipe.id) return recipe;
+      return item;
+    });
+    dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipeData });
+  };
+
+  const stateContextValue: InitialState = {
+    categories: state.categories,
+    currentRecipes: state.currentRecipes,
+    favorites: state.favorites,
+    isLoading: state.isLoading,
+    isSignedIn: state.isSignedIn,
+    recipeData: state.recipeData,
+    userData: state.userData,
+  };
+
   const functionContextValue: FunctionContext = {
     addToFavorites,
+    removeFromFavorites,
+    updateCurrentRecipes,
+    updateCategories,
+    sortArray,
     updateUserInDatabase,
+    updateUserData,
+    updateIsSignedIn,
+    updateRecipeInDatabase,
   };
 
   return (
-    <StateContext.Provider value={{ state }}>
+    <StateContext.Provider value={stateContextValue}>
       <DispatchContext.Provider value={{ dispatch }}>
         <FunctionContext.Provider value={functionContextValue}>
           {children}

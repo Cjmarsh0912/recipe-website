@@ -1,18 +1,15 @@
 import styles from './home.module.css';
+import { useStateContext } from '../../Context/RecipeContext';
 
 import { RecipeData } from '../../interfaces/interface';
 
 import { Link } from 'react-router-dom';
 
-import { BsArrowRight, BsSearch } from 'react-icons/bs';
+import { BsArrowRight } from 'react-icons/bs';
 
-interface HomeData {
-  featured: RecipeData[];
-  allRecipes: RecipeData[];
-}
+export default function Home() {
+  const { recipeData } = useStateContext();
 
-export default function Home(props: HomeData) {
-  let count = 0;
   return (
     <>
       <main>
@@ -25,7 +22,7 @@ export default function Home(props: HomeData) {
           </header>
 
           <div className={styles.posts}>
-            {props.featured.map((item, id) => {
+            {[...recipeData].map((item, id) => {
               if (id >= 3) return;
               return (
                 <article key={item.id} className={styles.post}>
@@ -76,7 +73,7 @@ export default function Home(props: HomeData) {
           </header>
 
           <div className={styles.posts}>
-            {props.allRecipes.map((item, id) => {
+            {[...recipeData].map((item, id) => {
               if (id >= 3) return;
               return (
                 <article key={item.id} className={styles.post}>

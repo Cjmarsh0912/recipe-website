@@ -1,38 +1,37 @@
+import {
+  useFunctionContext,
+  useStateContext,
+} from '../../Context/RecipeContext';
+
 import { Link } from 'react-router-dom';
 
 import styles from './posts.module.css';
 
-import { RecipeData } from '../../interfaces/interface';
-
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 
-interface Posts {
-  posts: RecipeData[];
-  addToFavorite: (id: number) => void;
-  removeFromFavorite: (id: number) => void;
-  bookmarked: number[];
-}
+export default function Posts() {
+  const { addToFavorites, removeFromFavorites } = useFunctionContext();
+  const { currentRecipes, favorites } = useStateContext();
 
-export default function Posts(props: Posts) {
   return (
     <section className='recipes'>
       <div className={styles.posts}>
-        {props.posts.map((item) => {
+        {[...currentRecipes].map((item) => {
           return (
             <div key={item.id} className={styles.post}>
               <div>
                 <Link to={item.extension}>
                   <img loading='lazy' src={item.image} />
                 </Link>
-                {props.bookmarked.includes(item.id) && (
+                {[...favorites].includes(item.id) && (
                   <BsHeartFill
-                    onClick={() => props.removeFromFavorite(item.id)}
+                    onClick={() => removeFromFavorites(item.id)}
                     className={styles.icon_heart_noFill}
                   />
                 )}
-                {!props.bookmarked.includes(item.id) && (
+                {![...favorites].includes(item.id) && (
                   <BsHeart
-                    onClick={() => props.addToFavorite(item.id)}
+                    onClick={() => addToFavorites(item.id)}
                     className={styles.icon_heart_noFill}
                   />
                 )}

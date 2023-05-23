@@ -1,22 +1,17 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import {
-  useDispatchContext,
   useStateContext,
+  useFunctionContext,
 } from '../../../Context/RecipeContext';
 
 import styles from './recipeReviews.module.css';
 
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../../components/firebase';
-
 import { v4 as uuidv4 } from 'uuid';
-
-import { useNavigate } from 'react-router-dom';
 
 import { AiOutlineLike, AiFillLike, AiOutlineDelete } from 'react-icons/ai';
 import { BsReply } from 'react-icons/bs';
 import { FaStar } from 'react-icons/fa';
-import { RecipeData, user } from '../../../interfaces/interface';
+import { RecipeData } from '../../../interfaces/interface';
 
 type Comment = {
   comment_id: string;
@@ -39,20 +34,9 @@ type Comment = {
 
 type RecipeReviewsProps = {
   recipeData: RecipeData;
-  userData: user | null;
-  isSignedIn: boolean;
-  updateUserData: (user: user) => void;
-  updateRecipe: (recipe: RecipeData) => void;
 };
 
-const RecipeReviews = ({
-  recipeData,
-  userData,
-  isSignedIn,
-  updateRecipe,
-  updateUserData,
-}: RecipeReviewsProps) => {
-  const { state } = useStateContext();
+const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
   const [name, setName] = useState<string>('');
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number>(0);
@@ -61,6 +45,9 @@ const RecipeReviews = ({
   const [showReplyForm, setShowReplyForm] = useState<string>('');
   const [replyName, setReplyName] = useState<string>('');
   const [replyComment, setReplyComment] = useState<string>('');
+
+  const { userData, isSignedIn } = useStateContext();
+  const { updateRecipeInDatabase } = useFunctionContext();
 
   const stars: number[] = [0, 1, 2, 3, 4];
   const date = new Date();
@@ -73,11 +60,6 @@ const RecipeReviews = ({
 
   const handleAddLike = (comment_id: string) => {
     if (userData === null) return;
-
-    // const newUserData: user = {
-    //   ...userData,
-    //   likes: [...userData.likes, comment_id],
-    // };
 
     const newRecipe: RecipeData = {
       ...recipeData,
@@ -93,21 +75,11 @@ const RecipeReviews = ({
       ],
     };
 
-    // updateUserData(newUserData);
-    updateRecipe(newRecipe);
+    updateRecipeInDatabase(newRecipe);
   };
 
   const handleRemoveLike = (comment_id: string) => {
     if (userData === null) return;
-
-    const newLikes: string[] = userData.likes.filter((item) => {
-      return item !== comment_id;
-    });
-
-    const newUserData: user = {
-      ...userData,
-      likes: newLikes,
-    };
 
     const newRecipe: RecipeData = {
       ...recipeData,
@@ -125,8 +97,7 @@ const RecipeReviews = ({
       ],
     };
 
-    // updateUserData(newUserData);
-    updateRecipe(newRecipe);
+    updateRecipeInDatabase(newRecipe);
   };
 
   const handleDeleteComment = async (comment_id: string) => {
@@ -136,25 +107,6 @@ const RecipeReviews = ({
       'Are you sure you want to delete this comment?'
     );
     if (!confirmDelete) return;
-
-    // const usersRef = collection(db, 'users');
-
-    // const querySnapshot = await getDocs(usersRef);
-
-    // const newUsers: user[] = querySnapshot.docs.map((item) => {
-    //   const user: user = {
-    //     email: item.data().email,
-    //     bookmarks: item.data().bookmarks,
-    //     uid: item.data().uid,
-    //     likes: item.data().likes.filter((item: string) => {
-    //       return item !== comment_id;
-    //     }),
-    //   };
-
-    //   return user;
-    // });
-
-    // console.log(newUsers);
 
     const newComments: Comment[] = recipeData.comments.filter((item) => {
       return item.comment_id !== comment_id;
@@ -166,7 +118,7 @@ const RecipeReviews = ({
       times_rated: recipeData.times_rated - 1,
     };
 
-    updateRecipe(newRecipe);
+    updateRecipeInDatabase(newRecipe);
   };
 
   const handleAddComment = (event: React.FormEvent<HTMLFormElement>) => {
@@ -201,7 +153,7 @@ const RecipeReviews = ({
       setName('');
       setComment('');
       setRating(0);
-      updateRecipe(newRecipe);
+      updateRecipeInDatabase(newRecipe);
     }
   };
 
@@ -245,7 +197,7 @@ const RecipeReviews = ({
       setShowReplyForm('');
       setReplyName('');
       setReplyComment('');
-      updateRecipe(newRecipe);
+      updateRecipeInDatabase(newRecipe);
     }
   };
 

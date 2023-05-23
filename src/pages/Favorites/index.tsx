@@ -1,4 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
+
+import {
+  useStateContext,
+  useFunctionContext,
+  useDispatchContext,
+} from '../../Context/RecipeContext';
 
 import Posts from '../../components/posts/Posts';
 
@@ -7,65 +13,39 @@ import Sort from '../../components/sort/Sort';
 
 import styles from '../Recipes/recipes.module.css';
 
-type RecipesPageProps = {
-  name: string;
-  addToBookmarks: (id: number) => void;
-  removeFromBookmarks: (id: number) => void;
-  bookmarks: number[] | undefined;
-  categories: string[];
-  updateCategories: (recipes: RecipeData[]) => void;
-  updateCurrentRecipes: (data: RecipeData[]) => void;
-  sortArray: (type: string, data: RecipeData[]) => void;
-  currentRecipes: RecipeData[];
-  recipes: RecipeData[];
-};
-
-export default function Bookmarked({
-  name,
-  addToBookmarks,
-  removeFromBookmarks,
-  bookmarks,
-  categories,
-  updateCategories,
-  updateCurrentRecipes,
-  sortArray,
-  currentRecipes,
-  recipes,
-}: RecipesPageProps) {
+export default function Bookmarked() {
   const [category, setCategory] = useState<string>('choose category');
+  const { favorites, recipeData } = useStateContext();
+  const { dispatch } = useDispatchContext();
+  const { sortArray, updateCategories } = useFunctionContext();
+
+  const findFavorites: RecipeData[] = useMemo(
+    () => [...recipeData].filter((item) => favorites.includes(item.id)),
+    [favorites]
+  );
 
   const updateCategory = (data: string) => {
     setCategory(data);
   };
 
   useEffect(() => {
-    updateCategories(recipes);
-    updateCurrentRecipes(recipes);
-  }, [recipes]);
+    updateCategories(findFavorites);
+    dispatch({ type: 'SET_CURRENT_RECIPES', payload: findFavorites });
+  }, [findFavorites]);
 
   useEffect(() => {
-    sortArray(category, recipes);
+    sortArray(category, findFavorites);
   }, [category]);
 
   return (
     <main>
-      {/* <header className={styles.test_header}>
-        <h3>{name}</h3>
-        <Sort updateCategory={updateCategory} category={categories} />
-      </header> */}
-
-      {bookmarks && bookmarks.length > 0 ? (
+      {favorites && favorites.length > 0 ? (
         <>
           <header className={styles.test_header}>
-            <h3>{name}</h3>
-            <Sort updateCategory={updateCategory} category={categories} />
+            <h3>Bookmarks</h3>
+            <Sort updateCategory={updateCategory} />
           </header>
-          <Posts
-            addToFavorite={addToBookmarks}
-            removeFromFavorite={removeFromBookmarks}
-            bookmarked={bookmarks}
-            posts={currentRecipes}
-          />
+          <Posts />
         </>
       ) : (
         <p>

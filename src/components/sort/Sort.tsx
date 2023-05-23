@@ -1,17 +1,18 @@
 import { useMemo } from 'react';
+import { useStateContext } from '../../Context/RecipeContext';
 
 import styles from './sort.module.css';
 
 interface Categories {
-  category: string[];
-  updateCategory: (test: any) => void;
+  updateCategory: (category: string) => void;
 }
-export default function Sort(props: Categories) {
-  const sortOrder = ['lunch', 'dinner', 'sides', 'dessert'];
+export default function Sort({ updateCategory }: Categories) {
+  const { categories } = useStateContext();
 
+  const sortOrder = ['lunch', 'dinner', 'sides', 'dessert'];
   const sortedItems = useMemo(
     () =>
-      props.category.sort((a, b) => {
+      [...categories].sort((a, b) => {
         const indexA = sortOrder.indexOf(a);
         const indexB = sortOrder.indexOf(b);
 
@@ -25,13 +26,13 @@ export default function Sort(props: Categories) {
           return 0;
         }
       }),
-    [props.category]
+    [categories]
   );
   return (
     <div className={styles.category_container}>
       <select
         onChange={(e) => {
-          props.updateCategory(e.target.value);
+          updateCategory(e.target.value);
         }}
         id={styles.category}
         name='category'

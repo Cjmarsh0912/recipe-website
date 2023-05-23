@@ -1,5 +1,10 @@
 import { useState, useRef } from 'react';
 
+import {
+  useFunctionContext,
+  useDispatchContext,
+} from '../../Context/RecipeContext';
+
 import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './signUp.module.css';
@@ -15,22 +20,12 @@ import { db } from '../../components/firebase';
 import { BiHide, BiShow } from 'react-icons/bi';
 import { user } from '../../interfaces/interface';
 
-interface SignUpProps {
-  updateIsSignedIn: () => void;
-  updateUserData: (user: user) => void;
-  updateFavorites: (newFavorites: number[]) => void;
-}
-
 interface SignUpState {
   email: string;
   password: string;
 }
 
-function SignUp({
-  updateIsSignedIn,
-  updateUserData,
-  updateFavorites,
-}: SignUpProps) {
+function SignUp() {
   const [state, setState] = useState<SignUpState>({
     email: '',
     password: '',
@@ -43,6 +38,9 @@ function SignUp({
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+
+  const { updateUserData } = useFunctionContext();
+  const { dispatch } = useDispatchContext();
 
   const navigate = useNavigate();
 
@@ -85,8 +83,8 @@ function SignUp({
 
       if (userData !== undefined) {
         updateUserData(userData);
-        updateFavorites(userData.bookmarks);
-        updateIsSignedIn();
+        dispatch({ type: 'SET_FAVORITES', payload: [] });
+        dispatch({ type: 'SET_IS_SIGNED_IN', payload: true });
 
         alert('Account Created: ' + userData.email);
         navigate('/recipe-website/');

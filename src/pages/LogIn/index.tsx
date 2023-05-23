@@ -1,5 +1,7 @@
 import { useState, useRef } from 'react';
 
+import { useFunctionContext } from '../../Context/RecipeContext';
+
 import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './logIn.module.css';
@@ -12,17 +14,12 @@ import { db } from '../../components/firebase';
 
 import { BiHide, BiShow } from 'react-icons/bi';
 
-interface LoginProps {
-  updateIsSignedIn: () => void;
-  updateUserData: (user: user) => void;
-}
-
 interface LoginState {
   email: string;
   password: string;
 }
 
-function Login({ updateIsSignedIn, updateUserData }: LoginProps) {
+function Login() {
   const [state, setState] = useState<LoginState>({
     email: '',
     password: '',
@@ -32,6 +29,8 @@ function Login({ updateIsSignedIn, updateUserData }: LoginProps) {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>('');
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const { updateIsSignedIn, updateUserData } = useFunctionContext();
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);

@@ -1,4 +1,8 @@
 import RecipeReviews from './RecipeReviews/index';
+import {
+  useFunctionContext,
+  useStateContext,
+} from '../../Context/RecipeContext';
 import styles from './recipe.module.css';
 import { FaStar } from 'react-icons/fa';
 
@@ -9,45 +13,34 @@ import {
   BsArrowLeft,
 } from 'react-icons/bs';
 
-import { RecipeData, user } from '../../interfaces/interface';
+import { RecipeData } from '../../interfaces/interface';
 
 import { Link } from 'react-router-dom';
 
 type RecipeProps = {
-  recipe: RecipeData;
-  userData: user | null;
-  bookmarked: number[];
-  isSignedIn: boolean;
-  addToFavorite: (id: number) => void;
-  removeFromFavorite: (id: number) => void;
-  updateRecipe: (recipe: RecipeData) => void;
-  updateUserData: (user: user) => void;
+  recipeData: RecipeData;
 };
 
-export default function Recipe({
-  recipe,
-  userData,
-  isSignedIn,
-  addToFavorite,
-  removeFromFavorite,
-  bookmarked,
-  updateRecipe,
-  updateUserData,
-}: RecipeProps) {
+export default function Recipe({ recipeData }: RecipeProps) {
   const stars: number[] = [0, 1, 2, 3, 4];
+
+  const { addToFavorites, removeFromFavorites } = useFunctionContext();
+  const { favorites } = useStateContext();
+
   return (
     <>
       {/* Extensions Start */}
       <div className={styles.extensions_container}>
         <div className={styles.extensions}>
           <Link
-            to={recipe.category_extension}
+            to={recipeData.category_extension}
             className={styles.extension_name}
           >
-            <h2>{recipe.categories[0]} Recipes</h2>
+            <h2>{recipeData.categories[0]} Recipes</h2>
             <BsArrowRight className={styles.icon_arrow_right} />
           </Link>
         </div>
+
         <div className={`${styles.extensions} ${styles.all}`}>
           <Link to='/all-recipes' className={styles.extension_name}>
             <BsArrowLeft className={styles.icon_arrow_right} />
@@ -59,56 +52,58 @@ export default function Recipe({
 
       {/* Recipe Header Start */}
       <header className={styles.recipe_header}>
-        <h1 className={styles.recipe_name}>{recipe.recipe_name}</h1>
-        <p className={styles.description}>{recipe.description}</p>
+        <h1 className={styles.recipe_name}>{recipeData.recipe_name}</h1>
+        <p className={styles.description}>{recipeData.description}</p>
         <p className={styles.date_posted}>
-          Date Posted: <span>{recipe.date_posted}</span>
+          Date Posted: <span>{recipeData.date_posted}</span>
         </p>
       </header>
+      {/* Recipe Header End */}
 
       <main>
         <section className={styles.recipe_tutorial}>
           {/* Recipe Details Start */}
           <div className={styles.recipe_details}>
             <div className={styles.img_container}>
-              <img src={recipe.image} />
+              <img src={recipeData.image} />
             </div>
+
             <div className={styles.recipe_container}>
               <div>
-                <h3>{recipe.recipe_name}</h3>
+                <h3>{recipeData.recipe_name}</h3>
                 <div className={styles.rating_container}>
                   {[...stars].map((star) => (
                     <FaStar
                       key={star}
-                      color={recipe.rating >= star ? '#ffc107' : '#e4e5e9'}
+                      color={recipeData.rating >= star ? '#ffc107' : '#e4e5e9'}
                       size={20}
                     />
                   ))}
-                  <p>{recipe.times_rated} rating(s)</p>
+                  <p>{recipeData.times_rated} rating(s)</p>
                 </div>
               </div>
-              {bookmarked.includes(recipe.id) && (
+              {[...favorites].includes(recipeData.id) ? (
                 <BsHeartFill
-                  onClick={() => removeFromFavorite(recipe.id)}
+                  onClick={() => removeFromFavorites(recipeData.id)}
                   className={styles.icon_heart}
                 />
-              )}
-              {!bookmarked.includes(recipe.id) && (
+              ) : (
                 <BsHeart
-                  onClick={() => addToFavorite(recipe.id)}
+                  onClick={() => addToFavorites(recipeData.id)}
                   className={styles.icon_heart}
                 />
               )}
             </div>
+
             <div className={styles.time}>
               <p>
-                Prep Time: <span>{recipe.prep_time}</span>
+                Prep Time: <span>{recipeData.prep_time}</span>
               </p>
               <p>
-                Cook Time: <span>{recipe.cook_time}</span>
+                Cook Time: <span>{recipeData.cook_time}</span>
               </p>
               <p>
-                Total: <span>{recipe.total_time}</span>
+                Total: <span>{recipeData.total_time}</span>
               </p>
             </div>
           </div>
@@ -121,7 +116,7 @@ export default function Recipe({
             </header>
             <div className={styles.ingredients}>
               <ul>
-                {recipe.ingredients.map((item, id) => {
+                {recipeData.ingredients.map((item, id) => {
                   return <li key={id}>{item}</li>;
                 })}
               </ul>
@@ -136,7 +131,7 @@ export default function Recipe({
             </header>
 
             <div className={styles.directions}>
-              {recipe.steps.map((item, id) => {
+              {recipeData.steps.map((item, id) => {
                 return (
                   <div key={id} className={styles.step}>
                     <header className={styles.step_header}>
@@ -153,13 +148,7 @@ export default function Recipe({
           </div>
           {/* Recipe Directions End */}
         </section>
-        <RecipeReviews
-          isSignedIn={isSignedIn}
-          updateRecipe={updateRecipe}
-          recipeData={recipe}
-          userData={userData}
-          updateUserData={updateUserData}
-        />
+        <RecipeReviews recipeData={recipeData} />
       </main>
     </>
   );

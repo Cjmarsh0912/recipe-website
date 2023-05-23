@@ -1,5 +1,10 @@
 import { useRef, useState, ChangeEvent } from 'react';
 
+import {
+  useStateContext,
+  useDispatchContext,
+} from '../../Context/RecipeContext';
+
 import { getAuth } from 'firebase/auth';
 
 import SearchBar from '../search_bar/SearchBar';
@@ -14,21 +19,8 @@ import { CSSTransition } from 'react-transition-group';
 import styles from './navbar.module.css';
 
 import { useOutsideClick } from '../../hooks/useOutsideClick';
-import { user } from '../../interfaces/interface';
 
-type NavbarProps = {
-  isSignedIn: boolean;
-  updateIsSignedIn: () => void;
-  updateUserData: (user: user | null) => void;
-  userData: user | null;
-};
-
-export default function Navbar({
-  isSignedIn,
-  updateIsSignedIn,
-  updateUserData,
-  userData,
-}: NavbarProps) {
+export default function Navbar() {
   const [isRecipesDropdownVisible, setIsRecipesDropdownVisible] =
     useState<boolean>(false);
 
@@ -41,6 +33,9 @@ export default function Navbar({
   const [navbarClasses, setNavbarClasses] = useState<string>(styles.hide);
 
   const [searchInput, setSearchInput] = useState<string>('');
+
+  const { userData, isSignedIn } = useStateContext();
+  const { dispatch } = useDispatchContext();
 
   // References DOM elements to be used for the outside clicker
   const recipeDropdownRef = useRef<HTMLLIElement>(null);
@@ -73,12 +68,6 @@ export default function Navbar({
   };
   useOutsideClick(navbarRef, HideNavbarMobile);
 
-  const hideDropdown = (
-    callback: (value?: React.SetStateAction<boolean>) => void
-  ) => {
-    callback((prevVal: any) => !prevVal);
-  };
-
   // Shows the navbar on the click of the menu. Used on smaller screens.
   function ShowNavbarMobile(): void {
     setShowNavbarMobile(() => true);
@@ -96,8 +85,9 @@ export default function Navbar({
 
   const auth = getAuth();
   const HandleSignOut = (): void => {
-    updateUserData(null);
-    updateIsSignedIn();
+    dispatch({ type: 'SET_USER_DATA', payload: null });
+    dispatch({ type: 'SET_FAVORITES', payload: [] });
+    dispatch({ type: 'SET_IS_SIGNED_IN', payload: false });
     auth.signOut();
     alert('Signed Out!');
   };
