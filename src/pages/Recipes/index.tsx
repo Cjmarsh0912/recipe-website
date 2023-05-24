@@ -1,6 +1,9 @@
 import { useEffect, useState, memo } from 'react';
 
-import { useFunctionContext } from '../../Context/RecipeContext';
+import {
+  useFunctionContext,
+  useDispatchContext,
+} from '../../Context/RecipeContext';
 
 import Posts from '../../components/posts/Posts';
 
@@ -16,8 +19,8 @@ type RecipesPageProps = {
 
 const RecipesPage = memo(({ name, recipeData }: RecipesPageProps) => {
   const [category, setCategory] = useState<string>('choose category');
-  const { updateCategories, updateCurrentRecipes, sortArray } =
-    useFunctionContext();
+  const { dispatch } = useDispatchContext();
+  const { updateCategories, sortArray } = useFunctionContext();
 
   const updateCategory = (data: string) => {
     setCategory(data);
@@ -25,7 +28,7 @@ const RecipesPage = memo(({ name, recipeData }: RecipesPageProps) => {
 
   useEffect(() => {
     updateCategories(recipeData);
-    updateCurrentRecipes(recipeData);
+    dispatch({ type: 'SET_CURRENT_RECIPES', payload: recipeData });
   }, [recipeData]);
 
   useEffect(() => {

@@ -59,18 +59,21 @@
 .box form .labelWrapper span a {
   color: #ff9f1c;
 }
-.box form .emailInputContainer {
+.box form .emailInputContainer,
+.box form .usernameInputContainer {
   margin-bottom: 0.5rem;
   background-color: #f5f5f5;
   border-radius: 0.5rem;
   box-shadow: none;
   width: 100%;
 }
-.box form .emailInputContainer:focus-within {
+.box form .emailInputContainer:focus-within,
+.box form .usernameInputContainer:focus-within {
   box-shadow: 0px 0px 4px #ccc;
   outline: none;
 }
-.box form .emailInputContainer input {
+.box form .emailInputContainer input,
+.box form .usernameInputContainer input {
   width: 100%;
   border-radius: 0.5rem;
 }

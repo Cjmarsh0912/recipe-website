@@ -208,7 +208,7 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <li>{userData?.email}</li>
+                <li>{userData?.username}</li>
                 <li className={styles.button_container}>
                   <button
                     type='button'

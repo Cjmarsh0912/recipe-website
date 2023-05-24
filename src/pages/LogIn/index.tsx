@@ -1,6 +1,9 @@
 import { useState, useRef } from 'react';
 
-import { useFunctionContext } from '../../Context/RecipeContext';
+import {
+  useFunctionContext,
+  useDispatchContext,
+} from '../../Context/RecipeContext';
 
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -24,13 +27,14 @@ function Login() {
     email: '',
     password: '',
   });
+  const { dispatch } = useDispatchContext();
 
   const [emailErrorMessage, setEmailErrorMessage] = useState<string>('');
   const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>('');
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const { updateIsSignedIn, updateUserData } = useFunctionContext();
+  const { updateUserData } = useFunctionContext();
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -66,7 +70,7 @@ function Login() {
 
       if (userData !== undefined) {
         updateUserData(userData);
-        updateIsSignedIn();
+        dispatch({ type: 'SET_IS_SIGNED_IN', payload: true });
 
         alert('signed in with email: ' + userData.email);
         navigate('/recipe-website/');

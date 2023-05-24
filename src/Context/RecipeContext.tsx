@@ -21,8 +21,6 @@ type Action = {
 type FunctionContext = {
   addToFavorites: (id: number) => void;
   removeFromFavorites: (id: number) => void;
-  updateIsSignedIn: () => void;
-  updateCurrentRecipes: (data: RecipeData[]) => void;
   updateCategories: (test: RecipeData[]) => void;
   sortArray: (category: string, recipeData: RecipeData[]) => void;
   updateUserInDatabase: (newUserData: user) => void;
@@ -72,8 +70,6 @@ export const DispatchContext = createContext<{
 export const FunctionContext = createContext<FunctionContext>({
   addToFavorites: () => {},
   removeFromFavorites: () => {},
-  updateIsSignedIn: () => {},
-  updateCurrentRecipes: () => {},
   updateCategories: () => {},
   sortArray: () => {},
   updateUserInDatabase: () => {},
@@ -97,7 +93,6 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const addToFavorites = (id: number) => {
-    console.log('ran');
     if (!state.favorites.includes(id)) {
       const newFavorites = [...state.favorites, id];
       if (state.isSignedIn && state.userData?.uid !== undefined) {
@@ -118,11 +113,7 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({ children }) => {
     alert('removed from favorites');
   };
 
-  const updateCurrentRecipes = (data: RecipeData[]) => {
-    dispatch({ type: 'SET_CURRENT_RECIPES', payload: data });
-  };
-
-  function updateCategories(testData: RecipeData[]) {
+  const updateCategories = (testData: RecipeData[]) => {
     const test: string[] = [];
     testData.map((item) => {
       return item.keywords.filter((item2) => {
@@ -137,11 +128,11 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({ children }) => {
       });
     });
     dispatch({ type: 'SET_CATEGORIES', payload: test });
-  }
+  };
 
   const sortArray = useCallback(
     (category: string, recipeData: RecipeData[]) => {
-      const sorted = recipeData.filter((item) => {
+      const sorted = [...recipeData].filter((item) => {
         if (category === 'choose category') return item;
         if (item.keywords.includes(category)) return true;
 
@@ -158,14 +149,10 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({ children }) => {
       uid: newUserData.uid,
       email: newUserData.email,
       bookmarks: newUserData.bookmarks,
-      likes: newUserData.likes,
+      username: newUserData.username,
     });
     dispatch({ type: 'SET_USER_DATA', payload: newUserData });
   };
-
-  function updateIsSignedIn() {
-    dispatch({ type: 'SET_IS_SIGNED_IN', payload: !state.isSignedIn });
-  }
 
   const updateUserData = (newUserData: user | null) => {
     if (newUserData === null) dispatch({ type: 'SET_FAVORITES', payload: [] });
@@ -197,12 +184,10 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({ children }) => {
   const functionContextValue: FunctionContext = {
     addToFavorites,
     removeFromFavorites,
-    updateCurrentRecipes,
     updateCategories,
     sortArray,
     updateUserInDatabase,
     updateUserData,
-    updateIsSignedIn,
     updateRecipeInDatabase,
   };
 

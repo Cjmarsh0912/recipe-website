@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import styles from './signUp.module.css';
 
 import {
   useFunctionContext,
@@ -7,40 +8,164 @@ import {
 
 import { Link, useNavigate } from 'react-router-dom';
 
-import styles from './signUp.module.css';
-
 import {
   getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from 'firebase/auth';
-import { setDoc, doc } from 'firebase/firestore';
+import {
+  setDoc,
+  doc,
+  getDocs,
+  where,
+  query,
+  collection,
+} from 'firebase/firestore';
 import { db } from '../../components/firebase';
 
 import { BiHide, BiShow } from 'react-icons/bi';
+
 import { user } from '../../interfaces/interface';
 
-interface SignUpState {
-  email: string;
-  password: string;
-}
-
 function SignUp() {
-  const [state, setState] = useState<SignUpState>({
-    email: '',
-    password: '',
-  });
+  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
+  const [step, setStep] = useState<number>(1);
+
+  const [usernameErrorMessage, setUsernameErrorMessage] = useState<string>('');
   const [emailErrorMessage, setEmailErrorMessage] = useState<string>('');
   const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>('');
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
+  const usernameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const { updateUserData } = useFunctionContext();
   const { dispatch } = useDispatchContext();
+
+  const handleNext = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const usernameInput = usernameRef?.current;
+    const emailInput = emailRef?.current;
+
+    const usernameRegex = /^[a-zA-Z0-9]{5,20}$/;
+    const emailRegex = /^\S+@\S+\.\S+$/;
+    const validUsername = usernameRegex.test(username);
+    const validEmail = emailRegex.test(email);
+
+    setUsernameErrorMessage('');
+    setEmailErrorMessage('');
+
+    usernameInput?.classList.remove(
+      `${styles.validInput}`,
+      `${styles.invalidInput}`
+    );
+    emailInput?.classList.remove(
+      `${styles.validInput}`,
+      `${styles.invalidInput}`
+    );
+
+    if (username === '') {
+      setUsernameErrorMessage('Please enter a username.');
+      showErrorAnimation(usernameInput);
+
+      return;
+    } else if (!validUsername) {
+      setUsernameErrorMessage(
+        'Username must be between 5 and 20 characters with letters and numbers only.'
+      );
+      showErrorAnimation(usernameInput);
+
+      return;
+    } else if (
+      username.toLowerCase() === 'admin' ||
+      username.toLowerCase() === 'guest' ||
+      username.toLowerCase() === 'support'
+    ) {
+      setUsernameErrorMessage('Username invalid.');
+      showErrorAnimation(usernameInput);
+
+      return;
+    } else {
+      setUsernameErrorMessage('');
+
+      usernameInput?.classList.remove(`${styles.invalidInput}`);
+      usernameInput?.classList.add(`${styles.validInput}`);
+    }
+
+    if (email === '') {
+      setEmailErrorMessage('Please enter your email.');
+      showErrorAnimation(emailInput);
+
+      return;
+    } else if (!validEmail) {
+      setEmailErrorMessage('Please enter a valid email address.');
+      showErrorAnimation(emailInput);
+
+      return;
+    } else {
+      setEmailErrorMessage('');
+
+      emailInput?.classList.remove(`${styles.invalidInput}`);
+      emailInput?.classList.add(`${styles.validInput}`);
+    }
+
+    const usernameExists = await checkIfUsernameExists(username);
+    if (usernameExists) {
+      usernameInput?.classList.remove(`${styles.validInput}`);
+
+      setUsernameErrorMessage(
+        'Username already exists. Please choose a different username or sign in with your existing account.'
+      );
+      showErrorAnimation(usernameInput);
+
+      return;
+    }
+    const emailExists = await checkIfEmailExists(email);
+    if (emailExists) {
+      emailInput?.classList.remove(`${styles.validInput}`);
+
+      setEmailErrorMessage(
+        'Email already exists. Please choose a different email or sign in with your existing account.'
+      );
+      showErrorAnimation(emailInput);
+
+      return;
+    }
+
+    async function checkIfEmailExists(email: string) {
+      const docRef = collection(db, 'users');
+      const q = query(docRef, where('email', '==', email));
+
+      const snapshot = await getDocs(q);
+
+      return !snapshot.empty;
+    }
+
+    async function checkIfUsernameExists(username: string) {
+      const docRef = collection(db, 'users');
+      const q = query(docRef, where('username', '==', username));
+
+      const snapshot = await getDocs(q);
+
+      return !snapshot.empty;
+    }
+
+    setStep(step + 1);
+  };
+
+  const handleBack = () => {
+    setStep(step - 1);
+  };
+
+  function handleShowPassword() {
+    setShowPassword((prevPassword) => !prevPassword);
+  }
 
   const navigate = useNavigate();
 
@@ -58,9 +183,6 @@ function SignUp() {
 
   async function createAccount() {
     try {
-      const email = state.email;
-      const password = state.password;
-
       const userCredentials = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -73,7 +195,7 @@ function SignUp() {
         uid: userCredentials.user.uid,
         email: userCredentials.user.email,
         bookmarks: [],
-        likes: [],
+        username: username,
       };
 
       const userRef = doc(db, 'users', userCredentials.user?.uid);
@@ -139,44 +261,20 @@ function SignUp() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const emailInput = emailRef?.current;
     const passwordInput = passwordRef?.current;
 
-    const emailRegex = /^\S+@\S+\.\S+$/;
     const passwordRegex = /^(?=.*[A-Z]).{8,}$/;
-    const validEmail = emailRegex.test(state.email);
-    const validPassword = passwordRegex.test(state.password);
+    const validPassword = passwordRegex.test(password);
 
     setEmailErrorMessage('');
     setPasswordErrorMessage('');
 
-    emailInput?.classList.remove(
-      `${styles.validInput}`,
-      `${styles.invalidInput}`
-    );
     passwordInput?.classList.remove(
       `${styles.validInput}`,
       `${styles.invalidInput}`
     );
 
-    if (state.email === '') {
-      setEmailErrorMessage('Please enter your email.');
-      showErrorAnimation(emailInput);
-
-      return;
-    } else if (!validEmail) {
-      setEmailErrorMessage('Please enter a valid email address.');
-      showErrorAnimation(emailInput);
-
-      return;
-    } else {
-      setEmailErrorMessage('');
-
-      emailInput?.classList.remove(`${styles.invalidInput}`);
-      emailInput?.classList.add(`${styles.validInput}`);
-    }
-
-    if (state.password === '') {
+    if (password === '') {
       setPasswordErrorMessage('Please enter your password.');
       showErrorAnimation(passwordInput);
 
@@ -198,71 +296,86 @@ function SignUp() {
     await createAccount();
   }
 
-  function handleShowPassword() {
-    setShowPassword((prevPassword) => !prevPassword);
-  }
-
   return (
     <div className={styles.box}>
-      <h1>Sign Up Here</h1>
-      <form onSubmit={handleSubmit}>
-        <div className={styles.container}>
-          <div className={styles.labelWrapper}>
+      <h1>Sign Up</h1>
+      {step === 1 && (
+        <form onSubmit={handleNext}>
+          <div className={styles.container}>
+            <label htmlFor='username'>Username:</label>
+            <div ref={usernameRef} className={styles.usernameInputContainer}>
+              <input
+                type='text'
+                id='username'
+                name='username'
+                placeholder='Enter a username'
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+            <span className={styles.errorMessage}>{usernameErrorMessage}</span>
+          </div>
+          <div className={styles.container}>
             <label htmlFor='email'>Email:</label>
-            <span>
-              <p>Already have an account:</p>
-              <Link to='/login'>Log In</Link>
-            </span>
+            <div ref={emailRef} className={styles.emailInputContainer}>
+              <input
+                type='text'
+                id='email'
+                name='email'
+                placeholder='Enter your email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <span className={styles.errorMessage}>{emailErrorMessage}</span>
           </div>
-          <div className={styles.emailInputContainer} ref={emailRef}>
-            <input
-              type='text'
-              id='email'
-              name='email'
-              placeholder='Enter your email'
-              ref={emailRef}
-              value={state.email}
-              onChange={(event) =>
-                setState({
-                  ...state,
-                  email: event.target.value,
-                })
-              }
-            />
+          <button className={styles.loginButton} type='submit'>
+            Next
+          </button>
+        </form>
+      )}
+      {step === 2 && (
+        <form onSubmit={handleSubmit}>
+          <div className={styles.container}>
+            <label htmlFor='password'>Password:</label>
+            <div ref={passwordRef} className={styles.passwordInputContainer}>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id='password'
+                name='password'
+                placeholder='Must be at least 8 characters'
+                autoComplete='off'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button
+                type='button'
+                className={styles.showPasswordButton}
+                onClick={handleShowPassword}
+              >
+                {showPassword ? <BiHide /> : <BiShow />}
+              </button>
+            </div>
+            <span className={styles.errorMessage}>{passwordErrorMessage}</span>
           </div>
-          <span className={styles.errorMessage}>{emailErrorMessage}</span>
-        </div>
-        <div className={styles.container}>
-          <label htmlFor='password'>Password:</label>
-          <div ref={passwordRef} className={styles.passwordInputContainer}>
-            <input
-              type={showPassword ? 'text' : 'password'}
-              id='password'
-              name='password'
-              placeholder='Must be at least 8 characters'
-              value={state.password}
-              autoComplete='off'
-              onChange={(event) =>
-                setState({
-                  ...state,
-                  password: event.target.value,
-                })
-              }
-            />
+          <div className={styles.buttonGroup}>
             <button
+              className={styles.loginButton}
               type='button'
-              className={styles.showPasswordButton}
-              onClick={handleShowPassword}
+              onClick={handleBack}
             >
-              {showPassword ? <BiHide /> : <BiShow />}
+              Back
+            </button>
+            <button className={styles.loginButton} type='submit'>
+              Sign Up
             </button>
           </div>
-          <span className={styles.errorMessage}>{passwordErrorMessage}</span>
-        </div>
-        <button type='submit' className={styles.loginButton}>
-          Sign Up
-        </button>
-      </form>
+        </form>
+      )}
+      <p className={styles.note}>
+        Step {step} of 2. Already have an account?{' '}
+        <Link to='/login'>Log in</Link>
+      </p>
     </div>
   );
 }

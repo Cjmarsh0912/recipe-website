@@ -79,7 +79,7 @@ export default function Recipe({ recipeData }: RecipeProps) {
                       size={20}
                     />
                   ))}
-                  <p>{recipeData.times_rated} rating(s)</p>
+                  <p>{recipeData.comments.length} rating(s)</p>
                 </div>
               </div>
               {[...favorites].includes(recipeData.id) ? (

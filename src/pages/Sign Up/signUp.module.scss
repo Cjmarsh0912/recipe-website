@@ -1,3 +1,35 @@
 @import '../../assets/mixins';
+@import '../../assets/variables';
 
-@include loginSignUp;
+@include LoginSignUp;
+
+.box {
+  .note {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .note a {
+    color: $primary_color1;
+    text-decoration: none;
+  }
+
+  .note a:hover {
+    text-decoration: underline;
+  }
+
+  .buttonGroup {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .buttonGroup button {
+    flex: 1;
+  }
+
+  .buttonGroup button:first-child {
+    margin-right: 10px;
+  }
+}
