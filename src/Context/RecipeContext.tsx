@@ -106,11 +106,18 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({ children }) => {
   };
 
   const removeFromFavorites = (id: number) => {
-    let newFavorites = [...state.favorites].filter((item) => {
-      return item !== id;
-    });
-    dispatch({ type: 'SET_FAVORITES', payload: newFavorites });
-    alert('removed from favorites');
+    if (state.favorites.includes(id)) {
+      let newFavorites = [...state.favorites].filter((item) => {
+        return item !== id;
+      });
+      if (state.isSignedIn && state.userData?.uid !== undefined) {
+        const newUserData = { ...state.userData, bookmarks: newFavorites };
+        dispatch({ type: 'SET_USER_DATA', payload: newUserData });
+        updateUserInDatabase(newUserData);
+      }
+      dispatch({ type: 'SET_FAVORITES', payload: newFavorites });
+      alert('removed from favorites');
+    }
   };
 
   const updateCategories = (testData: RecipeData[]) => {

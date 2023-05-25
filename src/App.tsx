@@ -4,7 +4,12 @@ import {
   useDispatchContext,
   useFunctionContext,
 } from './Context/RecipeContext';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  HashRouter as Router,
+} from 'react-router-dom';
 import GoToTop from './components/GoToTop';
 
 import {

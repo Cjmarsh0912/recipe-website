@@ -22,7 +22,7 @@ type RecipeProps = {
 };
 
 export default function Recipe({ recipeData }: RecipeProps) {
-  const stars: number[] = [0, 1, 2, 3, 4];
+  const stars: number[] = [1, 2, 3, 4, 5];
 
   const { addToFavorites, removeFromFavorites } = useFunctionContext();
   const { favorites } = useStateContext();

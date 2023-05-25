@@ -37,19 +37,17 @@ type RecipeReviewsProps = {
 };
 
 const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
-  const [name, setName] = useState<string>('');
   const [comment, setComment] = useState<string>('');
-  const [rating, setRating] = useState<number>(0);
-  const [tempRating, setTempRating] = useState<number>(0);
+  const [rating, setRating] = useState<number>(1);
+  const [tempRating, setTempRating] = useState<number>(1);
 
   const [showReplyForm, setShowReplyForm] = useState<string>('');
-  const [replyName, setReplyName] = useState<string>('');
   const [replyComment, setReplyComment] = useState<string>('');
 
   const { userData, isSignedIn } = useStateContext();
   const { updateRecipeInDatabase } = useFunctionContext();
 
-  const stars: number[] = [0, 1, 2, 3, 4];
+  const stars: number[] = [1, 2, 3, 4, 5];
   const date = new Date();
 
   const formattedDate = date.toLocaleDateString('en-US', {
@@ -100,7 +98,7 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
     updateRecipeInDatabase(newRecipe);
   };
 
-  const handleDeleteComment = async (comment_id: string) => {
+  const handleDeleteComment = (comment_id: string) => {
     if (userData === null) return;
 
     const confirmDelete = window.confirm(
@@ -108,14 +106,21 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
     );
     if (!confirmDelete) return;
 
-    const newComments: Comment[] = recipeData.comments.filter((item) => {
+    const newComments: Comment[] = [...recipeData.comments].filter((item) => {
       return item.comment_id !== comment_id;
     });
+
+    // uses a reducer function to find the recipe rating without the deleted comment
+    const newRecipeRating =
+      newComments.length > 0
+        ? newComments.reduce((total, comment) => total + comment.rating, 0) /
+          newComments.length
+        : 0;
 
     const newRecipe: RecipeData = {
       ...recipeData,
       comments: newComments,
-      times_rated: recipeData.times_rated - 1,
+      rating: newRecipeRating,
     };
 
     updateRecipeInDatabase(newRecipe);
@@ -126,33 +131,36 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
 
     if (!isSignedIn) {
       alert('must be signed in to comment');
-      setName('');
       setComment('');
-      setRating(0);
+      setRating(1);
       return;
     }
 
     if (userData !== null) {
+      const newComment: Comment = {
+        comment: comment,
+        comment_id: uuidv4(),
+        date: formattedDate,
+        likes: [],
+        name: userData.username,
+        rating: rating,
+        user_uid: userData?.uid,
+        replies: [],
+      };
+
+      const newComments: Comment[] = [...recipeData.comments, newComment];
+
+      const newRecipeRating =
+        newComments.reduce((total, comment) => total + comment.rating, 0) /
+        newComments.length;
+
       const newRecipe: RecipeData = {
         ...recipeData,
-        comments: [
-          ...recipeData.comments,
-          {
-            comment: comment,
-            comment_id: uuidv4(),
-            date: formattedDate,
-            likes: [],
-            name: name,
-            rating: rating,
-            user_uid: userData?.uid,
-            replies: [],
-          },
-        ],
-        times_rated: recipeData.times_rated + 1,
+        comments: newComments,
+        rating: Math.round(newRecipeRating),
       };
-      setName('');
       setComment('');
-      setRating(0);
+      setRating(1);
       updateRecipeInDatabase(newRecipe);
     }
   };
@@ -165,7 +173,6 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
 
     if (!isSignedIn) {
       alert('must be signed in to comment');
-      setReplyName('');
       setReplyComment('');
       return;
     }
@@ -173,7 +180,7 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
     if (userData !== null) {
       const newRecipe: RecipeData = {
         ...recipeData,
-        comments: recipeData.comments.map((item) => {
+        comments: [...recipeData.comments].map((item) => {
           if (item.comment_id === comment_id)
             return {
               ...item,
@@ -184,7 +191,7 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
                   comment_id: uuidv4(),
                   date: formattedDate,
                   likes: [],
-                  name: replyName,
+                  name: userData.username,
                   rating: 0,
                   user_uid: userData.uid,
                 },
@@ -195,10 +202,97 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
       };
 
       setShowReplyForm('');
-      setReplyName('');
       setReplyComment('');
       updateRecipeInDatabase(newRecipe);
     }
+  };
+
+  const handleDeleteReply = (reply_id: string, comment_id: string) => {
+    if (userData === null) return;
+
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this comment?'
+    );
+    if (!confirmDelete) return;
+
+    const newComments: Comment[] = [...recipeData.comments].map((item) => {
+      if (item.comment_id === comment_id) {
+        return {
+          ...item,
+          replies: item.replies.filter(
+            (reply) => reply.comment_id !== reply_id
+          ),
+        };
+      }
+      return item;
+    });
+
+    const newRecipe: RecipeData = {
+      ...recipeData,
+      comments: newComments,
+    };
+
+    updateRecipeInDatabase(newRecipe);
+  };
+
+  const handleAddLikeOnReply = (reply_id: string, comment_id: string) => {
+    if (userData === null) return;
+
+    const newComments: Comment[] = [...recipeData.comments].map((item) => {
+      if (item.comment_id === comment_id) {
+        return {
+          ...item,
+          replies: item.replies.map((reply) => {
+            if (reply.comment_id === reply_id) {
+              return {
+                ...reply,
+                likes: [...reply.likes, userData.uid],
+              };
+            }
+            return reply;
+          }),
+        };
+      }
+      return item;
+    });
+
+    const newRecipe: RecipeData = {
+      ...recipeData,
+      comments: newComments,
+    };
+
+    updateRecipeInDatabase(newRecipe);
+  };
+
+  const handleRemoveLikeOnReply = (reply_id: string, comment_id: string) => {
+    if (userData === null) return;
+
+    const newComments: Comment[] = [...recipeData.comments].map((item) => {
+      if (item.comment_id === comment_id) {
+        return {
+          ...item,
+          replies: item.replies.map((reply) => {
+            if (reply.comment_id === reply_id) {
+              return {
+                ...reply,
+                likes: reply.likes.filter((like) => {
+                  return like !== userData.uid;
+                }),
+              };
+            }
+            return reply;
+          }),
+        };
+      }
+      return item;
+    });
+
+    const newRecipe: RecipeData = {
+      ...recipeData,
+      comments: newComments,
+    };
+
+    updateRecipeInDatabase(newRecipe);
   };
 
   return (
@@ -206,6 +300,7 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
       <header className={styles.header}>
         <h2>{recipeData.comments.length} Comment(s):</h2>
       </header>
+
       <section className={styles.commentSection}>
         <form onSubmit={handleAddComment} className={styles.commentSectionForm}>
           <div className={styles.ratingContainer}>
@@ -229,27 +324,15 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
                   }
                   size={25}
                   onMouseEnter={() => setTempRating(star + 1)}
-                  onMouseLeave={() => setTempRating(0)}
+                  onMouseLeave={() => setTempRating(1)}
                 />
               </label>
             ))}
-          </div>
-          <div className={styles.nameInputContainer}>
-            <label htmlFor='name'>Name:</label>
-            <input
-              type='text'
-              id='name'
-              name='name'
-              required
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-            />
           </div>
           <div className={styles.commentInputContainer}>
             <label htmlFor='comment'>Comment:</label>
             <textarea
               id='comment'
-              required
               value={comment}
               onChange={(event) => setComment(event.target.value)}
               rows={8}
@@ -341,17 +424,6 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
                     onSubmit={(e) => handleAddReply(e, comment.comment_id)}
                     className={styles.replyFormContainer}
                   >
-                    <div className={styles.nameInputContainer}>
-                      <label htmlFor='name'>Name:</label>
-                      <input
-                        type='text'
-                        id='name'
-                        name='name'
-                        required
-                        value={replyName}
-                        onChange={(event) => setReplyName(event.target.value)}
-                      />
-                    </div>
                     <div className={styles.commentInputContainer}>
                       <label htmlFor='comment'>Comment:</label>
                       <textarea
@@ -376,6 +448,7 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
                   </form>
                 )}
 
+                {/* Comment Replies */}
                 {comment.replies.length > 0 && (
                   <ul>
                     {comment.replies.map((reply) => (
@@ -390,7 +463,12 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
                             {userData?.uid &&
                             reply.likes.includes(userData?.uid) ? (
                               <button
-                                // onClick={() => handleRemoveLike(comment.comment_id)}
+                                onClick={() =>
+                                  handleRemoveLikeOnReply(
+                                    reply.comment_id,
+                                    comment.comment_id
+                                  )
+                                }
                                 type='button'
                               >
                                 <AiFillLike />
@@ -398,7 +476,12 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
                               </button>
                             ) : (
                               <button
-                                // onClick={() => handleAddLike(comment.comment_id)}
+                                onClick={() =>
+                                  handleAddLikeOnReply(
+                                    reply.comment_id,
+                                    comment.comment_id
+                                  )
+                                }
                                 type='button'
                               >
                                 <AiOutlineLike />
@@ -407,12 +490,12 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
                             )}
 
                             <button
-                              // onClick={() =>
-                              //   setShowReplyForm((prevVal) => {
-                              //     if (prevVal === '') return comment.comment_id;
-                              //     return '';
-                              //   })
-                              // }
+                              onClick={() =>
+                                setShowReplyForm((prevVal) => {
+                                  if (prevVal === '') return comment.comment_id;
+                                  return '';
+                                })
+                              }
                               type='button'
                             >
                               <BsReply />
@@ -421,9 +504,14 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
 
                             {userData?.uid === reply.user_uid ? (
                               <button
-                                // onClick={() => handleDeleteComment(comment.comment_id)}
                                 className={styles.delete_button}
                                 type='button'
+                                onClick={() =>
+                                  handleDeleteReply(
+                                    reply.comment_id,
+                                    comment.comment_id
+                                  )
+                                }
                               >
                                 <AiOutlineDelete />
                                 <p>Delete</p>
