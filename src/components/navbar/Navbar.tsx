@@ -9,7 +9,7 @@ import { getAuth } from 'firebase/auth';
 
 import SearchBar from '../search_bar/SearchBar';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
@@ -84,12 +84,18 @@ export default function Navbar() {
   const HandleSearch = (): void => {};
 
   const auth = getAuth();
+  const navigate = useNavigate();
   const HandleSignOut = (): void => {
-    dispatch({ type: 'SET_USER_DATA', payload: null });
-    dispatch({ type: 'SET_FAVORITES', payload: [] });
-    dispatch({ type: 'SET_IS_SIGNED_IN', payload: false });
-    auth.signOut();
-    alert('Signed Out!');
+    const confirmSignOut = window.confirm('Are you sure you want to sign out?');
+
+    if (confirmSignOut) {
+      dispatch({ type: 'SET_USER_DATA', payload: null });
+      dispatch({ type: 'SET_FAVORITES', payload: [] });
+      dispatch({ type: 'SET_IS_SIGNED_IN', payload: false });
+      auth.signOut();
+      alert('Signed Out!');
+      navigate('/recipe-website/');
+    }
   };
 
   return (

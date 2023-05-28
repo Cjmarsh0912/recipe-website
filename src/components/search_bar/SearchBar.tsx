@@ -1,33 +1,56 @@
 import { useState, ChangeEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+  useDispatchContext,
+  useStateContext,
+} from '../../Context/RecipeContext';
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
-import styles from '../navbar/navbar.module.css';
+import styles from './search-bar.module.css';
+import { RecipeData } from '../../interfaces/interface';
 
 export default function SearchBar() {
-  const [searchInput, setSearchInput] = useState<string>('');
+  const [search, setSearch] = useState<string>('');
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
-  function HandleSearch(): void {}
+  const { recipeData, searchInput } = useStateContext();
+  const { dispatch } = useDispatchContext();
+
+  const navigate = useNavigate();
+
+  function handleSearch(event: React.FormEvent<HTMLFormElement>): void {
+    event.preventDefault();
+
+    const newRecipes = [...recipeData].filter((item) => {
+      return item.keywords.includes(search.toLowerCase());
+    });
+
+    dispatch({ type: 'SET_SEARCH_INPUT', payload: search });
+    dispatch({ type: 'SET_SEARCHED_RECIPES', payload: newRecipes });
+    setSearch('');
+
+    setIsExpanded(false);
+
+    navigate('/search');
+  }
+
   return (
     <div className={styles.search_bar}>
-      <div
+      <form
+        onSubmit={handleSearch}
         className={`${styles.search_bar_container} ${
           isExpanded ? styles.expanded : ''
         }`}
       >
-        <button
-          className={styles.search_button}
-          type='button'
-          onClick={HandleSearch}
-        >
+        <button className={styles.search_button} type='submit'>
           <AiOutlineSearch />
         </button>
         <input
           type='search'
           placeholder='Search for recipes here ex: beef'
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setSearchInput(e.target.value)
+            setSearch(e.target.value)
           }
-          value={searchInput}
+          value={search}
         />
         <button
           className={styles.close_button}
@@ -36,7 +59,7 @@ export default function SearchBar() {
         >
           <AiOutlineClose />
         </button>
-      </div>
+      </form>
       <button
         className={styles.search_icon}
         type='button'

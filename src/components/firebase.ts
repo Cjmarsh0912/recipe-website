@@ -3,9 +3,10 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+const apiKey = process.env.REACT_APP_API_KEY;
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyCpd1gvMbRE-kwgyRLMsmApMHkzqRkIngQ',
+  apiKey: apiKey,
   authDomain: 'recipe-website-43298.firebaseapp.com',
   projectId: 'recipe-website-43298',
   storageBucket: 'recipe-website-43298.appspot.com',

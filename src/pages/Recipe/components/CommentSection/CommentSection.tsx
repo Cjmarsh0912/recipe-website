@@ -2,41 +2,22 @@ import React, { useState } from 'react';
 import {
   useStateContext,
   useFunctionContext,
-} from '../../../Context/RecipeContext';
+} from '../../../../Context/RecipeContext';
 
-import styles from './recipeReviews.module.css';
+import styles from './commentSection.module.css';
 
 import { v4 as uuidv4 } from 'uuid';
 
 import { AiOutlineLike, AiFillLike, AiOutlineDelete } from 'react-icons/ai';
 import { BsReply } from 'react-icons/bs';
 import { FaStar } from 'react-icons/fa';
-import { RecipeData } from '../../../interfaces/interface';
-
-type Comment = {
-  comment_id: string;
-  user_uid: string;
-  name: string;
-  date: string;
-  comment: string;
-  rating: number;
-  likes: string[];
-  replies: {
-    comment_id: string;
-    user_uid: string;
-    name: string;
-    date: string;
-    comment: string;
-    rating: number;
-    likes: string[];
-  }[];
-};
+import { RecipeData, Comment } from '../../../../interfaces/interface';
 
 type RecipeReviewsProps = {
   recipeData: RecipeData;
 };
 
-const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
+const CommentSection = ({ recipeData }: RecipeReviewsProps) => {
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number>(1);
   const [tempRating, setTempRating] = useState<number>(1);
@@ -178,27 +159,28 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
     }
 
     if (userData !== null) {
+      const newComments: Comment[] = [...recipeData.comments].map((item) => {
+        if (item.comment_id === comment_id)
+          return {
+            ...item,
+            replies: [
+              ...item.replies,
+              {
+                comment: replyComment,
+                reply_id: uuidv4(),
+                date: formattedDate,
+                likes: [],
+                name: userData.username,
+                replies: [],
+                user_uid: userData.uid,
+              },
+            ],
+          };
+        return item;
+      });
       const newRecipe: RecipeData = {
         ...recipeData,
-        comments: [...recipeData.comments].map((item) => {
-          if (item.comment_id === comment_id)
-            return {
-              ...item,
-              replies: [
-                ...item.replies,
-                {
-                  comment: replyComment,
-                  comment_id: uuidv4(),
-                  date: formattedDate,
-                  likes: [],
-                  name: userData.username,
-                  rating: 0,
-                  user_uid: userData.uid,
-                },
-              ],
-            };
-          return item;
-        }),
+        comments: newComments,
       };
 
       setShowReplyForm('');
@@ -219,9 +201,7 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
       if (item.comment_id === comment_id) {
         return {
           ...item,
-          replies: item.replies.filter(
-            (reply) => reply.comment_id !== reply_id
-          ),
+          replies: item.replies.filter((reply) => reply.reply_id !== reply_id),
         };
       }
       return item;
@@ -243,7 +223,7 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
         return {
           ...item,
           replies: item.replies.map((reply) => {
-            if (reply.comment_id === reply_id) {
+            if (reply.reply_id === reply_id) {
               return {
                 ...reply,
                 likes: [...reply.likes, userData.uid],
@@ -272,7 +252,7 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
         return {
           ...item,
           replies: item.replies.map((reply) => {
-            if (reply.comment_id === reply_id) {
+            if (reply.reply_id === reply_id) {
               return {
                 ...reply,
                 likes: reply.likes.filter((like) => {
@@ -452,7 +432,7 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
                 {comment.replies.length > 0 && (
                   <ul>
                     {comment.replies.map((reply) => (
-                      <li key={reply.comment_id}>
+                      <li key={reply.reply_id}>
                         <div className={styles.replyComment}>
                           <div className={styles.commentHeader}>
                             <h4>{reply.name}</h4>
@@ -465,7 +445,7 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
                               <button
                                 onClick={() =>
                                   handleRemoveLikeOnReply(
-                                    reply.comment_id,
+                                    reply.reply_id,
                                     comment.comment_id
                                   )
                                 }
@@ -478,7 +458,7 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
                               <button
                                 onClick={() =>
                                   handleAddLikeOnReply(
-                                    reply.comment_id,
+                                    reply.reply_id,
                                     comment.comment_id
                                   )
                                 }
@@ -508,7 +488,7 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
                                 type='button'
                                 onClick={() =>
                                   handleDeleteReply(
-                                    reply.comment_id,
+                                    reply.reply_id,
                                     comment.comment_id
                                   )
                                 }
@@ -532,4 +512,4 @@ const RecipeReviews = ({ recipeData }: RecipeReviewsProps) => {
   );
 };
 
-export default RecipeReviews;
+export default CommentSection;

@@ -30,6 +30,9 @@ type FunctionContext = {
 
 const initialState: InitialState = {
   categories: [],
+  category: 'set category',
+  searchInput: '',
+  searchedRecipes: [],
   favorites: [],
   currentRecipes: [],
   recipeData: [],
@@ -42,18 +45,34 @@ const reducer = (state: InitialState, action: Action) => {
   switch (action.type) {
     case 'SET_CATEGORIES':
       return { ...state, categories: action.payload };
+
+    case 'SET_CATEGORY':
+      return { ...state, category: action.payload };
+
+    case 'SET_SEARCH_INPUT':
+      return { ...state, searchInput: action.payload };
+
+    case 'SET_SEARCHED_RECIPES':
+      return { ...state, searchedRecipes: action.payload };
+
     case 'SET_FAVORITES':
       return { ...state, favorites: action.payload };
+
     case 'SET_CURRENT_RECIPES':
       return { ...state, currentRecipes: action.payload };
+
     case 'SET_RECIPE_DATA':
       return { ...state, recipeData: action.payload };
+
     case 'SET_USER_DATA':
       return { ...state, userData: action.payload };
+
     case 'SET_IS_SIGNED_IN':
       return { ...state, isSignedIn: action.payload };
+
     case 'SET_IS_LOADING':
       return { ...state, isLoading: action.payload };
+
     default:
       return state;
   }
@@ -180,6 +199,9 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({ children }) => {
 
   const stateContextValue: InitialState = {
     categories: state.categories,
+    category: state.category,
+    searchInput: state.searchInput,
+    searchedRecipes: state.searchedRecipes,
     currentRecipes: state.currentRecipes,
     favorites: state.favorites,
     isLoading: state.isLoading,

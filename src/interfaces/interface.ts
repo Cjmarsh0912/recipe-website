@@ -8,25 +8,7 @@ export interface RecipeData {
 
   rating: number;
   times_rated: number;
-  comments: {
-    comment_id: string;
-    user_uid: string;
-    name: string;
-    date: string;
-    comment: string;
-    rating: number;
-    likes: string[];
-    replies: {
-      comment_id: string;
-      user_uid: string;
-      name: string;
-      date: string;
-      comment: string;
-      rating: number;
-      likes: string[];
-    }[];
-  }[];
-
+  comments: Comment[];
   description: string;
   date_posted: string;
   prep_time: string;
@@ -47,8 +29,32 @@ export interface user {
   username: string;
 }
 
+export interface Comment {
+  comment_id: string;
+  user_uid: string;
+  name: string;
+  date: string;
+  comment: string;
+  rating: number;
+  likes: string[];
+  replies: Reply[];
+}
+
+export interface Reply {
+  reply_id: string;
+  user_uid: string;
+  name: string;
+  date: string;
+  comment: string;
+  replies: Reply[];
+  likes: string[];
+}
+
 export interface InitialState {
   categories: string[];
+  category: string;
+  searchInput: string;
+  searchedRecipes: RecipeData[];
   favorites: number[];
   currentRecipes: RecipeData[];
   recipeData: RecipeData[];

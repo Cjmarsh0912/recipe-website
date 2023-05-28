@@ -29,7 +29,7 @@ import { db } from './components/firebase';
 
 import Navbar from './components/navbar/Navbar';
 import Home from './pages/Home/';
-import Search from './pages/Search/';
+import Search from './pages/SearchResults';
 
 import Recipe from './pages/Recipe/';
 import RecipesPage from './pages/Recipes/';
@@ -247,10 +247,7 @@ function App() {
                   );
                 })}
 
-                <Route
-                  path='/search'
-                  element={<Search recipe={recipeData} />}
-                />
+                <Route path='/search' element={<Search />} />
               </Routes>
             </div>
             <GoToTop />
@@ -262,3 +259,121 @@ function App() {
 }
 
 export default App;
+
+// import React, { useState } from 'react';
+
+// interface CommentData {
+//   id: number;
+//   content: string;
+//   replies: CommentData[];
+// }
+
+// interface CommentProps {
+//   comment: CommentData;
+//   onReply: (parentId: number, content: string) => void;
+// }
+
+// const Comment: React.FC<CommentProps> = ({ comment, onReply }) => {
+//   const [replyContent, setReplyContent] = useState('');
+
+//   const handleReply = () => {
+//     onReply(comment.id, replyContent);
+//     setReplyContent('');
+//   };
+
+//   return (
+//     <div>
+//       <p>{comment.content}</p>
+//       <div>
+//         <input
+//           type='text'
+//           value={replyContent}
+//           onChange={(e) => setReplyContent(e.target.value)}
+//           placeholder='Write a reply'
+//         />
+//         <button onClick={handleReply}>Reply</button>
+//       </div>
+//       {comment.replies.map((reply) => (
+//         <div key={reply.id} style={{ marginLeft: '20px' }}>
+//           <Comment comment={reply} onReply={onReply} />
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
+
+// interface CommentSectionProps {
+//   comments: CommentData[];
+//   onAddComment: (content: string) => void;
+// }
+
+// const CommentSection: React.FC<CommentSectionProps> = ({
+//   comments,
+//   onAddComment,
+// }) => {
+//   const [commentContent, setCommentContent] = useState('');
+
+//   const handleAddComment = () => {
+//     onAddComment(commentContent);
+//     setCommentContent('');
+//   };
+
+//   return (
+//     <div>
+//       <h2>Comments</h2>
+//       <div>
+//         <input
+//           type='text'
+//           value={commentContent}
+//           onChange={(e) => setCommentContent(e.target.value)}
+//           placeholder='Write a comment'
+//         />
+//         <button onClick={handleAddComment}>Add Comment</button>
+//       </div>
+//       {comments.map((comment) => (
+//         <Comment key={comment.id} comment={comment} onReply={onAddComment} />
+//       ))}
+//     </div>
+//   );
+// };
+
+// // Example usage
+// const App: React.FC = () => {
+//   const [comments, setComments] = useState<CommentData[]>([]);
+
+//   const handleAddComment = (content: string) => {
+//     const newComment: CommentData = {
+//       id: Date.now(),
+//       content: content,
+//       replies: [],
+//     };
+//     setComments((prevComments) => [...prevComments, newComment]);
+//   };
+
+//   const handleReply = (parentId: number, content: string) => {
+//     const newReply: CommentData = {
+//       id: Date.now(),
+//       content: content,
+//       replies: [],
+//     };
+//     setComments((prevComments) =>
+//       prevComments.map((comment) => {
+//         if (comment.id === parentId) {
+//           return {
+//             ...comment,
+//             replies: [...comment.replies, newReply],
+//           };
+//         }
+//         return comment;
+//       })
+//     );
+//   };
+
+//   return (
+//     <div>
+//       <CommentSection comments={comments} onAddComment={handleAddComment} />
+//     </div>
+//   );
+// };
+
+// export default App;

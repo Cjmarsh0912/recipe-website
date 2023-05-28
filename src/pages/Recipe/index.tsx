@@ -1,4 +1,4 @@
-import RecipeReviews from './RecipeReviews/index';
+import CommentSection from './components/CommentSection/CommentSection';
 import {
   useFunctionContext,
   useStateContext,
@@ -148,7 +148,7 @@ export default function Recipe({ recipeData }: RecipeProps) {
           </div>
           {/* Recipe Directions End */}
         </section>
-        <RecipeReviews recipeData={recipeData} />
+        <CommentSection recipeData={recipeData} />
       </main>
     </>
   );
