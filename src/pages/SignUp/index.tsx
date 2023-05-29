@@ -16,7 +16,7 @@ import {
   query,
   collection,
 } from 'firebase/firestore';
-import { db } from 'components/firebase';
+import { db } from '../../firebase';
 
 import { BiHide, BiShow } from 'react-icons/bi';
 

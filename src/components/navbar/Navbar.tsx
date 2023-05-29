@@ -3,7 +3,7 @@ import { useStateContext, useDispatchContext } from 'context/RecipeContext';
 
 import { getAuth } from 'firebase/auth';
 
-import SearchBar from '../search_bar/SearchBar';
+import SearchBar from '../searchBar/SearchBar';
 
 import { Link, useNavigate } from 'react-router-dom';
 

@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { RecipeData, user, InitialState } from 'interfaces/interface';
 import { doc, updateDoc } from 'firebase/firestore';
-import { db } from 'components/firebase';
+import { db } from '../firebase';
 
 type RecipeProviderProps = {
   children: ReactNode;

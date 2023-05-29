@@ -27,7 +27,7 @@ import {
 } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { User } from 'firebase/auth';
-import { db } from 'components/firebase';
+import { db } from './firebase';
 
 import Navbar from 'components/navbar/Navbar';
 import Home from 'pages/Home/';
@@ -36,7 +36,7 @@ import Recipe from 'pages/Recipe/';
 import RecipesPage from 'pages/Recipes/';
 import Bookmarked from 'pages/Favorites';
 import Login from 'pages/LogIn';
-import SignUp from 'pages/Sign Up';
+import SignUp from 'pages/SignUp';
 
 import 'animate.css';
 import './assets/App.css';

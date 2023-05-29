@@ -7,7 +7,7 @@ import styles from './assets/css/logIn.module.css';
 
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from 'components/firebase';
+import { db } from '../../firebase';
 
 import { BiHide, BiShow } from 'react-icons/bi';
 
