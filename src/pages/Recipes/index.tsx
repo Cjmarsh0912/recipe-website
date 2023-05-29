@@ -1,16 +1,12 @@
 import { useEffect, useState, memo } from 'react';
+import { useFunctionContext, useDispatchContext } from 'context/RecipeContext';
 
-import {
-  useFunctionContext,
-  useDispatchContext,
-} from '../../Context/RecipeContext';
+import Posts from 'components/posts/Posts';
+import Sort from 'components/sort/Sort';
 
-import Posts from '../../components/posts/Posts';
+import styles from './assets/css/recipes.module.css';
 
-import { RecipeData } from '../../interfaces/interface';
-import Sort from '../../components/sort/Sort';
-
-import styles from './recipes.module.css';
+import { RecipeData } from 'interfaces/interface';
 
 type RecipesPageProps = {
   name: string;

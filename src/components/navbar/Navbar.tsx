@@ -1,9 +1,5 @@
 import { useRef, useState, ChangeEvent } from 'react';
-
-import {
-  useStateContext,
-  useDispatchContext,
-} from '../../Context/RecipeContext';
+import { useStateContext, useDispatchContext } from 'context/RecipeContext';
 
 import { getAuth } from 'firebase/auth';
 
@@ -16,9 +12,9 @@ import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
 import { BsBookmarkHeart } from 'react-icons/bs';
 
 import { CSSTransition } from 'react-transition-group';
-import styles from './navbar.module.css';
+import styles from './assets/css/navbar.module.css';
 
-import { useOutsideClick } from '../../hooks/useOutsideClick';
+import { useOutsideClick } from 'hooks/useOutsideClick';
 
 export default function Navbar() {
   const [isRecipesDropdownVisible, setIsRecipesDropdownVisible] =

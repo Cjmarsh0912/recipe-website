@@ -1,0 +1,49 @@
+@import '../../../../assets/variables';
+@import '../../../../assets/mixins';
+
+.posts {
+  @include posts(nowrap, 1 1 100%); // From mixins
+}
+
+.extensions {
+  @include extensions; // From mixins
+}
+
+// Search Bar
+.search_bar_container {
+  background-color: $primary_color3;
+  justify-content: center;
+  display: flex;
+  gap: 0.8rem;
+  padding: 3rem;
+
+  .icon_container {
+    padding: 1rem;
+    background-color: $primary_color1;
+    cursor: pointer;
+    transition: background-color 0.5s;
+
+    &:hover {
+      background-color: $primary_color2;
+    }
+  }
+}
+
+.full_width {
+  box-shadow: 0 0 0 100vmax $primary_color3;
+  clip-path: inset(0 -100vmax);
+}
+
+.icon_search {
+  font-size: 1.4rem;
+}
+
+#search_bar {
+  width: 40%;
+  padding: 1rem;
+  border: solid 2px $primary_color1;
+}
+
+.quick_recipes {
+  margin-bottom: 0;
+}

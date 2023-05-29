@@ -8,7 +8,7 @@ export interface RecipeData {
 
   rating: number;
   times_rated: number;
-  comments: Comment[];
+  comments: CommentInterface[];
   description: string;
   date_posted: string;
   prep_time: string;
@@ -29,7 +29,7 @@ export interface user {
   username: string;
 }
 
-export interface Comment {
+export interface CommentInterface {
   comment_id: string;
   user_uid: string;
   name: string;
@@ -37,16 +37,16 @@ export interface Comment {
   comment: string;
   rating: number;
   likes: string[];
-  replies: Reply[];
+  replies: ReplyInterface[];
 }
 
-export interface Reply {
+export interface ReplyInterface {
   reply_id: string;
   user_uid: string;
   name: string;
   date: string;
   comment: string;
-  replies: Reply[];
+  replies: ReplyInterface[];
   likes: string[];
 }
 

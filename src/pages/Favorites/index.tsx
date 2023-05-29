@@ -1,17 +1,16 @@
 import { useEffect, useState, useMemo } from 'react';
-
 import {
   useStateContext,
   useFunctionContext,
   useDispatchContext,
-} from '../../Context/RecipeContext';
+} from 'context/RecipeContext';
 
-import Posts from '../../components/posts/Posts';
+import Posts from 'components/posts/Posts';
+import Sort from 'components/sort/Sort';
 
-import { RecipeData } from '../../interfaces/interface';
-import Sort from '../../components/sort/Sort';
+import { RecipeData } from 'interfaces/interface';
 
-import styles from '../Recipes/recipes.module.css';
+import styles from 'pages/Recipes/assets/css/recipes.module.css';
 
 export default function Bookmarked() {
   const [category, setCategory] = useState<string>('choose category');

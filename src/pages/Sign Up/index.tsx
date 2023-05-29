@@ -1,10 +1,5 @@
 import { useState, useRef } from 'react';
-import styles from './signUp.module.css';
-
-import {
-  useFunctionContext,
-  useDispatchContext,
-} from '../../Context/RecipeContext';
+import { useFunctionContext, useDispatchContext } from 'context/RecipeContext';
 
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -21,11 +16,13 @@ import {
   query,
   collection,
 } from 'firebase/firestore';
-import { db } from '../../components/firebase';
+import { db } from 'components/firebase';
 
 import { BiHide, BiShow } from 'react-icons/bi';
 
-import { user } from '../../interfaces/interface';
+import styles from './assets/css/signUp.module.css';
+
+import { user } from 'interfaces/interface';
 
 function SignUp() {
   const [username, setUsername] = useState<string>('');

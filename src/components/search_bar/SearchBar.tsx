@@ -1,12 +1,12 @@
 import { useState, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  useDispatchContext,
-  useStateContext,
-} from '../../Context/RecipeContext';
+import { useDispatchContext, useStateContext } from 'context/RecipeContext';
+
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
-import styles from './search-bar.module.css';
-import { RecipeData } from '../../interfaces/interface';
+
+import styles from './assets/css/search-bar.module.css';
+
+import { RecipeData } from 'interfaces/interface';
 
 export default function SearchBar() {
   const [search, setSearch] = useState<string>('');

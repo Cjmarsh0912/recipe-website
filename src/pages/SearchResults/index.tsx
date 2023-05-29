@@ -1,21 +1,19 @@
 import { useState, useEffect } from 'react';
 
-import Sort from '../../components/sort/Sort';
-
-import Posts from '../../components/posts/Posts';
-
 import {
   useStateContext,
   useFunctionContext,
-  DispatchContext,
   useDispatchContext,
-} from '../../Context/RecipeContext';
+} from 'context/RecipeContext';
 
 import { Link } from 'react-router-dom';
 
-import { RecipeData } from '../../interfaces/interface';
+import Sort from 'components/sort/Sort';
+import Posts from 'components/posts/Posts';
 
-import styles from '../Recipes/recipes.module.css';
+import styles from 'pages/Recipes/assets/css/recipes.module.css';
+
+import { RecipeData } from 'interfaces/interface';
 
 export default function Search() {
   const [category, setCategory] = useState<string>('choose category');

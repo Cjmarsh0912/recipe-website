@@ -1,11 +1,12 @@
-import styles from './home.module.css';
-import { useStateContext } from '../../Context/RecipeContext';
+import { useStateContext } from 'context/RecipeContext';
 
-import { RecipeData } from '../../interfaces/interface';
+import styles from './assets/css/home.module.css';
 
 import { Link } from 'react-router-dom';
 
 import { BsArrowRight } from 'react-icons/bs';
+
+import { RecipeData } from 'interfaces/interface';
 
 export default function Home() {
   const { recipeData } = useStateContext();

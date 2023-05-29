@@ -1,11 +1,8 @@
-import {
-  useFunctionContext,
-  useStateContext,
-} from '../../Context/RecipeContext';
+import { useFunctionContext, useStateContext } from 'context/RecipeContext';
 
 import { Link } from 'react-router-dom';
 
-import styles from './posts.module.css';
+import styles from './assets/css/posts.module.css';
 
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 

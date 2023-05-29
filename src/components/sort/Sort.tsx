@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import { useStateContext } from '../../Context/RecipeContext';
+import { useStateContext } from 'context/RecipeContext';
 
-import styles from './sort.module.css';
+import styles from './assets/css/sort.module.css';
 
 interface Categories {
   updateCategory: (category: string) => void;

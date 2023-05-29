@@ -5,9 +5,9 @@ import {
   useContext,
   useCallback,
 } from 'react';
-import { RecipeData, user, InitialState } from '../interfaces/interface';
+import { RecipeData, user, InitialState } from 'interfaces/interface';
 import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../components/firebase';
+import { db } from 'components/firebase';
 
 type RecipeProviderProps = {
   children: ReactNode;

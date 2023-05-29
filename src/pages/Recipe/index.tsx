@@ -1,9 +1,9 @@
-import CommentSection from './components/CommentSection/CommentSection';
-import {
-  useFunctionContext,
-  useStateContext,
-} from '../../Context/RecipeContext';
-import styles from './recipe.module.css';
+import CommentSection from './CommentSection';
+
+import { useFunctionContext, useStateContext } from 'context/RecipeContext';
+
+import styles from './assets/css/recipe.module.css';
+
 import { FaStar } from 'react-icons/fa';
 
 import {
@@ -13,7 +13,7 @@ import {
   BsArrowLeft,
 } from 'react-icons/bs';
 
-import { RecipeData } from '../../interfaces/interface';
+import { RecipeData } from 'interfaces/interface';
 
 import { Link } from 'react-router-dom';
 
