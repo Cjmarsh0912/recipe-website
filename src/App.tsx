@@ -5,6 +5,8 @@ import {
   useFunctionContext,
 } from 'context/RecipeContext';
 
+import { RecipeDataProvider } from 'pages/Recipe/context/RecipeDataContext';
+
 import {
   BrowserRouter,
   Routes,
@@ -243,7 +245,11 @@ function App() {
                     <Route
                       key={item.id}
                       path={item.extension}
-                      element={<Recipe recipeData={item} />}
+                      element={
+                        <RecipeDataProvider>
+                          <Recipe recipeData={item} />
+                        </RecipeDataProvider>
+                      }
                     />
                   );
                 })}

@@ -1,9 +1,6 @@
 @import '../../../../assets/variables';
 
 .container {
-  //   display: flex;
-  //   flex-direction: column;
-  //   align-items: center;
   padding: 0 10rem;
   margin-bottom: 100rem;
 
@@ -65,10 +62,6 @@
         }
       }
     }
-
-    // .replyComments {
-    //   margin-left: 2rem;
-    // }
 
     .comments,
     .replyComments {
@@ -148,58 +141,20 @@
             height: 1.3rem;
           }
         }
-        .delete_button {
+        .reply_button {
           margin-left: auto;
+        }
 
+        .delete_button {
           &:hover {
             color: red;
           }
         }
+
+        .delete_button_reply {
+          margin-left: auto;
+        }
       }
     }
   }
-
-  //   ul {
-  //     list-style: none;
-  //     margin: 0;
-  //     padding: 0;
-  //   }
-
-  //   li {
-  //     margin: 1rem 0;
-  //     padding: 1rem;
-  //     border: 1px solid gray;
-  //     border-radius: 0.5rem;
-  //   }
-
-  //   .commentHeader {
-  //     display: flex;
-  //     justify-content: space-between;
-  //     align-items: center;
-  //   }
-
-  //   .commentText {
-  //     margin: 1rem 0;
-  //   }
-
-  //   .commentIcons {
-  //     display: flex;
-  //     justify-content: flex-end;
-  //     margin-top: 1rem;
-
-  //     button {
-  //       background: none;
-  //       border: none;
-  //       margin-left: 1rem;
-
-  //       &:hover {
-  //         cursor: pointer;
-  //       }
-
-  //       svg {
-  //         width: 1.5rem;
-  //         height: 1.5rem;
-  //       }
-  //     }
-  //   }
 }

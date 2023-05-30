@@ -2,6 +2,8 @@ import styles from './assets/css/recipe.module.css';
 
 import { useFunctionContext, useStateContext } from 'context/RecipeContext';
 
+import { useRecipeDataContext } from './context/RecipeDataContext';
+
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { FaStar } from 'react-icons/fa';
 
@@ -11,8 +13,10 @@ type RecipeProps = {
   recipeData: RecipeData;
 };
 
-export default function RecipeInstructions({ recipeData }: RecipeProps) {
+export default function RecipeInstructions() {
   const stars: number[] = [1, 2, 3, 4, 5];
+
+  const { recipeData } = useRecipeDataContext();
 
   const { addToFavorites, removeFromFavorites } = useFunctionContext();
   const { favorites } = useStateContext();

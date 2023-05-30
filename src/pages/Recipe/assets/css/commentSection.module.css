@@ -139,11 +139,15 @@
   width: 1.3rem;
   height: 1.3rem;
 }
-.container .commentSection .comments .commentIcons .delete_button,
-.container .commentSection .replyComments .commentIcons .delete_button {
+.container .commentSection .comments .commentIcons .reply_button,
+.container .commentSection .replyComments .commentIcons .reply_button {
   margin-left: auto;
 }
 .container .commentSection .comments .commentIcons .delete_button:hover,
 .container .commentSection .replyComments .commentIcons .delete_button:hover {
   color: red;
+}
+.container .commentSection .comments .commentIcons .delete_button_reply,
+.container .commentSection .replyComments .commentIcons .delete_button_reply {
+  margin-left: auto;
 }/*# sourceMappingURL=commentSection.module.css.map */

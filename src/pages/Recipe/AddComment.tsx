@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { useStateContext, useFunctionContext } from 'context/RecipeContext';
 
+import {
+  useRecipeDataContext,
+  useDispatchContext,
+} from './context/RecipeDataContext';
+
 import styles from './assets/css/commentSection.module.css';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -9,14 +14,13 @@ import { FaStar } from 'react-icons/fa';
 
 import { RecipeData, CommentInterface } from 'interfaces/interface';
 
-type CommentSectionProps = {
-  recipeData: RecipeData;
-};
-
-export default function AddComment({ recipeData }: CommentSectionProps) {
+export default function AddComment() {
   const [comment, setComment] = useState<string>('');
   const [rating, setRating] = useState<number>(1);
   const [tempRating, setTempRating] = useState<number>(1);
+
+  const { recipeData } = useRecipeDataContext();
+  const { dispatch } = useDispatchContext();
 
   const { userData, isSignedIn } = useStateContext();
   const { updateRecipeInDatabase } = useFunctionContext();
@@ -69,8 +73,10 @@ export default function AddComment({ recipeData }: CommentSectionProps) {
       setComment('');
       setRating(1);
       updateRecipeInDatabase(newRecipe);
+      dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipe });
     }
   };
+
   return (
     <form onSubmit={handleAddComment} className={styles.commentSectionForm}>
       <div className={styles.ratingContainer}>

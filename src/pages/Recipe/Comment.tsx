@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import { useStateContext, useFunctionContext } from 'context/RecipeContext';
+import {
+  useRecipeDataContext,
+  useDispatchContext,
+} from './context/RecipeDataContext';
 
 import { v4 as uuidv4 } from 'uuid';
 
 import { AiOutlineLike, AiFillLike, AiOutlineDelete } from 'react-icons/ai';
+import { FiMessageSquare } from 'react-icons/fi';
 import { BsReply } from 'react-icons/bs';
 import { FaStar } from 'react-icons/fa';
 
@@ -12,13 +17,16 @@ import styles from './assets/css/commentSection.module.css';
 import { RecipeData, CommentInterface } from 'interfaces/interface';
 
 type CommentSectionProps = {
-  recipeData: RecipeData;
   Comment: CommentInterface;
 };
 
-export default function Comment({ recipeData, Comment }: CommentSectionProps) {
-  const [showReplyForm, setShowReplyForm] = useState<string>('');
+export default function Comment({ Comment }: CommentSectionProps) {
+  const [showReplyForm, setShowReplyForm] = useState<boolean>(false);
+  const [showReplies, setShowReplies] = useState<boolean>(false);
   const [replyComment, setReplyComment] = useState<string>('');
+
+  const { recipeData } = useRecipeDataContext();
+  const { dispatch } = useDispatchContext();
 
   const { userData, isSignedIn } = useStateContext();
   const { updateRecipeInDatabase } = useFunctionContext();
@@ -50,6 +58,7 @@ export default function Comment({ recipeData, Comment }: CommentSectionProps) {
     };
 
     updateRecipeInDatabase(newRecipe);
+    dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipe });
   };
 
   const handleRemoveLike = (comment_id: string) => {
@@ -72,6 +81,7 @@ export default function Comment({ recipeData, Comment }: CommentSectionProps) {
     };
 
     updateRecipeInDatabase(newRecipe);
+    dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipe });
   };
 
   const handleDeleteComment = (comment_id: string) => {
@@ -102,6 +112,7 @@ export default function Comment({ recipeData, Comment }: CommentSectionProps) {
     };
 
     updateRecipeInDatabase(newRecipe);
+    dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipe });
   };
 
   const handleAddReply = (
@@ -143,9 +154,10 @@ export default function Comment({ recipeData, Comment }: CommentSectionProps) {
         comments: newComments,
       };
 
-      setShowReplyForm('');
+      setShowReplyForm(false);
       setReplyComment('');
       updateRecipeInDatabase(newRecipe);
+      dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipe });
     }
   };
 
@@ -177,6 +189,7 @@ export default function Comment({ recipeData, Comment }: CommentSectionProps) {
     };
 
     updateRecipeInDatabase(newRecipe);
+    dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipe });
   };
 
   const handleAddLikeOnReply = (reply_id: string, comment_id: string) => {
@@ -208,6 +221,7 @@ export default function Comment({ recipeData, Comment }: CommentSectionProps) {
     };
 
     updateRecipeInDatabase(newRecipe);
+    dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipe });
   };
 
   const handleRemoveLikeOnReply = (reply_id: string, comment_id: string) => {
@@ -241,6 +255,7 @@ export default function Comment({ recipeData, Comment }: CommentSectionProps) {
     };
 
     updateRecipeInDatabase(newRecipe);
+    dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipe });
   };
 
   return (
@@ -248,6 +263,7 @@ export default function Comment({ recipeData, Comment }: CommentSectionProps) {
       {userData?.uid === Comment.user_uid ? (
         <h3 className={styles.your_comment}>Your comment</h3>
       ) : null}
+
       <div className={styles.comment} key={Comment.comment_id}>
         <div className={styles.commentHeader}>
           <h4>{Comment.name}</h4>
@@ -285,16 +301,20 @@ export default function Comment({ recipeData, Comment }: CommentSectionProps) {
           )}
 
           <button
-            onClick={() =>
-              setShowReplyForm((prevVal) => {
-                if (prevVal === '') return Comment.comment_id;
-                return '';
-              })
-            }
+            onClick={() => setShowReplyForm((prevVal) => !prevVal)}
             type='button'
           >
             <BsReply />
             <p>Reply</p>
+          </button>
+
+          <button
+            onClick={() => setShowReplies((prev) => !prev)}
+            className={styles.reply_button}
+            type='button'
+          >
+            <p>{Comment.replies.length}</p>
+            <FiMessageSquare />
           </button>
 
           {userData?.uid === Comment.user_uid ? (
@@ -310,7 +330,7 @@ export default function Comment({ recipeData, Comment }: CommentSectionProps) {
         </div>
       </div>
 
-      {showReplyForm === Comment.comment_id && (
+      {showReplyForm && (
         <form
           onSubmit={(e) => handleAddReply(e, Comment.comment_id)}
           className={styles.replyFormContainer}
@@ -338,7 +358,7 @@ export default function Comment({ recipeData, Comment }: CommentSectionProps) {
       )}
 
       {/* Comment Replies */}
-      {Comment.replies.length > 0 && (
+      {Comment.replies.length > 0 && showReplies ? (
         <ul>
           {Comment.replies.map((reply) => (
             <li key={reply.reply_id}>
@@ -374,22 +394,9 @@ export default function Comment({ recipeData, Comment }: CommentSectionProps) {
                     </button>
                   )}
 
-                  <button
-                    onClick={() =>
-                      setShowReplyForm((prevVal) => {
-                        if (prevVal === '') return Comment.comment_id;
-                        return '';
-                      })
-                    }
-                    type='button'
-                  >
-                    <BsReply />
-                    <p>Reply</p>
-                  </button>
-
                   {userData?.uid === reply.user_uid ? (
                     <button
-                      className={styles.delete_button}
+                      className={`${styles.delete_button_reply} ${styles.delete_button}`}
                       type='button'
                       onClick={() =>
                         handleDeleteReply(reply.reply_id, Comment.comment_id)
@@ -404,7 +411,7 @@ export default function Comment({ recipeData, Comment }: CommentSectionProps) {
             </li>
           ))}
         </ul>
-      )}
+      ) : null}
     </li>
   );
 }

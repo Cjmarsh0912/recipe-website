@@ -1,5 +1,7 @@
 import { createContext, useReducer, ReactNode, useContext } from 'react';
 
+import { useFunctionContext } from 'context/RecipeContext';
+
 import { RecipeData } from 'interfaces/interface';
 
 type RecipeProviderProps = {
@@ -85,10 +87,8 @@ export const RecipeDataProvider: React.FC<RecipeProviderProps> = ({
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const { recipeData } = state;
-
   return (
-    <RecipeDataContext.Provider value={{ recipeData }}>
+    <RecipeDataContext.Provider value={state}>
       <DispatchContext.Provider value={{ dispatch }}>
         {children}
       </DispatchContext.Provider>

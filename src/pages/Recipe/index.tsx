@@ -1,5 +1,9 @@
+import { useEffect } from 'react';
+
 import CommentSection from './CommentSection';
 import RecipeInstructions from './RecipeInstructions';
+
+import { useDispatchContext } from './context/RecipeDataContext';
 
 import styles from './assets/css/recipe.module.css';
 
@@ -14,6 +18,11 @@ type RecipeProps = {
 };
 
 export default function Recipe({ recipeData }: RecipeProps) {
+  const { dispatch } = useDispatchContext();
+
+  useEffect(() => {
+    dispatch({ type: 'SET_RECIPE_DATA', payload: recipeData });
+  }, []);
   return (
     <>
       {/* Extensions Start */}
@@ -48,8 +57,8 @@ export default function Recipe({ recipeData }: RecipeProps) {
       {/* Recipe Header End */}
 
       <main>
-        <RecipeInstructions recipeData={recipeData} />
-        <CommentSection recipeData={recipeData} />
+        <RecipeInstructions />
+        <CommentSection />
       </main>
     </>
   );
