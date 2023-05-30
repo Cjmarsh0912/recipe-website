@@ -1,0 +1,112 @@
+.navbar {
+  border-bottom: #ff9f1c solid 2px;
+  display: flex;
+  gap: 2rem;
+}
+.navbar .icon_arrow_down,
+.navbar .icon_arrow_up {
+  font-size: 1.2rem;
+  color: #ff9f1c;
+}
+.navbar .website_name a {
+  font-size: clamp(0.875rem, -0.1rem + 4.8vw, 1.4rem) !important;
+  font-weight: 700 !important;
+}
+.navbar .website_name a:hover {
+  color: #ff9f1c;
+  text-decoration: underline;
+}
+.navbar .navbar_links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  padding-bottom: 1.5rem;
+  flex: 1;
+}
+.navbar .navbar_links .recipes {
+  margin-right: auto;
+}
+.navbar .navbar_links li {
+  list-style-type: none;
+}
+.navbar .navbar_links .link {
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.navbar .navbar_links .link:hover {
+  color: #ff9f1c;
+  text-decoration: underline;
+}
+.navbar .dropdown {
+  position: relative;
+  margin-right: 1.2rem;
+}
+.navbar .dropdown > div {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+}
+.navbar .dropdown .dropdown_content {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 2rem;
+  left: 1.5rem;
+  z-index: 1;
+  background-color: white;
+  border: 1px solid #ff9f1c;
+}
+.navbar .dropdown .dropdown_content li {
+  padding: 0.5rem 5rem 1rem 1rem;
+}
+.navbar .dropdown .dropdown_content a {
+  font-size: 1rem;
+  white-space: nowrap;
+}
+.navbar .dropdown .dropdown_content li:hover {
+  background-color: #ff9f1c;
+}
+.navbar .dropdown .dropdown_content a:hover {
+  text-decoration: underline;
+}
+.navbar .dropdown .dropdown_content li:nth-child(5) a {
+  font-weight: 700;
+}
+.navbar .button_container button {
+  padding: 0.3rem 0.3rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  width: 6rem;
+}
+.navbar .button_container .login_button {
+  background-color: #ff9f1c;
+}
+.navbar .button_container .login_button:hover {
+  color: white;
+}
+.navbar .button_container .signUp_button {
+  background-color: #080357;
+  color: white;
+}
+.navbar .button_container .signUp_button:hover {
+  color: #ff9f1c;
+}
+.navbar .favorites {
+  display: flex;
+  padding-bottom: 1.5rem;
+}
+.navbar .favorites a {
+  font-size: 1.5rem;
+}
+.navbar .favorites a:hover {
+  color: red;
+}
+
+@media screen and (max-width: 800px) {
+  .navbar {
+    display: none;
+  }
+}/*# sourceMappingURL=navbarFull.module.css.map */

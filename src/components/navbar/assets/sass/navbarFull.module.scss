@@ -1,0 +1,141 @@
+@import '../../../../assets/variables';
+
+.navbar {
+  border-bottom: $primary_color1 solid 2px;
+  display: flex;
+  gap: 2rem;
+
+  .icon_arrow_down,
+  .icon_arrow_up {
+    font-size: 1.2rem;
+    color: $primary_color1;
+  }
+
+  .website_name {
+    a {
+      font-size: clamp(0.875rem, -0.1rem + 4.8vw, 1.4rem) !important;
+      font-weight: 700 !important;
+
+      &:hover {
+        color: $primary_color1;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .navbar_links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    padding-bottom: 1.5rem;
+    flex: 1;
+
+    .recipes {
+      margin-right: auto;
+    }
+
+    li {
+      list-style-type: none;
+    }
+
+    .link {
+      font-size: 1.2rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .link:hover {
+      color: $primary_color1;
+      text-decoration: underline;
+    }
+  }
+
+  .dropdown {
+    position: relative;
+    margin-right: 1.2rem;
+
+    & > div {
+      display: flex;
+      gap: 0.3rem;
+      align-items: center;
+    }
+
+    .dropdown_content {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 2rem;
+      left: 1.5rem;
+      z-index: 1;
+      background-color: white;
+      border: 1px solid $primary_color1;
+
+      li {
+        padding: 0.5rem 5rem 1rem 1rem;
+      }
+
+      a {
+        font-size: 1rem;
+        white-space: nowrap;
+      }
+
+      li:hover {
+        background-color: $primary_color1;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      li:nth-child(5) a {
+        font-weight: 700;
+      }
+    }
+  }
+
+  .button_container {
+    button {
+      padding: 0.3rem 0.3rem;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 1.1rem;
+      width: 6rem;
+    }
+
+    .login_button {
+      background-color: $primary_color1;
+
+      &:hover {
+        color: white;
+      }
+    }
+
+    .signUp_button {
+      background-color: $primary_color3;
+      color: white;
+
+      &:hover {
+        color: $primary_color1;
+      }
+    }
+  }
+
+  .favorites {
+    display: flex;
+    padding-bottom: 1.5rem;
+    a {
+      font-size: 1.5rem;
+
+      &:hover {
+        color: red;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .navbar {
+    display: none;
+  }
+}

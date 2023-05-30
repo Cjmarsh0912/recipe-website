@@ -7,12 +7,6 @@ import { useRecipeDataContext } from './context/RecipeDataContext';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { FaStar } from 'react-icons/fa';
 
-import { RecipeData } from 'interfaces/interface';
-
-type RecipeProps = {
-  recipeData: RecipeData;
-};
-
 export default function RecipeInstructions() {
   const stars: number[] = [1, 2, 3, 4, 5];
 

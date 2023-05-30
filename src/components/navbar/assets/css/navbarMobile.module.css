@@ -1,0 +1,151 @@
+.navbar_mobile {
+  border-bottom: #ff9f1c solid 2px;
+  align-items: center;
+  gap: 2rem;
+}
+.navbar_mobile .hide {
+  display: none;
+}
+.navbar_mobile .show {
+  display: flex;
+}
+.navbar_mobile .toggle_btn {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+}
+.navbar_mobile .website_name {
+  margin: auto auto;
+}
+.navbar_mobile .website_name a {
+  font-size: clamp(0.875rem, -0.1rem + 4.8vw, 1.4rem) !important;
+  font-weight: 700 !important;
+}
+.navbar_mobile .website_name a:hover {
+  color: #ff9f1c;
+  text-decoration: underline;
+}
+.navbar_mobile .navbar_links {
+  gap: 3rem;
+  padding-bottom: 1.5rem;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: stretch;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20rem;
+  height: -moz-max-content;
+  height: max-content;
+  padding: 3rem 1rem 3rem 1rem;
+  background-color: white;
+  z-index: 1;
+  border: #ff9f1c solid 2px;
+}
+.navbar_mobile .navbar_links .close_btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+.navbar_mobile .navbar_links .search_bar_mobile {
+  margin-top: 1rem;
+}
+.navbar_mobile .navbar_links .search_bar_mobile form {
+  width: 100%;
+  border: 2px solid #000;
+  padding: 0.4rem;
+}
+.navbar_mobile .navbar_links .search_bar_mobile form button[type=button] {
+  display: none;
+}
+.navbar_mobile .navbar_links .mobile_favorites_container {
+  background-color: rgba(246, 45, 45, 0.726);
+  padding: 1rem 0;
+}
+.navbar_mobile .navbar_links .mobile_favorites_container > a {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  color: white;
+}
+.navbar_mobile .navbar_links .mobile_favorites_container > a:hover {
+  color: black;
+}
+.navbar_mobile .navbar_links .mobile_favorites_container > a span {
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+.navbar_mobile .navbar_links > li {
+  width: 100%;
+}
+.navbar_mobile .navbar_links .recipes {
+  margin-right: auto;
+}
+.navbar_mobile .navbar_links li {
+  list-style-type: none;
+}
+.navbar_mobile .navbar_links .link {
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.navbar_mobile .navbar_links .link:hover {
+  color: #ff9f1c;
+  text-decoration: underline;
+}
+.navbar_mobile .navbar_links .dropdown {
+  position: relative;
+  margin-right: 1.2rem;
+}
+.navbar_mobile .navbar_links .dropdown > div {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+}
+.navbar_mobile .navbar_links .dropdown_content {
+  display: flex;
+  flex-direction: column;
+  top: 2rem;
+  left: 1.5rem;
+  z-index: 1;
+  position: static;
+  margin-top: 1rem;
+}
+.navbar_mobile .navbar_links .dropdown_content li {
+  padding: 0.5rem 5rem 1rem 1rem;
+}
+.navbar_mobile .navbar_links .dropdown_content a {
+  font-size: 1rem;
+  white-space: nowrap;
+}
+.navbar_mobile .navbar_links .dropdown_content a:hover {
+  text-decoration: underline;
+}
+.navbar_mobile .navbar_links .dropdown_content li:nth-child(5) a {
+  font-weight: 700;
+}
+.navbar_mobile .login_button,
+.navbar_mobile .signUp_button {
+  padding: 0.3rem 0.3rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  width: 6rem;
+}
+.navbar_mobile .login_button {
+  background-color: #ff9f1c;
+}
+.navbar_mobile .login_button:hover {
+  color: white;
+}
+.navbar_mobile .signUp_button {
+  background-color: #080357;
+  color: white;
+}
+.navbar_mobile .signUp_button:hover {
+  color: #ff9f1c;
+}/*# sourceMappingURL=navbarMobile.module.css.map */

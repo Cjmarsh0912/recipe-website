@@ -7,10 +7,6 @@ import styles from './assets/css/commentSection.module.css';
 
 import { RecipeData } from 'interfaces/interface';
 
-type CommentSectionProps = {
-  recipeData: RecipeData;
-};
-
 const CommentSection = () => {
   const { recipeData } = useRecipeDataContext();
   console.log(recipeData);

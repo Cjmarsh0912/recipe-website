@@ -31,8 +31,6 @@ type FunctionContext = {
 const initialState: InitialState = {
   categories: [],
   category: 'set category',
-  searchInput: '',
-  searchedRecipes: [],
   favorites: [],
   currentRecipes: [],
   recipeData: [],
@@ -48,12 +46,6 @@ const reducer = (state: InitialState, action: Action) => {
 
     case 'SET_CATEGORY':
       return { ...state, category: action.payload };
-
-    case 'SET_SEARCH_INPUT':
-      return { ...state, searchInput: action.payload };
-
-    case 'SET_SEARCHED_RECIPES':
-      return { ...state, searchedRecipes: action.payload };
 
     case 'SET_FAVORITES':
       return { ...state, favorites: action.payload };
@@ -200,8 +192,6 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({ children }) => {
   const stateContextValue: InitialState = {
     categories: state.categories,
     category: state.category,
-    searchInput: state.searchInput,
-    searchedRecipes: state.searchedRecipes,
     currentRecipes: state.currentRecipes,
     favorites: state.favorites,
     isLoading: state.isLoading,

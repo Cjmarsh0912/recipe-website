@@ -53,8 +53,6 @@ export interface ReplyInterface {
 export interface InitialState {
   categories: string[];
   category: string;
-  searchInput: string;
-  searchedRecipes: RecipeData[];
   favorites: number[];
   currentRecipes: RecipeData[];
   recipeData: RecipeData[];

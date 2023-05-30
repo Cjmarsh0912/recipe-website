@@ -1,18 +1,17 @@
 import { useState, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatchContext, useStateContext } from 'context/RecipeContext';
+import { useStateContext } from 'context/RecipeContext';
+import { useDispatchContext } from 'context/SearchContext';
 
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
 
 import styles from './assets/css/search-bar.module.css';
 
-import { RecipeData } from 'interfaces/interface';
-
 export default function SearchBar() {
-  const [search, setSearch] = useState<string>('');
+  const [searchInput, setSearchInput] = useState<string>('');
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
-  const { recipeData, searchInput } = useStateContext();
+  const { recipeData } = useStateContext();
   const { dispatch } = useDispatchContext();
 
   const navigate = useNavigate();
@@ -21,12 +20,12 @@ export default function SearchBar() {
     event.preventDefault();
 
     const newRecipes = [...recipeData].filter((item) => {
-      return item.keywords.includes(search.toLowerCase());
+      return item.keywords.includes(searchInput.toLowerCase());
     });
 
-    dispatch({ type: 'SET_SEARCH_INPUT', payload: search });
+    dispatch({ type: 'SET_SEARCH_INPUT', payload: searchInput });
     dispatch({ type: 'SET_SEARCHED_RECIPES', payload: newRecipes });
-    setSearch('');
+    setSearchInput('');
 
     setIsExpanded(false);
 
@@ -48,9 +47,9 @@ export default function SearchBar() {
           type='search'
           placeholder='Search for recipes here ex: beef'
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setSearch(e.target.value)
+            setSearchInput(e.target.value)
           }
-          value={search}
+          value={searchInput}
         />
         <button
           className={styles.close_button}

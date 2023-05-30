@@ -6,18 +6,16 @@ import {
   useDispatchContext,
 } from 'context/RecipeContext';
 
-import { Link } from 'react-router-dom';
+import { useSearchContex } from 'context/SearchContext';
 
 import Sort from 'components/sort/Sort';
 import Posts from 'components/posts/Posts';
 
 import styles from 'pages/Recipes/assets/css/recipes.module.css';
 
-import { RecipeData } from 'interfaces/interface';
-
-export default function Search() {
+export default function SearchResults() {
   const [category, setCategory] = useState<string>('choose category');
-  const { searchInput, searchedRecipes } = useStateContext();
+  const { searchInput, searchRecipes } = useSearchContex();
   const { updateCategories, sortArray } = useFunctionContext();
   const { dispatch } = useDispatchContext();
 
@@ -26,21 +24,27 @@ export default function Search() {
   };
 
   useEffect(() => {
-    updateCategories(searchedRecipes);
-    dispatch({ type: 'SET_CURRENT_RECIPES', payload: searchedRecipes });
-  }, [searchedRecipes]);
+    updateCategories(searchRecipes);
+    dispatch({ type: 'SET_CURRENT_RECIPES', payload: searchRecipes });
+  }, [searchRecipes]);
 
   useEffect(() => {
-    sortArray(category, searchedRecipes);
+    sortArray(category, searchRecipes);
   }, [category]);
   return (
     <main>
-      <header className={styles.test_header}>
-        <h3>Results from search: {searchInput}</h3>
-        <Sort updateCategory={updateCategory} />
-      </header>
+      {searchRecipes.length > 0 ? (
+        <>
+          <header className={styles.test_header}>
+            <h3>Search results for: {searchInput}</h3>
+            <Sort updateCategory={updateCategory} />
+          </header>
 
-      <Posts />
+          <Posts />
+        </>
+      ) : (
+        <h1>No results for {searchInput}</h1>
+      )}
     </main>
   );
 }

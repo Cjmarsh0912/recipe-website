@@ -6,6 +6,7 @@ import {
 } from 'context/RecipeContext';
 
 import { RecipeDataProvider } from 'pages/Recipe/context/RecipeDataContext';
+import { SearchProvider } from 'context/SearchContext';
 
 import {
   BrowserRouter,
@@ -33,7 +34,7 @@ import { db } from './firebase';
 
 import Navbar from 'components/navbar/Navbar';
 import Home from 'pages/Home/';
-import Search from 'pages/SearchResults';
+import SearchResults from 'pages/SearchResults';
 import Recipe from 'pages/Recipe/';
 import RecipesPage from 'pages/Recipes/';
 import Bookmarked from 'pages/Favorites';
@@ -184,7 +185,7 @@ function App() {
           <h1 data-text='Loading...'>Loading...</h1>
         </div>
       ) : (
-        <>
+        <SearchProvider>
           <BrowserRouter>
             <Navbar />
             <div className='wrapper'>
@@ -254,12 +255,12 @@ function App() {
                   );
                 })}
 
-                <Route path='/search' element={<Search />} />
+                <Route path='/search' element={<SearchResults />} />
               </Routes>
             </div>
             <GoToTop />
           </BrowserRouter>
-        </>
+        </SearchProvider>
       )}
     </>
   );
