@@ -56,10 +56,4 @@
 }
 .search_bar .search_icon_hide {
   opacity: 0;
-}
-
-@media screen and (max-width: 800px) {
-  .search_bar {
-    padding-bottom: 0;
-  }
 }/*# sourceMappingURL=search-bar.module.css.map */

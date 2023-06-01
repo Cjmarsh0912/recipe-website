@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import {
   useStateContext,
   useDispatchContext,
@@ -7,6 +7,7 @@ import {
 
 import { RecipeDataProvider } from 'pages/Recipe/context/RecipeDataContext';
 import { SearchProvider } from 'context/SearchContext';
+import { RecipePageProvider } from 'context/RecipePageContext';
 
 import {
   BrowserRouter,
@@ -47,7 +48,8 @@ import './assets/App.css';
 import { RecipeData, user } from 'interfaces/interface';
 
 function App() {
-  const { recipeData, isLoading } = useStateContext();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { recipeData } = useStateContext();
   const { dispatch } = useDispatchContext();
   const { updateUserData } = useFunctionContext();
 
@@ -168,16 +170,10 @@ function App() {
         updateUserData(null);
         dispatch({ type: 'SET_IS_SIGNED_IN', payload: false });
       }
-      dispatch({ type: 'SET_IS_LOADING', payload: false });
+      setIsLoading(false);
     });
     return unsubscribe;
   }, []);
-
-  // useEffect(() => {
-  //   // console.log(userData);
-  //   // console.log(favorites);
-  //   // console.log(RecipeData);
-  // }, [RecipeData]);
   return (
     <>
       {isLoading ? (
@@ -189,74 +185,78 @@ function App() {
           <BrowserRouter>
             <Navbar />
             <div className='wrapper'>
-              <Routes>
-                <Route path='/recipe-website/' element={<Home />} />
+              <RecipePageProvider>
+                <Routes>
+                  <Route path='/recipe-website/' element={<Home />} />
+                  <Route
+                    path='/all-recipes/'
+                    element={
+                      <RecipesPage name='All Recipes' recipeData={recipeData} />
+                    }
+                  />
 
-                <Route
-                  path='/all-recipes/'
-                  element={
-                    <RecipesPage name='All Recipes' recipeData={recipeData} />
-                  }
-                />
+                  <Route
+                    path='/lunch-recipes/'
+                    element={
+                      <RecipesPage
+                        name='Lunch Recipes'
+                        recipeData={LunchRecipes}
+                      />
+                    }
+                  />
 
-                <Route
-                  path='/lunch-recipes/'
-                  element={
-                    <RecipesPage
-                      name='Lunch Recipes'
-                      recipeData={LunchRecipes}
-                    />
-                  }
-                />
+                  <Route
+                    path='/dinner-recipes/'
+                    element={
+                      <RecipesPage
+                        name='Dinner Recipes'
+                        recipeData={DinnerRecipes}
+                      />
+                    }
+                  />
 
-                <Route
-                  path='/dinner-recipes/'
-                  element={
-                    <RecipesPage
-                      name='Dinner Recipes'
-                      recipeData={DinnerRecipes}
-                    />
-                  }
-                />
+                  <Route
+                    path='/side-recipes/'
+                    element={
+                      <RecipesPage
+                        name='Side Recipes'
+                        recipeData={SideRecipes}
+                      />
+                    }
+                  />
 
-                <Route
-                  path='/side-recipes/'
-                  element={
-                    <RecipesPage name='Side Recipes' recipeData={SideRecipes} />
-                  }
-                />
+                  <Route
+                    path='/dessert-recipes/'
+                    element={
+                      <RecipesPage
+                        name='Dessert Recipes'
+                        recipeData={DessertRecipes}
+                      />
+                    }
+                  />
 
-                <Route
-                  path='/dessert-recipes/'
-                  element={
-                    <RecipesPage
-                      name='Dessert Recipes'
-                      recipeData={DessertRecipes}
-                    />
-                  }
-                />
+                  <Route path='/bookmarked' element={<Bookmarked />} />
 
-                <Route path='/bookmarked' element={<Bookmarked />} />
+                  <Route path='/search' element={<SearchResults />} />
 
-                <Route path='/login' element={<Login />} />
-                <Route path='/signUp' element={<SignUp />} />
+                  {[...recipeData].map((item) => {
+                    return (
+                      <Route
+                        key={item.id}
+                        path={item.extension}
+                        element={
+                          <RecipeDataProvider>
+                            <Recipe recipeData={item} />
+                          </RecipeDataProvider>
+                        }
+                      />
+                    );
+                  })}
 
-                {[...recipeData].map((item) => {
-                  return (
-                    <Route
-                      key={item.id}
-                      path={item.extension}
-                      element={
-                        <RecipeDataProvider>
-                          <Recipe recipeData={item} />
-                        </RecipeDataProvider>
-                      }
-                    />
-                  );
-                })}
-
-                <Route path='/search' element={<SearchResults />} />
-              </Routes>
+                  <Route path='/login' element={<Login />} />
+                  <Route path='/signUp' element={<SignUp />} />
+                </Routes>
+              </RecipePageProvider>
             </div>
             <GoToTop />
           </BrowserRouter>

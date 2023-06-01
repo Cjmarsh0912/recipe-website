@@ -1,9 +1,7 @@
-import { useEffect, useState, useMemo } from 'react';
-import {
-  useStateContext,
-  useFunctionContext,
-  useDispatchContext,
-} from 'context/RecipeContext';
+import { useEffect, useMemo } from 'react';
+import { useStateContext } from 'context/RecipeContext';
+
+import { useDispatchContext } from 'context/RecipePageContext';
 
 import Posts from 'components/posts/Posts';
 import Sort from 'components/sort/Sort';
@@ -13,28 +11,17 @@ import { RecipeData } from 'interfaces/interface';
 import styles from 'pages/Recipes/assets/css/recipes.module.css';
 
 export default function Bookmarked() {
-  const [category, setCategory] = useState<string>('choose category');
   const { favorites, recipeData } = useStateContext();
   const { dispatch } = useDispatchContext();
-  const { sortArray, updateCategories } = useFunctionContext();
 
   const findFavorites: RecipeData[] = useMemo(
     () => [...recipeData].filter((item) => favorites.includes(item.id)),
     [favorites]
   );
 
-  const updateCategory = (data: string) => {
-    setCategory(data);
-  };
-
   useEffect(() => {
-    updateCategories(findFavorites);
-    dispatch({ type: 'SET_CURRENT_RECIPES', payload: findFavorites });
+    dispatch({ type: 'SET_PAGE_DATA', payload: findFavorites });
   }, [findFavorites]);
-
-  useEffect(() => {
-    sortArray(category, findFavorites);
-  }, [category]);
 
   return (
     <main>
@@ -42,7 +29,7 @@ export default function Bookmarked() {
         <>
           <header className={styles.test_header}>
             <h3>Bookmarks</h3>
-            <Sort updateCategory={updateCategory} />
+            <Sort />
           </header>
           <Posts />
         </>

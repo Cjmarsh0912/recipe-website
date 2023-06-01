@@ -1,4 +1,5 @@
 import { useFunctionContext, useStateContext } from 'context/RecipeContext';
+import { useRecipePageContext } from 'context/RecipePageContext';
 
 import { Link } from 'react-router-dom';
 
@@ -8,7 +9,8 @@ import { BsHeart, BsHeartFill } from 'react-icons/bs';
 
 export default function Posts() {
   const { addToFavorites, removeFromFavorites } = useFunctionContext();
-  const { currentRecipes, favorites } = useStateContext();
+  const { favorites } = useStateContext();
+  const { currentRecipes } = useRecipePageContext();
 
   return (
     <section className='recipes'>

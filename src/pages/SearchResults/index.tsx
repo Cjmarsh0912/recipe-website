@@ -1,10 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
-import {
-  useStateContext,
-  useFunctionContext,
-  useDispatchContext,
-} from 'context/RecipeContext';
+import { useDispatchContext } from 'context/RecipePageContext';
 
 import { useSearchContex } from 'context/SearchContext';
 
@@ -14,36 +10,27 @@ import Posts from 'components/posts/Posts';
 import styles from 'pages/Recipes/assets/css/recipes.module.css';
 
 export default function SearchResults() {
-  const [category, setCategory] = useState<string>('choose category');
   const { searchInput, searchRecipes } = useSearchContex();
-  const { updateCategories, sortArray } = useFunctionContext();
   const { dispatch } = useDispatchContext();
 
-  const updateCategory = (data: string) => {
-    setCategory(data);
-  };
-
   useEffect(() => {
-    updateCategories(searchRecipes);
-    dispatch({ type: 'SET_CURRENT_RECIPES', payload: searchRecipes });
+    dispatch({ type: 'SET_PAGE_DATA', payload: searchRecipes });
   }, [searchRecipes]);
-
-  useEffect(() => {
-    sortArray(category, searchRecipes);
-  }, [category]);
   return (
     <main>
       {searchRecipes.length > 0 ? (
         <>
           <header className={styles.test_header}>
             <h3>Search results for: {searchInput}</h3>
-            <Sort updateCategory={updateCategory} />
+            <Sort />
           </header>
 
           <Posts />
         </>
       ) : (
-        <h1>No results for {searchInput}</h1>
+        <header className={styles.test_header}>
+          <h3>No results for: {searchInput}</h3>
+        </header>
       )}
     </main>
   );

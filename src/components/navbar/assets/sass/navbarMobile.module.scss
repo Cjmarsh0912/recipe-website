@@ -59,6 +59,11 @@
 
     .search_bar_mobile {
       margin-top: 1rem;
+
+      div {
+        padding: 0;
+      }
+
       form {
         width: 100%;
         border: 2px solid #000;

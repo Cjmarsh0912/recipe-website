@@ -51,12 +51,8 @@ export interface ReplyInterface {
 }
 
 export interface InitialState {
-  categories: string[];
-  category: string;
   favorites: number[];
-  currentRecipes: RecipeData[];
   recipeData: RecipeData[];
   userData: user | null;
   isSignedIn: boolean;
-  isLoading: boolean;
 }

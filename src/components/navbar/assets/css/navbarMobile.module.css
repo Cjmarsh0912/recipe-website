@@ -53,6 +53,9 @@
 .navbar_mobile .navbar_links .search_bar_mobile {
   margin-top: 1rem;
 }
+.navbar_mobile .navbar_links .search_bar_mobile div {
+  padding: 0;
+}
 .navbar_mobile .navbar_links .search_bar_mobile form {
   width: 100%;
   border: 2px solid #000;

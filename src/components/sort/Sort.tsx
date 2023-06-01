@@ -1,13 +1,16 @@
-import { useMemo } from 'react';
-import { useStateContext } from 'context/RecipeContext';
+import { useMemo, useEffect } from 'react';
+import {
+  useRecipePageContext,
+  useDispatchContext,
+} from 'context/RecipePageContext';
+
+import { RecipeData } from 'interfaces/interface';
 
 import styles from './assets/css/sort.module.css';
 
-interface Categories {
-  updateCategory: (category: string) => void;
-}
-export default function Sort({ updateCategory }: Categories) {
-  const { categories } = useStateContext();
+export default function Sort() {
+  const { categories, pageData } = useRecipePageContext();
+  const { dispatch } = useDispatchContext();
 
   const sortOrder = ['lunch', 'dinner', 'sides', 'dessert'];
   const sortedItems = useMemo(
@@ -28,11 +31,40 @@ export default function Sort({ updateCategory }: Categories) {
       }),
     [categories]
   );
+
+  const sortArray = (category: string, recipeData: RecipeData[]) => {
+    const sorted = [...recipeData].filter((item) => {
+      if (category === 'choose category') return item;
+      if (item.keywords.includes(category)) return true;
+
+      return false;
+    });
+    dispatch({ type: 'SET_CURRENT_RECIPES', payload: sorted });
+  };
+
+  const updateCategories = (recipeData: RecipeData[]) => {
+    const newCategories = new Set(recipeData.flatMap((obj) => obj.keywords));
+    dispatch({ type: 'SET_CATEGORIES', payload: [...newCategories] });
+  };
+
+  function capitalizeFirstLetters(str: string) {
+    const words = str.split(' ');
+    const capitalizedWords = words.map(
+      (word) => word.charAt(0).toUpperCase() + word.slice(1)
+    );
+    return capitalizedWords.join(' ');
+  }
+
+  useEffect(() => {
+    updateCategories(pageData);
+    sortArray('choose category', pageData);
+  }, [pageData]);
+
   return (
     <div className={styles.category_container}>
       <select
         onChange={(e) => {
-          updateCategory(e.target.value);
+          sortArray(e.target.value, pageData);
         }}
         id={styles.category}
         name='category'

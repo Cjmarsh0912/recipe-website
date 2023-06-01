@@ -21,37 +21,22 @@ type Action = {
 type FunctionContext = {
   addToFavorites: (id: number) => void;
   removeFromFavorites: (id: number) => void;
-  updateCategories: (test: RecipeData[]) => void;
-  sortArray: (category: string, recipeData: RecipeData[]) => void;
   updateUserInDatabase: (newUserData: user) => void;
   updateUserData: (newUserData: user | null) => void;
   updateRecipeInDatabase: (recipe: RecipeData) => void;
 };
 
 const initialState: InitialState = {
-  categories: [],
-  category: 'set category',
   favorites: [],
-  currentRecipes: [],
   recipeData: [],
   userData: null,
   isSignedIn: false,
-  isLoading: true,
 };
 
 const reducer = (state: InitialState, action: Action) => {
   switch (action.type) {
-    case 'SET_CATEGORIES':
-      return { ...state, categories: action.payload };
-
-    case 'SET_CATEGORY':
-      return { ...state, category: action.payload };
-
     case 'SET_FAVORITES':
       return { ...state, favorites: action.payload };
-
-    case 'SET_CURRENT_RECIPES':
-      return { ...state, currentRecipes: action.payload };
 
     case 'SET_RECIPE_DATA':
       return { ...state, recipeData: action.payload };
@@ -61,9 +46,6 @@ const reducer = (state: InitialState, action: Action) => {
 
     case 'SET_IS_SIGNED_IN':
       return { ...state, isSignedIn: action.payload };
-
-    case 'SET_IS_LOADING':
-      return { ...state, isLoading: action.payload };
 
     default:
       return state;
@@ -81,8 +63,6 @@ export const DispatchContext = createContext<{
 export const FunctionContext = createContext<FunctionContext>({
   addToFavorites: () => {},
   removeFromFavorites: () => {},
-  updateCategories: () => {},
-  sortArray: () => {},
   updateUserInDatabase: () => {},
   updateUserData: () => {},
   updateRecipeInDatabase: () => {},
@@ -131,36 +111,6 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({ children }) => {
     }
   };
 
-  const updateCategories = (testData: RecipeData[]) => {
-    const test: string[] = [];
-    testData.map((item) => {
-      return item.keywords.filter((item2) => {
-        const isDuplicate = test.includes(item2);
-
-        if (!isDuplicate) {
-          test.push(item2);
-          return true;
-        }
-
-        return false;
-      });
-    });
-    dispatch({ type: 'SET_CATEGORIES', payload: test });
-  };
-
-  const sortArray = useCallback(
-    (category: string, recipeData: RecipeData[]) => {
-      const sorted = [...recipeData].filter((item) => {
-        if (category === 'choose category') return item;
-        if (item.keywords.includes(category)) return true;
-
-        return false;
-      });
-      dispatch({ type: 'SET_CURRENT_RECIPES', payload: sorted });
-    },
-    [state.currentRecipes]
-  );
-
   const updateUserInDatabase = async (newUserData: user) => {
     const userRef = doc(db, 'users', newUserData.uid);
     await updateDoc(userRef, {
@@ -190,11 +140,7 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({ children }) => {
   };
 
   const stateContextValue: InitialState = {
-    categories: state.categories,
-    category: state.category,
-    currentRecipes: state.currentRecipes,
     favorites: state.favorites,
-    isLoading: state.isLoading,
     isSignedIn: state.isSignedIn,
     recipeData: state.recipeData,
     userData: state.userData,
@@ -203,8 +149,6 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({ children }) => {
   const functionContextValue: FunctionContext = {
     addToFavorites,
     removeFromFavorites,
-    updateCategories,
-    sortArray,
     updateUserInDatabase,
     updateUserData,
     updateRecipeInDatabase,
