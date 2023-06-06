@@ -1,50 +1,29 @@
 @import '../../../../assets/variables';
 
-.test {
-  display: flex;
-  justify-content: center;
-}
-
-#testInput {
-  width: 40%;
-  padding: 1rem;
-  border: solid 2px $primary_color1;
-}
-
-.results_container {
-  display: flex;
-  gap: 0.8rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 70%;
+.test_header {
   margin: auto;
+  text-align: center;
+  width: fit-content;
+  margin-bottom: 3rem;
 
-  .results {
-    flex: 0 1 20%;
-    text-align: center;
+  div {
+    display: none;
+  }
+
+  h3 {
+    font-size: $font-size-lrg;
+  }
+
+  .search_bar_container {
+    background-color: transparent;
+    display: flex;
+    gap: 0.8rem;
+    padding: 3rem;
+  }
+
+  #search_bar {
     width: 100%;
-
-    a {
-      width: inherit;
-    }
-
-    img {
-      width: inherit;
-      height: 10rem;
-      transition: box-shadow 0.4s;
-
-      &:hover {
-        box-shadow: 5px 5px 5px $primary_color1;
-      }
-    }
-
-    .recipe_description {
-      font-size: 1.3rem;
-
-      &:hover {
-        color: $primary_color1;
-        text-decoration: underline;
-      }
-    }
+    padding: 1rem;
+    border: solid 2px $primary_color1;
   }
 }

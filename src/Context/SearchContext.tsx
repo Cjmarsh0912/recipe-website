@@ -41,7 +41,7 @@ export const DispatchContext = createContext<{
   dispatch: React.Dispatch<Action>;
 }>({ dispatch: () => {} });
 
-export function useSearchContex() {
+export function useSearchContext() {
   return useContext(SearchContext);
 }
 

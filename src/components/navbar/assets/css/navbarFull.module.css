@@ -2,6 +2,7 @@
   border-bottom: #ff9f1c solid 2px;
   display: flex;
   gap: 2rem;
+  position: relative;
 }
 .navbar .icon_arrow_down,
 .navbar .icon_arrow_up {

@@ -56,4 +56,23 @@
 }
 .search_bar .search_icon_hide {
   opacity: 0;
+}
+
+.suggestions_container {
+  position: absolute;
+  padding: 0.4rem;
+  top: 50px;
+  right: 0;
+  background-color: white;
+  border: 2px black solid;
+  width: 20rem;
+}
+.suggestions_container ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.suggestions_container ul li {
+  list-style: none;
+  cursor: pointer;
 }/*# sourceMappingURL=search-bar.module.css.map */

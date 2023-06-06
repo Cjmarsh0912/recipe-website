@@ -1,42 +1,24 @@
-.test {
-  display: flex;
-  justify-content: center;
+.test_header {
+  margin: auto;
+  text-align: center;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-bottom: 3rem;
 }
-
-#testInput {
-  width: 40%;
-  padding: 1rem;
-  border: solid 2px #ff9f1c;
+.test_header div {
+  display: none;
 }
-
-.results_container {
+.test_header h3 {
+  font-size: 2rem;
+}
+.test_header .search_bar_container {
+  background-color: transparent;
   display: flex;
   gap: 0.8rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 70%;
-  margin: auto;
+  padding: 3rem;
 }
-.results_container .results {
-  flex: 0 1 20%;
-  text-align: center;
+.test_header #search_bar {
   width: 100%;
-}
-.results_container .results a {
-  width: inherit;
-}
-.results_container .results img {
-  width: inherit;
-  height: 10rem;
-  transition: box-shadow 0.4s;
-}
-.results_container .results img:hover {
-  box-shadow: 5px 5px 5px #ff9f1c;
-}
-.results_container .results .recipe_description {
-  font-size: 1.3rem;
-}
-.results_container .results .recipe_description:hover {
-  color: #ff9f1c;
-  text-decoration: underline;
+  padding: 1rem;
+  border: solid 2px #ff9f1c;
 }/*# sourceMappingURL=search.module.css.map */

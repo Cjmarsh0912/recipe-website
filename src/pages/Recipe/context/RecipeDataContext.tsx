@@ -1,7 +1,5 @@
 import { createContext, useReducer, ReactNode, useContext } from 'react';
 
-import { useFunctionContext } from 'context/RecipeContext';
-
 import { RecipeData } from 'interfaces/interface';
 
 type RecipeProviderProps = {

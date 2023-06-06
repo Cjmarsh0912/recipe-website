@@ -67,3 +67,22 @@
     opacity: 0;
   }
 }
+.suggestions_container {
+  position: absolute;
+  padding: 0.4rem;
+  top: 50px;
+  right: 0;
+  background-color: white;
+  border: 2px black solid;
+  width: 20rem;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    li {
+      list-style: none;
+      cursor: pointer;
+    }
+  }
+}

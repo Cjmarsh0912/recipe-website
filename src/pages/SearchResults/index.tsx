@@ -2,15 +2,15 @@ import { useEffect } from 'react';
 
 import { useDispatchContext } from 'context/RecipePageContext';
 
-import { useSearchContex } from 'context/SearchContext';
+import { useSearchContext } from 'context/SearchContext';
 
 import Sort from 'components/sort/Sort';
 import Posts from 'components/posts/Posts';
 
-import styles from 'pages/Recipes/assets/css/recipes.module.css';
+import styles from './assets/css/search.module.css';
 
 export default function SearchResults() {
-  const { searchInput, searchRecipes } = useSearchContex();
+  const { searchInput, searchRecipes } = useSearchContext();
   const { dispatch } = useDispatchContext();
 
   useEffect(() => {
