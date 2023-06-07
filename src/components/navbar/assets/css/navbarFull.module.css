@@ -13,9 +13,10 @@
   font-size: clamp(0.875rem, -0.1rem + 4.8vw, 1.4rem) !important;
   font-weight: 700 !important;
 }
-.navbar .website_name a:hover {
+.navbar .website_name a:hover, .navbar .website_name a:focus {
   color: #ff9f1c;
   text-decoration: underline;
+  outline: none;
 }
 .navbar .navbar_links {
   display: flex;
@@ -35,9 +36,10 @@
   font-weight: 500;
   cursor: pointer;
 }
-.navbar .navbar_links .link:hover {
+.navbar .navbar_links .link:hover, .navbar .navbar_links .link:focus {
   color: #ff9f1c;
   text-decoration: underline;
+  outline: none;
 }
 .navbar .dropdown {
   position: relative;
@@ -61,15 +63,16 @@
 .navbar .dropdown .dropdown_content li {
   padding: 0.5rem 5rem 1rem 1rem;
 }
+.navbar .dropdown .dropdown_content li:hover {
+  background-color: #ff9f1c;
+}
 .navbar .dropdown .dropdown_content a {
   font-size: 1rem;
   white-space: nowrap;
 }
-.navbar .dropdown .dropdown_content li:hover {
-  background-color: #ff9f1c;
-}
-.navbar .dropdown .dropdown_content a:hover {
+.navbar .dropdown .dropdown_content a:hover, .navbar .dropdown .dropdown_content a:focus {
   text-decoration: underline;
+  outline: none;
 }
 .navbar .dropdown .dropdown_content li:nth-child(5) a {
   font-weight: 700;
@@ -85,15 +88,17 @@
 .navbar .button_container .login_button {
   background-color: #ff9f1c;
 }
-.navbar .button_container .login_button:hover {
+.navbar .button_container .login_button:hover, .navbar .button_container .login_button:focus {
   color: white;
+  outline: none;
 }
 .navbar .button_container .signUp_button {
   background-color: #080357;
   color: white;
 }
-.navbar .button_container .signUp_button:hover {
+.navbar .button_container .signUp_button:hover, .navbar .button_container .signUp_button:focus {
   color: #ff9f1c;
+  outline: none;
 }
 .navbar .favorites {
   display: flex;
@@ -102,8 +107,9 @@
 .navbar .favorites a {
   font-size: 1.5rem;
 }
-.navbar .favorites a:hover {
+.navbar .favorites a:hover, .navbar .favorites a:focus {
   color: red;
+  outline: none;
 }
 
 @media screen and (max-width: 800px) {

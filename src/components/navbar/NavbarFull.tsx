@@ -67,6 +67,7 @@ export default function NavbarFull() {
               onClick={() =>
                 setIsRecipesDropdownVisible(!isRecipesDropdownVisible)
               }
+              tabIndex={0}
             >
               Recipes
             </span>
@@ -138,7 +139,7 @@ export default function NavbarFull() {
         {!isSignedIn ? (
           <>
             <li className={styles.button_container}>
-              <Link to='login'>
+              <Link tabIndex={-1} to='login'>
                 <button type='button' className={styles.login_button}>
                   Log In
                 </button>
@@ -146,7 +147,7 @@ export default function NavbarFull() {
             </li>
 
             <li className={styles.button_container}>
-              <Link to='/signUp'>
+              <Link tabIndex={-1} to='/signUp'>
                 <button type='button' className={styles.signUp_button}>
                   Sign Up
                 </button>

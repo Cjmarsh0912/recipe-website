@@ -1,5 +1,5 @@
 import { useState, ChangeEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useStateContext } from 'context/RecipeContext';
 import { useDispatchContext } from 'context/SearchContext';
 
@@ -11,6 +11,7 @@ import { RecipeData } from 'interfaces/interface';
 export default function SearchBar() {
   const [searchInput, setSearchInput] = useState<string>('');
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [recipeSuggestions, setRecipeSuggestions] = useState<RecipeData[]>([]);
   const [suggestions, setSuggestions] = useState<Set<string>>(new Set());
 
   const { recipeData } = useStateContext();
@@ -18,10 +19,27 @@ export default function SearchBar() {
 
   const navigate = useNavigate();
 
-  function stringToArray(inputString: string): string[] {
-    // Split the string into individual words using regular expression
-    var wordArray: string[] = inputString.split(/\s+/);
-    return wordArray;
+  // function stringToArray(inputString: string): string[] {
+  //   // Split the string into individual words using regular expression
+  //   var wordArray: string[] = inputString.split(/\s+/);
+  //   return wordArray;
+  // }
+
+  //  function findSearchSuggestions(input: string): Set<string> {
+  //   if (input === '' || input === ' ') {
+  //     return new Set();
+  //   }
+
+  //   const regex = new RegExp(`\\b${input}`, 'i');
+  //   const matchingKeywords = recipeData
+  //     .flatMap((recipe) => [...recipe.keywords, recipe.recipe_name])
+  //     .filter((item) => regex.test(item));
+
+  //   return new Set(matchingKeywords);
+  // }
+
+  function findTest(value: RecipeData, suggestion: string) {
+    return value.recipe_name === suggestion;
   }
 
   function findSearchRecipes(searchInput: string): RecipeData[] {
@@ -35,37 +53,67 @@ export default function SearchBar() {
     return newRecipes;
   }
 
-  function findSearchSuggestions(input: string): Set<string> {
+  function findSearchSuggestions(input: string) {
     if (input === '' || input === ' ') {
-      return new Set();
+      setRecipeSuggestions([]);
+      setSuggestions(new Set());
+
+      return;
     }
 
     const regex = new RegExp(`\\b${input}`, 'i');
-    const matchingKeywords = recipeData
-      .flatMap((recipe) => [...recipe.keywords, recipe.recipe_name])
-      .filter((item) => regex.test(item));
 
-    return new Set(matchingKeywords);
+    const newSuggestions = new Set(
+      [...recipeData]
+        .flatMap((recipe) => recipe.keywords)
+        .filter((item) => regex.test(item))
+    );
+
+    const newRecipeSuggestions = [...recipeData].filter((recipe) =>
+      regex.test(recipe.recipe_name)
+    );
+
+    setRecipeSuggestions(newRecipeSuggestions);
+    setSuggestions(newSuggestions);
   }
+
+  const handleKeyDown = (
+    event:
+      | React.KeyboardEvent<HTMLLIElement>
+      | React.KeyboardEvent<HTMLAnchorElement>,
+    item: string
+  ) => {
+    if (event.key === 'Enter') {
+      handleSearchSuggestionClick(item);
+    }
+  };
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
 
     setSearchInput(value);
+    findSearchSuggestions(value);
 
-    const newSuggestions = findSearchSuggestions(value);
-    setSuggestions(newSuggestions);
+    // const newSuggestions = findSearchSuggestions(value);
+    // setSuggestions(newSuggestions);
   }
 
   function handleSearchSuggestionClick(suggestion: string) {
+    const recipe = recipeData.find((recipe) => findTest(recipe, suggestion));
+    setSearchInput('');
+    setSuggestions(new Set());
+    setRecipeSuggestions([]);
+    setIsExpanded(false);
+
+    if (recipe !== undefined) {
+      navigate(recipe.extension);
+      return;
+    }
+
     const newRecipes = findSearchRecipes(suggestion);
 
     dispatch({ type: 'SET_SEARCH_INPUT', payload: suggestion });
     dispatch({ type: 'SET_SEARCHED_RECIPES', payload: newRecipes });
-    setSearchInput('');
-    setSuggestions(new Set());
-
-    setIsExpanded(false);
 
     navigate('/search');
   }
@@ -94,7 +142,11 @@ export default function SearchBar() {
             isExpanded ? styles.expanded : ''
           }`}
         >
-          <button className={styles.search_button} type='submit'>
+          <button
+            className={styles.search_button}
+            type='submit'
+            tabIndex={isExpanded ? 1 : -1}
+          >
             <AiOutlineSearch />
           </button>
           <input
@@ -102,11 +154,13 @@ export default function SearchBar() {
             placeholder='Search for recipes here ex: beef'
             onChange={handleInputChange}
             value={searchInput}
+            tabIndex={isExpanded ? 2 : -1}
           />
           <button
             className={styles.close_button}
             type='button'
             onClick={() => setIsExpanded(false)}
+            tabIndex={isExpanded ? 3 : -1}
           >
             <AiOutlineClose />
           </button>
@@ -115,18 +169,33 @@ export default function SearchBar() {
           className={styles.search_icon}
           type='button'
           onClick={() => setIsExpanded(true)}
+          tabIndex={0}
         >
           <AiOutlineSearch />
         </button>
       </div>
-      {isExpanded && suggestions.size > 0 && (
+
+      {isExpanded && (suggestions.size > 0 || recipeSuggestions.length > 0) && (
         <div className={styles.suggestions_container}>
           <ul className={styles.suggestions}>
+            {[...recipeSuggestions].map((item, id) => (
+              <li key={id} className={styles.suggestion} role='button'>
+                <Link
+                  onClick={() => handleSearchSuggestionClick(item.recipe_name)}
+                  onKeyDown={(e) => handleKeyDown(e, item.recipe_name)}
+                  to={item.extension}
+                >
+                  {item.recipe_name}
+                </Link>
+              </li>
+            ))}
             {[...suggestions].map((item, id) => (
               <li
                 key={id}
                 className={styles.suggestion}
                 onClick={() => handleSearchSuggestionClick(item)}
+                onKeyDown={(e) => handleKeyDown(e, item)}
+                role='button'
               >
                 {item}
               </li>

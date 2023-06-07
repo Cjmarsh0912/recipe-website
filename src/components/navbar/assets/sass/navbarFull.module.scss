@@ -17,9 +17,11 @@
       font-size: clamp(0.875rem, -0.1rem + 4.8vw, 1.4rem) !important;
       font-weight: 700 !important;
 
-      &:hover {
+      &:hover,
+      &:focus {
         color: $primary_color1;
         text-decoration: underline;
+        outline: none;
       }
     }
   }
@@ -43,11 +45,13 @@
       font-size: 1.2rem;
       font-weight: 500;
       cursor: pointer;
-    }
 
-    .link:hover {
-      color: $primary_color1;
-      text-decoration: underline;
+      &:hover,
+      &:focus {
+        color: $primary_color1;
+        text-decoration: underline;
+        outline: none;
+      }
     }
   }
 
@@ -73,19 +77,21 @@
 
       li {
         padding: 0.5rem 5rem 1rem 1rem;
+
+        &:hover {
+          background-color: $primary_color1;
+        }
       }
 
       a {
         font-size: 1rem;
         white-space: nowrap;
-      }
 
-      li:hover {
-        background-color: $primary_color1;
-      }
-
-      a:hover {
-        text-decoration: underline;
+        &:hover,
+        &:focus {
+          text-decoration: underline;
+          outline: none;
+        }
       }
 
       li:nth-child(5) a {
@@ -107,8 +113,10 @@
     .login_button {
       background-color: $primary_color1;
 
-      &:hover {
+      &:hover,
+      &:focus {
         color: white;
+        outline: none;
       }
     }
 
@@ -116,8 +124,10 @@
       background-color: $primary_color3;
       color: white;
 
-      &:hover {
+      &:hover,
+      &:focus {
         color: $primary_color1;
+        outline: none;
       }
     }
   }
@@ -128,8 +138,10 @@
     a {
       font-size: 1.5rem;
 
-      &:hover {
+      &:hover,
+      &:focus {
         color: red;
+        outline: none;
       }
     }
   }

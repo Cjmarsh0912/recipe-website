@@ -4,6 +4,10 @@
   align-items: center;
   padding-bottom: 1.5rem;
 }
+.search_bar button:focus {
+  outline: none;
+  color: #ff9f1c;
+}
 .search_bar input[type=search]::-webkit-search-cancel-button {
   -webkit-appearance: none;
   appearance: none;
@@ -72,7 +76,17 @@
   flex-direction: column;
   gap: 0.5rem;
 }
-.suggestions_container ul li {
+.suggestions_container ul li,
+.suggestions_container ul a {
   list-style: none;
   cursor: pointer;
+}
+.suggestions_container ul li:hover,
+.suggestions_container ul a:hover {
+  color: #ff9f1c;
+}
+.suggestions_container ul li:focus,
+.suggestions_container ul a:focus {
+  outline: none;
+  color: #ff9f1c;
 }/*# sourceMappingURL=search-bar.module.css.map */

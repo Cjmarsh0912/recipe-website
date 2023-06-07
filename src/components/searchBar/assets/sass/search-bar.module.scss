@@ -6,6 +6,11 @@
   align-items: center;
   padding-bottom: 1.5rem;
 
+  button:focus {
+    outline: none;
+    color: $primary_color1;
+  }
+
   input[type='search']::-webkit-search-cancel-button {
     -webkit-appearance: none;
     appearance: none;
@@ -80,9 +85,19 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    li {
+    li,
+    a {
       list-style: none;
       cursor: pointer;
+
+      &:hover {
+        color: $primary_color1;
+      }
+
+      &:focus {
+        outline: none;
+        color: $primary_color1;
+      }
     }
   }
 }
