@@ -19,6 +19,10 @@
   bottom: 0.5rem;
   right: 1rem;
 }
+.posts .post div .icon_heart_noFill:focus-visible {
+  color: black;
+  outline: none;
+}
 .posts .post a {
   width: 100%;
 }
@@ -27,13 +31,15 @@
   height: 20rem;
   transition: box-shadow 0.4s;
 }
-.posts .post img:hover {
+.posts .post img:hover, .posts .post img:focus-visible {
   box-shadow: 5px 5px 5px #ff9f1c;
+  outline: none;
 }
 .posts .recipe_description {
   font-size: 1.5rem;
 }
-.posts .recipe_description:hover {
+.posts .recipe_description:hover, .posts .recipe_description:focus-visible {
   color: #ff9f1c;
   text-decoration: underline;
+  outline: none;
 }/*# sourceMappingURL=posts.module.css.map */

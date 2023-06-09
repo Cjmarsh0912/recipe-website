@@ -1,9 +1,10 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, useRef, ChangeEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useStateContext } from 'context/RecipeContext';
 import { useDispatchContext } from 'context/SearchContext';
 
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
+import { BiLinkExternal } from 'react-icons/bi';
 
 import styles from './assets/css/search-bar.module.css';
 import { RecipeData } from 'interfaces/interface';
@@ -13,6 +14,8 @@ export default function SearchBar() {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [recipeSuggestions, setRecipeSuggestions] = useState<RecipeData[]>([]);
   const [suggestions, setSuggestions] = useState<Set<string>>(new Set());
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const { recipeData } = useStateContext();
   const { dispatch } = useDispatchContext();
@@ -37,6 +40,11 @@ export default function SearchBar() {
 
   //   return new Set(matchingKeywords);
   // }
+
+  function handleExpand() {
+    setIsExpanded(true);
+    inputRef.current?.focus();
+  }
 
   function findTest(value: RecipeData, suggestion: string) {
     return value.recipe_name === suggestion;
@@ -145,7 +153,7 @@ export default function SearchBar() {
           <button
             className={styles.search_button}
             type='submit'
-            tabIndex={isExpanded ? 1 : -1}
+            tabIndex={isExpanded ? 0 : -1}
           >
             <AiOutlineSearch />
           </button>
@@ -154,13 +162,14 @@ export default function SearchBar() {
             placeholder='Search for recipes here ex: beef'
             onChange={handleInputChange}
             value={searchInput}
-            tabIndex={isExpanded ? 2 : -1}
+            tabIndex={isExpanded ? 0 : -1}
+            ref={inputRef}
           />
           <button
             className={styles.close_button}
             type='button'
             onClick={() => setIsExpanded(false)}
-            tabIndex={isExpanded ? 3 : -1}
+            tabIndex={isExpanded ? 0 : -1}
           >
             <AiOutlineClose />
           </button>
@@ -168,8 +177,8 @@ export default function SearchBar() {
         <button
           className={styles.search_icon}
           type='button'
-          onClick={() => setIsExpanded(true)}
-          tabIndex={0}
+          onClick={handleExpand}
+          tabIndex={isExpanded ? -1 : 0}
         >
           <AiOutlineSearch />
         </button>
@@ -179,14 +188,20 @@ export default function SearchBar() {
         <div className={styles.suggestions_container}>
           <ul className={styles.suggestions}>
             {[...recipeSuggestions].map((item, id) => (
-              <li key={id} className={styles.suggestion} role='button'>
+              <li
+                key={id}
+                className={`${styles.recipe_suggestions}`}
+                role='button'
+              >
                 <Link
                   onClick={() => handleSearchSuggestionClick(item.recipe_name)}
                   onKeyDown={(e) => handleKeyDown(e, item.recipe_name)}
                   to={item.extension}
+                  tabIndex={0}
                 >
                   {item.recipe_name}
                 </Link>
+                <BiLinkExternal size={18} />
               </li>
             ))}
             {[...suggestions].map((item, id) => (
@@ -196,6 +211,7 @@ export default function SearchBar() {
                 onClick={() => handleSearchSuggestionClick(item)}
                 onKeyDown={(e) => handleKeyDown(e, item)}
                 role='button'
+                tabIndex={0}
               >
                 {item}
               </li>

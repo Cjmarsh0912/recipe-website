@@ -19,19 +19,27 @@ export default function Posts() {
           return (
             <div key={item.id} className={styles.post}>
               <div>
-                <Link to={item.extension}>
-                  <img loading='lazy' src={item.image} />
+                <Link tabIndex={-1} to={item.extension}>
+                  <img tabIndex={0} loading='lazy' src={item.image} />
                 </Link>
                 {[...favorites].includes(item.id) && (
                   <BsHeartFill
                     onClick={() => removeFromFavorites(item.id)}
+                    onKeyDown={(key) => {
+                      if (key.key === 'Enter') removeFromFavorites(item.id);
+                    }}
                     className={styles.icon_heart_noFill}
+                    tabIndex={0}
                   />
                 )}
                 {![...favorites].includes(item.id) && (
                   <BsHeart
                     onClick={() => addToFavorites(item.id)}
+                    onKeyDown={(key) => {
+                      if (key.key === 'Enter') addToFavorites(item.id);
+                    }}
                     className={styles.icon_heart_noFill}
+                    tabIndex={0}
                   />
                 )}
               </div>

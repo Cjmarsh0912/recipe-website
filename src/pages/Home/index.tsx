@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom';
 
 import { BsArrowRight } from 'react-icons/bs';
 
-import { RecipeData } from 'interfaces/interface';
-
 export default function Home() {
   const { recipeData } = useStateContext();
 
@@ -27,8 +25,12 @@ export default function Home() {
               if (id >= 3) return;
               return (
                 <article key={item.id} className={styles.post}>
-                  <Link to={item.extension}>
-                    <img loading='lazy' src={item.image.slice(15)} />
+                  <Link tabIndex={-1} to={item.extension}>
+                    <img
+                      tabIndex={0}
+                      loading='lazy'
+                      src={item.image.slice(15)}
+                    />
                   </Link>
                   <h3>
                     <Link
@@ -78,8 +80,12 @@ export default function Home() {
               if (id >= 3) return;
               return (
                 <article key={item.id} className={styles.post}>
-                  <Link to={item.extension}>
-                    <img loading='lazy' src={item.image.slice(15)} />
+                  <Link tabIndex={-1} to={item.extension}>
+                    <img
+                      tabIndex={0}
+                      loading='lazy'
+                      src={item.image.slice(15)}
+                    />
                   </Link>
                   <h3>
                     <Link

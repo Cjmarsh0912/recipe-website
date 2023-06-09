@@ -18,7 +18,7 @@
       font-weight: 700 !important;
 
       &:hover,
-      &:focus {
+      &:focus-visible {
         color: $primary_color1;
         text-decoration: underline;
         outline: none;
@@ -47,7 +47,7 @@
       cursor: pointer;
 
       &:hover,
-      &:focus {
+      &:focus-visible {
         color: $primary_color1;
         text-decoration: underline;
         outline: none;
@@ -88,7 +88,7 @@
         white-space: nowrap;
 
         &:hover,
-        &:focus {
+        &:focus-visible {
           text-decoration: underline;
           outline: none;
         }
@@ -114,7 +114,7 @@
       background-color: $primary_color1;
 
       &:hover,
-      &:focus {
+      &:focus-visible {
         color: white;
         outline: none;
       }
@@ -125,7 +125,7 @@
       color: white;
 
       &:hover,
-      &:focus {
+      &:focus-visible {
         color: $primary_color1;
         outline: none;
       }
@@ -139,7 +139,7 @@
       font-size: 1.5rem;
 
       &:hover,
-      &:focus {
+      &:focus-visible {
         color: red;
         outline: none;
       }

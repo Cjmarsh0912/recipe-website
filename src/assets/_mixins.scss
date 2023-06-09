@@ -20,6 +20,11 @@
         cursor: pointer;
         bottom: 0.5rem;
         right: 1rem;
+
+        &:focus-visible {
+          color: black;
+          outline: none;
+        }
       }
     }
 
@@ -32,8 +37,10 @@
       height: 20rem;
       transition: box-shadow 0.4s;
 
-      &:hover {
+      &:hover,
+      &:focus-visible {
         box-shadow: 5px 5px 5px $primary_color1;
+        outline: none;
       }
     }
   }
@@ -41,9 +48,11 @@
   .recipe_description {
     font-size: $font-size-medium;
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
       color: $primary_color1;
       text-decoration: underline;
+      outline: none;
     }
   }
 }
@@ -56,14 +65,24 @@
     align-items: center;
     width: fit-content;
 
+    &:focus-visible {
+      color: $primary-color1;
+      outline: none;
+    }
+
     h2 {
       font-size: $font-size-lrg;
       border-bottom: dotted $primary_color3 2px;
       font-weight: 800;
+
+      &:hover {
+        border-color: $primary_color1;
+      }
     }
 
     &:hover h2 {
       border-color: $primary_color1;
+      outline: none;
     }
 
     .icon_arrow_right {

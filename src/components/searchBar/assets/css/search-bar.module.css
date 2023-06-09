@@ -76,17 +76,25 @@
   flex-direction: column;
   gap: 0.5rem;
 }
-.suggestions_container ul li,
-.suggestions_container ul a {
+.suggestions_container ul li {
   list-style: none;
+}
+.suggestions_container ul .recipe_suggestions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.suggestions_container ul .recipe_suggestions a {
   cursor: pointer;
 }
-.suggestions_container ul li:hover,
-.suggestions_container ul a:hover {
+.suggestions_container ul .recipe_suggestions a:hover, .suggestions_container ul .recipe_suggestions a:focus {
   color: #ff9f1c;
-}
-.suggestions_container ul li:focus,
-.suggestions_container ul a:focus {
   outline: none;
+}
+.suggestions_container ul .suggestion {
+  cursor: pointer;
+}
+.suggestions_container ul .suggestion:hover, .suggestions_container ul .suggestion:focus {
   color: #ff9f1c;
+  outline: none;
 }/*# sourceMappingURL=search-bar.module.css.map */

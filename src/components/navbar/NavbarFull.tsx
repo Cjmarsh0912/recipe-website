@@ -48,11 +48,11 @@ export default function NavbarFull() {
   return (
     <nav className={styles.navbar}>
       <div className={styles.website_name}>
-        <h2>
+        <h1>
           <Link className='no_underline' to='/recipe-website/'>
             My Favorite Recipes
           </Link>
-        </h2>
+        </h1>
       </div>
 
       <ul ref={navbarRef} className={styles.navbar_links}>
@@ -67,6 +67,10 @@ export default function NavbarFull() {
               onClick={() =>
                 setIsRecipesDropdownVisible(!isRecipesDropdownVisible)
               }
+              onKeyDown={(key) => {
+                if (key.key === 'Enter')
+                  setIsRecipesDropdownVisible(!isRecipesDropdownVisible);
+              }}
               tabIndex={0}
             >
               Recipes
