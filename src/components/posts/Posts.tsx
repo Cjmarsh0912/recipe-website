@@ -19,8 +19,8 @@ export default function Posts() {
           return (
             <div key={item.id} className={styles.post}>
               <div>
-                <Link tabIndex={-1} to={item.extension}>
-                  <img tabIndex={0} loading='lazy' src={item.image} />
+                <Link className={styles.extension_link} to={item.extension}>
+                  <img loading='lazy' src={item.image} />
                 </Link>
                 {[...favorites].includes(item.id) && (
                   <BsHeartFill

@@ -101,6 +101,10 @@ export default function AddComment() {
               size={25}
               onMouseEnter={() => setTempRating(star + 1)}
               onMouseLeave={() => setTempRating(1)}
+              onKeyDown={(key) => {
+                if (key.key === 'Enter') setRating(star);
+              }}
+              tabIndex={0}
             />
           </label>
         ))}

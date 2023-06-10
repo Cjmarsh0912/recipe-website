@@ -39,11 +39,13 @@ export default function RecipeInstructions() {
           </div>
           {[...favorites].includes(recipeData.id) ? (
             <BsHeartFill
+              tabIndex={0}
               onClick={() => removeFromFavorites(recipeData.id)}
               className={styles.icon_heart}
             />
           ) : (
             <BsHeart
+              tabIndex={0}
               onClick={() => addToFavorites(recipeData.id)}
               className={styles.icon_heart}
             />

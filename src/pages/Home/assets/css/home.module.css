@@ -23,17 +23,20 @@
   color: black;
   outline: none;
 }
-.posts .post a {
+.posts .post .extension_link {
   width: 100%;
+  height: 20rem;
 }
-.posts .post img {
+.posts .post .extension_link:focus-visible {
+  outline: none;
+}
+.posts .post .extension_link img {
   width: inherit;
   height: 20rem;
   transition: box-shadow 0.4s;
 }
-.posts .post img:hover, .posts .post img:focus-visible {
+.posts .post .extension_link:hover img, .posts .post .extension_link:focus-visible img {
   box-shadow: 5px 5px 5px #ff9f1c;
-  outline: none;
 }
 .posts .recipe_description {
   font-size: 1.5rem;
@@ -53,30 +56,26 @@
   width: -moz-fit-content;
   width: fit-content;
 }
-.extensions .extension_name:focus-visible {
+.extensions .extension_name:focus {
   color: #ff9f1c;
   outline: none;
+}
+.extensions .extension_name:hover h2, .extensions .extension_name:focus-visible h2 {
+  border-color: #ff9f1c;
+}
+.extensions .extension_name:hover .icon_arrow_right, .extensions .extension_name:focus-visible .icon_arrow_right {
+  color: #8f5300;
 }
 .extensions .extension_name h2 {
   font-size: 2rem;
   border-bottom: dotted #080357 2px;
   font-weight: 800;
 }
-.extensions .extension_name h2:hover {
-  border-color: #ff9f1c;
-}
-.extensions .extension_name:hover h2 {
-  border-color: #ff9f1c;
-  outline: none;
-}
 .extensions .extension_name .icon_arrow_right {
   display: block;
   padding-top: 0.3rem;
   font-size: 3rem;
   color: #ff9f1c;
-}
-.extensions .extension_name:hover .icon_arrow_right {
-  color: #8f5300;
 }
 
 .search_bar_container {

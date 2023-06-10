@@ -25,12 +25,8 @@ export default function Home() {
               if (id >= 3) return;
               return (
                 <article key={item.id} className={styles.post}>
-                  <Link tabIndex={-1} to={item.extension}>
-                    <img
-                      tabIndex={0}
-                      loading='lazy'
-                      src={item.image.slice(15)}
-                    />
+                  <Link className={styles.extension_link} to={item.extension}>
+                    <img loading='lazy' src={item.image.slice(15)} />
                   </Link>
                   <h3>
                     <Link
@@ -80,12 +76,8 @@ export default function Home() {
               if (id >= 3) return;
               return (
                 <article key={item.id} className={styles.post}>
-                  <Link tabIndex={-1} to={item.extension}>
-                    <img
-                      tabIndex={0}
-                      loading='lazy'
-                      src={item.image.slice(15)}
-                    />
+                  <Link className={styles.extension_link} to={item.extension}>
+                    <img loading='lazy' src={item.image.slice(15)} />
                   </Link>
                   <h3>
                     <Link

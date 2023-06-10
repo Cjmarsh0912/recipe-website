@@ -23,17 +23,20 @@
   color: black;
   outline: none;
 }
-.posts .post a {
+.posts .post .extension_link {
   width: 100%;
+  height: 20rem;
 }
-.posts .post img {
+.posts .post .extension_link:focus-visible {
+  outline: none;
+}
+.posts .post .extension_link img {
   width: inherit;
   height: 20rem;
   transition: box-shadow 0.4s;
 }
-.posts .post img:hover, .posts .post img:focus-visible {
+.posts .post .extension_link:hover img, .posts .post .extension_link:focus-visible img {
   box-shadow: 5px 5px 5px #ff9f1c;
-  outline: none;
 }
 .posts .recipe_description {
   font-size: 1.5rem;
