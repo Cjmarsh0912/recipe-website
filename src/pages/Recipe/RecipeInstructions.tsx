@@ -54,13 +54,13 @@ export default function RecipeInstructions() {
 
         <div className={styles.time}>
           <p>
-            Prep Time: <span>{recipeData.prep_time}</span>
+            Prep Time: <span>{recipeData.prep_time + ' '} mins</span>
           </p>
           <p>
-            Cook Time: <span>{recipeData.cook_time}</span>
+            Cook Time: <span>{recipeData.cook_time + ' '} mins</span>
           </p>
           <p>
-            Total: <span>{recipeData.total_time}</span>
+            Total: <span>{recipeData.total_time + ' '} mins</span>
           </p>
         </div>
       </div>

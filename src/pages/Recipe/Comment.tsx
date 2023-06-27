@@ -14,7 +14,11 @@ import { FaStar } from 'react-icons/fa';
 
 import styles from './assets/css/commentSection.module.css';
 
-import { RecipeData, CommentInterface } from 'interfaces/interface';
+import {
+  RecipeData,
+  CommentInterface,
+  ReplyInterface,
+} from 'interfaces/interface';
 
 type CommentSectionProps = {
   Comment: CommentInterface;
@@ -41,58 +45,59 @@ export default function Comment({ Comment }: CommentSectionProps) {
   });
 
   const handleAddLike = (comment_id: string) => {
-    if (userData === null) return;
+    if (!userData) return;
 
-    const newRecipe: RecipeData = {
+    const updatedComments: CommentInterface[] = [...recipeData.comments].map(
+      (comment) => {
+        if (comment.comment_id !== comment_id) return comment;
+
+        const updatedLikes = [...comment.likes, userData.uid];
+
+        return { ...comment, likes: updatedLikes };
+      }
+    );
+
+    const updatedRecipe: RecipeData = {
       ...recipeData,
-      comments: [
-        ...recipeData.comments.map((item) => {
-          if (item.comment_id === comment_id)
-            return {
-              ...item,
-              likes: [...item.likes, userData.uid],
-            };
-          return item;
-        }),
-      ],
+      comments: updatedComments,
     };
 
-    updateRecipeInDatabase(newRecipe);
-    dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipe });
+    updateRecipeInDatabase(updatedRecipe);
+    dispatch({ type: 'SET_RECIPE_DATA', payload: updatedRecipe });
   };
 
   const handleRemoveLike = (comment_id: string) => {
-    if (userData === null) return;
+    if (!userData) return;
 
-    const newRecipe: RecipeData = {
+    const updatedComments: CommentInterface[] = [...recipeData.comments].map(
+      (comment) => {
+        if (comment.comment_id !== comment_id) return comment;
+
+        const updatedLikes: string[] = comment.likes.filter(
+          (like) => like !== userData.uid
+        );
+        return { ...comment, likes: updatedLikes };
+      }
+    );
+
+    const updatedRecipe: RecipeData = {
       ...recipeData,
-      comments: [
-        ...recipeData.comments.map((item) => {
-          if (item.comment_id === comment_id)
-            return {
-              ...item,
-              likes: item.likes.filter((item) => {
-                return item !== userData.uid;
-              }),
-            };
-          return item;
-        }),
-      ],
+      comments: updatedComments,
     };
 
-    updateRecipeInDatabase(newRecipe);
-    dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipe });
+    updateRecipeInDatabase(updatedRecipe);
+    dispatch({ type: 'SET_RECIPE_DATA', payload: updatedRecipe });
   };
 
   const handleDeleteComment = (comment_id: string) => {
-    if (userData === null) return;
+    if (!userData) return;
 
     const confirmDelete = window.confirm(
       'Are you sure you want to delete this comment?'
     );
     if (!confirmDelete) return;
 
-    const newComments: CommentInterface[] = [...recipeData.comments].filter(
+    const updatedComments: CommentInterface[] = [...recipeData.comments].filter(
       (item) => {
         return item.comment_id !== comment_id;
       }
@@ -100,19 +105,21 @@ export default function Comment({ Comment }: CommentSectionProps) {
 
     // uses a reducer function to find the recipe rating without the deleted comment
     const newRecipeRating =
-      newComments.length > 0
-        ? newComments.reduce((total, comment) => total + comment.rating, 0) /
-          newComments.length
+      updatedComments.length > 0
+        ? updatedComments.reduce(
+            (total, comment) => total + comment.rating,
+            0
+          ) / updatedComments.length
         : 0;
 
-    const newRecipe: RecipeData = {
+    const updatedRecipe: RecipeData = {
       ...recipeData,
-      comments: newComments,
+      comments: updatedComments,
       rating: newRecipeRating,
     };
 
-    updateRecipeInDatabase(newRecipe);
-    dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipe });
+    updateRecipeInDatabase(updatedRecipe);
+    dispatch({ type: 'SET_RECIPE_DATA', payload: updatedRecipe });
   };
 
   const handleAddReply = (
@@ -120,6 +127,7 @@ export default function Comment({ Comment }: CommentSectionProps) {
     comment_id: string
   ) => {
     event.preventDefault();
+    if (!userData) return;
 
     if (!isSignedIn) {
       alert('must be signed in to comment');
@@ -127,135 +135,119 @@ export default function Comment({ Comment }: CommentSectionProps) {
       return;
     }
 
-    if (userData !== null) {
-      const newComments: CommentInterface[] = [...recipeData.comments].map(
-        (item) => {
-          if (item.comment_id === comment_id)
-            return {
-              ...item,
-              replies: [
-                ...item.replies,
-                {
-                  comment: replyComment,
-                  reply_id: uuidv4(),
-                  date: formattedDate,
-                  likes: [],
-                  name: userData.username,
-                  replies: [],
-                  user_uid: userData.uid,
-                },
-              ],
-            };
-          return item;
-        }
-      );
-      const newRecipe: RecipeData = {
-        ...recipeData,
-        comments: newComments,
-      };
+    const newReply: ReplyInterface = {
+      comment: replyComment,
+      reply_id: uuidv4(),
+      date: formattedDate,
+      likes: [],
+      name: userData.username,
+      user_uid: userData.uid,
+    };
 
-      setShowReplyForm(false);
-      setReplyComment('');
-      updateRecipeInDatabase(newRecipe);
-      dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipe });
-    }
+    const updatedComments: CommentInterface[] = [...recipeData.comments].map(
+      (comment) => {
+        if (comment.comment_id !== comment_id) return comment;
+
+        const updatedReplies = [...comment.replies, newReply];
+        return { ...comment, replies: updatedReplies };
+      }
+    );
+
+    const updatedRecipeData: RecipeData = {
+      ...recipeData,
+      comments: updatedComments,
+    };
+
+    setShowReplyForm(false);
+    setReplyComment('');
+    updateRecipeInDatabase(updatedRecipeData);
+    dispatch({ type: 'SET_RECIPE_DATA', payload: updatedRecipeData });
   };
 
   const handleDeleteReply = (reply_id: string, comment_id: string) => {
-    if (userData === null) return;
+    if (!userData) return;
 
     const confirmDelete = window.confirm(
-      'Are you sure you want to delete this comment?'
+      'Are you sure you want to delete this reply?'
     );
     if (!confirmDelete) return;
 
-    const newComments: CommentInterface[] = [...recipeData.comments].map(
-      (item) => {
-        if (item.comment_id === comment_id) {
-          return {
-            ...item,
-            replies: item.replies.filter(
-              (reply) => reply.reply_id !== reply_id
-            ),
-          };
-        }
-        return item;
+    const updatedComments: CommentInterface[] = [...recipeData.comments].map(
+      (comment) => {
+        if (comment.comment_id !== comment_id) return comment;
+
+        const updatedReplies: ReplyInterface[] = comment.replies.filter(
+          (reply) => reply.reply_id !== reply_id
+        );
+        return { ...comment, replies: updatedReplies };
       }
     );
 
-    const newRecipe: RecipeData = {
+    const updatedRecipeData: RecipeData = {
       ...recipeData,
-      comments: newComments,
+      comments: updatedComments,
     };
 
-    updateRecipeInDatabase(newRecipe);
-    dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipe });
+    updateRecipeInDatabase(updatedRecipeData);
+    dispatch({ type: 'SET_RECIPE_DATA', payload: updatedRecipeData });
   };
 
   const handleAddLikeOnReply = (reply_id: string, comment_id: string) => {
-    if (userData === null) return;
+    if (!userData) return;
 
-    const newComments: CommentInterface[] = [...recipeData.comments].map(
-      (item) => {
-        if (item.comment_id === comment_id) {
-          return {
-            ...item,
-            replies: item.replies.map((reply) => {
-              if (reply.reply_id === reply_id) {
-                return {
-                  ...reply,
-                  likes: [...reply.likes, userData.uid],
-                };
-              }
-              return reply;
-            }),
-          };
-        }
-        return item;
+    const updatedComments: CommentInterface[] = [...recipeData.comments].map(
+      (comment) => {
+        if (comment.comment_id !== comment_id) return comment;
+
+        const updatedReplies = comment.replies.map((reply) => {
+          if (reply.reply_id !== reply_id) return reply;
+
+          const updatedLikes = [...reply.likes, userData.uid];
+
+          return { ...reply, likes: updatedLikes };
+        });
+
+        return { ...comment, replies: updatedReplies };
       }
     );
 
-    const newRecipe: RecipeData = {
+    const updatedRecipeData: RecipeData = {
       ...recipeData,
-      comments: newComments,
+      comments: updatedComments,
     };
 
-    updateRecipeInDatabase(newRecipe);
-    dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipe });
+    updateRecipeInDatabase(updatedRecipeData);
+    dispatch({ type: 'SET_RECIPE_DATA', payload: updatedRecipeData });
   };
 
   const handleRemoveLikeOnReply = (reply_id: string, comment_id: string) => {
-    if (userData === null) return;
+    if (!userData) return;
 
-    const newComments: CommentInterface[] = [...recipeData.comments].map(
-      (item) => {
-        if (item.comment_id === comment_id) {
-          return {
-            ...item,
-            replies: item.replies.map((reply) => {
-              if (reply.reply_id === reply_id) {
-                return {
-                  ...reply,
-                  likes: reply.likes.filter((like) => {
-                    return like !== userData.uid;
-                  }),
-                };
-              }
-              return reply;
-            }),
-          };
-        }
-        return item;
+    const updatedComments: CommentInterface[] = [...recipeData.comments].map(
+      (comment) => {
+        if (comment.comment_id !== comment_id) return comment;
+
+        const updatedReplies = comment.replies.map((reply) => {
+          if (reply.reply_id !== reply_id) return reply;
+
+          const updatedLikes = [...reply.likes].filter(
+            (like) => like !== userData.uid
+          );
+
+          return { ...reply, likes: updatedLikes };
+        });
+
+        return { ...comment, replies: updatedReplies };
       }
     );
 
-    const newRecipe: RecipeData = {
+    const updatedRecipeData: RecipeData = {
       ...recipeData,
-      comments: newComments,
+      comments: updatedComments,
     };
 
-    updateRecipeInDatabase(newRecipe);
-    dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipe });
+    updateRecipeInDatabase(updatedRecipeData);
+    dispatch({ type: 'SET_RECIPE_DATA', payload: updatedRecipeData });
   };
 
   return (
@@ -330,6 +322,7 @@ export default function Comment({ Comment }: CommentSectionProps) {
         </div>
       </div>
 
+      {/* Comment Reply Form */}
       {showReplyForm && (
         <form
           onSubmit={(e) => handleAddReply(e, Comment.comment_id)}

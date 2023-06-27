@@ -131,7 +131,6 @@ function App() {
         categories: doc.data().categories,
         category_extension: doc.data().category_extension,
         rating: doc.data().rating,
-        times_rated: doc.data().times_rated,
         comments: doc.data().comments,
         description: doc.data().description,
         date_posted: doc.data().date_posted,

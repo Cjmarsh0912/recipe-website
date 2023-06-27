@@ -1,5 +1,7 @@
 import { createContext, useReducer, ReactNode, useContext } from 'react';
 
+import { v4 as uuid } from 'uuid';
+
 import { RecipeData } from 'interfaces/interface';
 
 type RecipeProviderProps = {
@@ -20,20 +22,19 @@ const initialState: InitialState = {
     categories: [],
     category_extension: '',
     comments: [],
-    cook_time: '',
+    cook_time: 0,
     date_posted: '',
     description: '',
     extension: '',
-    id: 0,
+    id: uuid(),
     image: '',
     ingredients: [],
     keywords: [],
-    prep_time: '',
+    prep_time: 0,
     rating: 0,
     recipe_name: '',
     steps: [],
-    times_rated: 0,
-    total_time: '',
+    total_time: 0,
   },
 };
 
@@ -47,25 +48,7 @@ const reducer = (state: InitialState, action: Action) => {
 };
 
 export const RecipeDataContext = createContext<InitialState>({
-  recipeData: {
-    categories: [],
-    category_extension: '',
-    comments: [],
-    cook_time: '',
-    date_posted: '',
-    description: '',
-    extension: '',
-    id: 0,
-    image: '',
-    ingredients: [],
-    keywords: [],
-    prep_time: '',
-    rating: 0,
-    recipe_name: '',
-    steps: [],
-    times_rated: 0,
-    total_time: '',
-  },
+  recipeData: initialState.recipeData,
 });
 
 export const DispatchContext = createContext<{

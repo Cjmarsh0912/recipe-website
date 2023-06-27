@@ -1,5 +1,5 @@
 export interface RecipeData {
-  id: number;
+  id: string;
   recipe_name: string;
   keywords: string[];
   extension: string;
@@ -7,26 +7,18 @@ export interface RecipeData {
   category_extension: string;
 
   rating: number;
-  times_rated: number;
   comments: CommentInterface[];
   description: string;
   date_posted: string;
-  prep_time: string;
-  cook_time: string;
-  total_time: string;
+  prep_time: number;
+  cook_time: number;
+  total_time: number;
   image: string;
   ingredients: string[];
   steps: {
     header: string;
     step: string;
   }[];
-}
-
-export interface user {
-  uid: string;
-  email: string | null;
-  bookmarks: number[];
-  username: string;
 }
 
 export interface CommentInterface {
@@ -46,13 +38,19 @@ export interface ReplyInterface {
   name: string;
   date: string;
   comment: string;
-  replies: ReplyInterface[];
   likes: string[];
 }
 
 export interface InitialState {
-  favorites: number[];
+  favorites: string[];
   recipeData: RecipeData[];
   userData: user | null;
   isSignedIn: boolean;
+}
+
+export interface user {
+  uid: string;
+  email: string | null;
+  bookmarks: number[];
+  username: string;
 }

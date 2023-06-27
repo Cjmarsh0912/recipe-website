@@ -5,11 +5,8 @@ import { useRecipeDataContext } from './context/RecipeDataContext';
 
 import styles from './assets/css/commentSection.module.css';
 
-import { RecipeData } from 'interfaces/interface';
-
 const CommentSection = () => {
   const { recipeData } = useRecipeDataContext();
-  console.log(recipeData);
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -22,8 +19,8 @@ const CommentSection = () => {
         <div className={styles.comments}>
           <header className={styles.header}></header>
           <ul>
-            {recipeData.comments.map((comment) => (
-              <Comment Comment={comment} />
+            {recipeData.comments.map((comment, id) => (
+              <Comment key={id} Comment={comment} />
             ))}
           </ul>
         </div>

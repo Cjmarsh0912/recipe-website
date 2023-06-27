@@ -19,8 +19,8 @@ type Action = {
 };
 
 type FunctionContext = {
-  addToFavorites: (id: number) => void;
-  removeFromFavorites: (id: number) => void;
+  addToFavorites: (id: string) => void;
+  removeFromFavorites: (id: string) => void;
   updateUserInDatabase: (newUserData: user) => void;
   updateUserData: (newUserData: user | null) => void;
   updateRecipeInDatabase: (recipe: RecipeData) => void;
@@ -83,7 +83,7 @@ export function useFunctionContext() {
 export const RecipeProvider: React.FC<RecipeProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const addToFavorites = (id: number) => {
+  const addToFavorites = (id: string) => {
     if (!state.favorites.includes(id)) {
       const newFavorites = [...state.favorites, id];
       if (state.isSignedIn && state.userData?.uid !== undefined) {
@@ -96,7 +96,7 @@ export const RecipeProvider: React.FC<RecipeProviderProps> = ({ children }) => {
     }
   };
 
-  const removeFromFavorites = (id: number) => {
+  const removeFromFavorites = (id: string) => {
     if (state.favorites.includes(id)) {
       let newFavorites = [...state.favorites].filter((item) => {
         return item !== id;

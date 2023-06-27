@@ -102,6 +102,7 @@ function Login() {
           break;
         case 'auth/user-disabled':
           setEmailErrorMessage('Your account has been disabled.');
+          break;
         case 'auth/network-request-failed':
           setEmailErrorMessage(
             'There was a problem with your network connection. Please check your internet connection and try again.'
@@ -148,7 +149,7 @@ function Login() {
       showErrorAnimation(emailInput);
 
       return;
-    } else if (!validEmail) {
+    } else if (!validEmail || state.email === 'admin@admin.com') {
       setEmailErrorMessage('Please enter a valid email address.');
       showErrorAnimation(emailInput);
 

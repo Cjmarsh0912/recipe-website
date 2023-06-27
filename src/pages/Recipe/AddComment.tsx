@@ -37,6 +37,8 @@ export default function AddComment() {
   const handleAddComment = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (!userData) return;
+
     if (!isSignedIn) {
       alert('must be signed in to comment');
       setComment('');
@@ -44,37 +46,36 @@ export default function AddComment() {
       return;
     }
 
-    if (userData !== null) {
-      const newComment: CommentInterface = {
-        comment: comment,
-        comment_id: uuidv4(),
-        date: formattedDate,
-        likes: [],
-        name: userData.username,
-        rating: rating,
-        user_uid: userData?.uid,
-        replies: [],
-      };
+    const newComment: CommentInterface = {
+      comment: comment,
+      comment_id: uuidv4(),
+      date: formattedDate,
+      likes: [],
+      name: userData.username,
+      rating: rating,
+      user_uid: userData?.uid,
+      replies: [],
+    };
 
-      const newComments: CommentInterface[] = [
-        ...recipeData.comments,
-        newComment,
-      ];
+    const updatedComments: CommentInterface[] = [
+      ...recipeData.comments,
+      newComment,
+    ];
 
-      const newRecipeRating =
-        newComments.reduce((total, comment) => total + comment.rating, 0) /
-        newComments.length;
+    const newRecipeRating =
+      updatedComments.reduce((total, comment) => total + comment.rating, 0) /
+      updatedComments.length;
 
-      const newRecipe: RecipeData = {
-        ...recipeData,
-        comments: newComments,
-        rating: Math.round(newRecipeRating),
-      };
-      setComment('');
-      setRating(1);
-      updateRecipeInDatabase(newRecipe);
-      dispatch({ type: 'SET_RECIPE_DATA', payload: newRecipe });
-    }
+    const updatedRecipe: RecipeData = {
+      ...recipeData,
+      comments: updatedComments,
+      rating: Math.round(newRecipeRating),
+    };
+
+    setComment('');
+    setRating(1);
+    updateRecipeInDatabase(updatedRecipe);
+    dispatch({ type: 'SET_RECIPE_DATA', payload: updatedRecipe });
   };
 
   return (
