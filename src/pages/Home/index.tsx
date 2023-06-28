@@ -26,7 +26,7 @@ export default function Home() {
               return (
                 <article key={item.id} className={styles.post}>
                   <Link className={styles.extension_link} to={item.extension}>
-                    <img loading='lazy' src={item.image.slice(15)} />
+                    <img loading='lazy' src={item.image} />
                   </Link>
                   <h3>
                     <Link
@@ -77,7 +77,7 @@ export default function Home() {
               return (
                 <article key={item.id} className={styles.post}>
                   <Link className={styles.extension_link} to={item.extension}>
-                    <img loading='lazy' src={item.image.slice(15)} />
+                    <img loading='lazy' src={item.image} />
                   </Link>
                   <h3>
                     <Link
